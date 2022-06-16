@@ -7,9 +7,10 @@ import Nav from "./Components/Layout/Nav";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Nav />
-      <Main />
+      <div className="container">
+        <Nav />
+        <Main />
+      </div>
       <Footer />
     </div>
   );

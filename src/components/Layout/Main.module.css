@@ -1,0 +1,31 @@
+.container {
+    border: 1px solid #000;
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    align-items: stretch;
+}
+
+.top {
+    border: 1px solid #000;
+    display: flex;
+    flex-flow: row;
+    
+    align-items: stretch;
+}
+
+.middle {
+    border: 1px solid rgb(252, 0, 0);
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+}
+
+.middle > div {
+    border: 1px solid #000;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    flex: 1;
+}
+
