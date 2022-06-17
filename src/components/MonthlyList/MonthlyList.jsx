@@ -4,7 +4,7 @@ import classes from './MonthlyList.module.css'
 
 const MonthlyList = () => {
   return (
-    <div className={classes.container}>MonthlyList</div>
+    <div className={classes.main__footer__monthly}>MonthlyList</div>
   )
 }
 

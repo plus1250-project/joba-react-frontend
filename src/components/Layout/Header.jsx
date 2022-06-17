@@ -10,7 +10,8 @@ const Header = () => {
         <div className={classes.header}>
           <div className={classes.header__inner}>
             <div className={classes.header__industry}>
-                <p>산업군이름</p>
+                <div>IT,웹,통신</div>
+                
             </div>
             <div className={classes.header__auth}>
                 <p>Login</p>

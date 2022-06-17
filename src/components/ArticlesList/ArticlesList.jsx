@@ -4,12 +4,12 @@ import classes from './ArticlesList.module.css';
 
 const ArticlesList = () => {
   return (
-    <div className={classes.article_list}>
+    <div className={classes.main__body__article__list}>
         ArticlesList
-        <div className={classes.item}>1</div>
-        <div className={classes.item}>2</div>
-        <div className={classes.item}>3</div>
-        <div className={classes.item}>4</div>
+        <div className={classes.main__body__article__item}>1</div>
+        <div className={classes.main__body__article__item}>2</div>
+        <div className={classes.main__body__article__item}>3</div>
+        <div className={classes.main__body__article__item}>4</div>
     </div>
   )
 }

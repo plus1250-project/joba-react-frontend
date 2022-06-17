@@ -14,6 +14,12 @@
 .header__industry {
     border: 1px solid #000;
     margin-left: 20px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    color: #353951;
+    
 }
 
 .header__auth {

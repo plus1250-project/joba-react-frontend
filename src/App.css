@@ -10,6 +10,8 @@
   display: flex;
   flex-flow: row;
   align-items: stretch;
+  /* 노트북화면 비율 */
+  width: 90rem;
 }
 
 /* .App-logo {

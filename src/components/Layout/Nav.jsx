@@ -6,8 +6,20 @@ const Nav = () => {
   return (
     <div className={classes.nav}>
       <div className={classes.nav__inner}>
-        <div className={classes.nav__logo}>JOBA!</div>
-        <div className={classes.nav__title}>산업별 트렌드</div>
+        {/* JOBA! logo */}
+        <div className={classes.nav__logo}>
+          <div className={classes.nav__logo__name}>
+            <span className={classes.nav__logo__left}>JOB</span>
+            <span className={classes.nav__logo__right}>A!</span>
+          </div>
+        </div>
+        {/* Industry logo */}
+        <div className={classes.nav__title}>
+          <div className={classes.nav__title__name}>
+            <span className={classes.nav__title__left}>산업</span>
+            <span className={classes.nav__title__right}>별 트렌드</span>
+          </div>
+        </div>
         
         <ul className={classes.nav__list}>
           <li className={classes.nav__item}>서비스업</li>

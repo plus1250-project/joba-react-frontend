@@ -1,5 +1,12 @@
+.main__body__article__list {
+    background: #EEF2FF;
+    border-radius: 20px;
+    /* width: 20rem; */
+    padding: 1rem;
+    flex: 1;
+}
 
-.item {
+.main__body__article__item {
     border: 1px solid #000;
     
 

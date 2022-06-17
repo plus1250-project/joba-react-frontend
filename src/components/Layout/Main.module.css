@@ -1,9 +1,10 @@
 .main {
     border: 3px solid rgb(71, 0, 250);
-    width: 100%;
+    
     flex: 3;
-    height: 100vh;
+    height: 85rem;
     padding: 10px;
+    overflow: auto;
 }
 
 .main__inner {
@@ -18,7 +19,7 @@
     border: 1px dashed #000;
     display: flex;
     flex-flow: row;
-    flex: 0.5;
+    /* flex: 0.5; */
     align-items: stretch;
     justify-content: space-around;
 }
@@ -27,7 +28,9 @@
     border: 1px dashed rgb(252, 0, 0);
     display: flex;
     flex-flow: row;
+    /* width: 60rem; */
     flex: 2;
+    height: 50rem;
     align-items: stretch;
 }
 
@@ -53,7 +56,10 @@
     border: 1px dashed rgb(255, 0, 221);
     display: flex;
     flex-flow: row;
-    flex: 1;
+    /* flex: 1; */
+    height: 20rem;
     align-items: stretch;
+    
+padding: 10px;
 }
 
