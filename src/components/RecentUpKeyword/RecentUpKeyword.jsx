@@ -3,7 +3,11 @@ import classes from "./RecentUpKeyword.module.css";
 
 const RecentUpKeyword = () => {
   return (
-    <div className={classes.container}>RecentUpKeyword</div>
+    <div className={classes.main__header__recent}>
+      <div className={classes.main__header__recent__inner}>
+        RecentUpKeyword
+      </div>
+    </div>
   )
 }
 

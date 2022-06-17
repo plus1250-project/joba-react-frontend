@@ -1,13 +1,21 @@
-#header {
+.header {
+    margin-top: 20px;
+}
+
+.header__inner {
+    border: 1px dashed #000;
     display: flex;
+    flex-flow: row;
+    flex: 0.5;
+    align-items: stretch;
     justify-content: space-between;
+}
+
+.header__industry {
     border: 1px solid #000;
+    margin-left: 20px;
 }
 
-.logo {
-    
-}
-
-.login {
-
+.header__auth {
+    border: 1px solid #000;
 }

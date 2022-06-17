@@ -7,13 +7,15 @@ const Header = () => {
 
   return (
     <>
-        <div id={classes.header}>
-            <div className={classes.logo}>
-                <p>JOBA!</p>
+        <div className={classes.header}>
+          <div className={classes.header__inner}>
+            <div className={classes.header__industry}>
+                <p>산업군이름</p>
             </div>
-            <div className={classes.login}>
+            <div className={classes.header__auth}>
                 <p>Login</p>
             </div>
+          </div>
         </div>
     </>
   )

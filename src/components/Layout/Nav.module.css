@@ -1,4 +1,27 @@
 .nav {
-    border: 1px solid #000;
+    border: 3px solid rgb(13, 250, 0);
     flex: 1;
+    height: 100vh;
+    background: #EEF2FF;
+    padding: 10px;
+}
+
+.nav__inner {
+    border: 3px solid rgb(250, 0, 121);
+}
+
+.nav__logo {
+    border: 1px solid #000;
+}
+
+.nav__title {
+    border: 1px solid #000;
+}
+
+.nav__list {
+    list-style: none;
+}
+
+.nav__item {
+
 }
