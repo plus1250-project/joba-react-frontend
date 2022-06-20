@@ -1,15 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react';
+
+
 import classes from './CorpIndustry.module.css';
 
-const CorpIndustry = () => {
+
+
+const CorpIndustry = (props) => {
+
+
   return (
-    <div className={classes.main__header__corp}>
+    // App.js 에서 
+    <div className={classes.main__header__corp} onClick={props.onOpen}>
       <div className={classes.main__header__corp__inner}>
-
-      CorpIndustry
-
+        CorpIndustry
       </div>
     </div>
+      
   )
 }
 

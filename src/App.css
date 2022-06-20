@@ -14,37 +14,58 @@
   width: 90rem;
 }
 
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-} */
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
-/* .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
-
-/* .App-link {
-  color: #61dafb;
+  flex-flow: column;
+  border: 3px solid rgb(71, 0, 250);
+  flex: 3;
+  height: 85rem;
+  padding: 10px;
+  overflow: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.content__header {
+  border: 1px dashed #000;
+  display: flex;
+  flex-flow: row;
+  /* flex: 0.5; */
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.content__body {
+  border: 1px dashed rgb(252, 0, 0);
+  display: flex;
+  flex-flow: row;
+  /* width: 60rem; */
+  flex: 2;
+  height: 50rem;
+  align-items: stretch;
+}
+
+.content__body__trend {
+  border: 1px dashed #000;
+    display: flex;
+    flex-flow: column;
+    flex: 3;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.content__body__article {
+  border: 1px solid rgb(0, 255, 242);
+  display: flex;
+  flex-flow: row;
+  align-items: stretch;
+  flex: 1;
+  padding: 10px;
+}
+
+/* 모니터 별  비교 필요 */
+/* 1440px 이상이면 메인 화면 늘어남 */
+@media (min-width: 1440px) {
+  .container {
+    width: 100vw;
   }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+}
+

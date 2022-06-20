@@ -6,7 +6,6 @@ const Header = () => {
     
 
   return (
-    <>
         <div className={classes.header}>
           <div className={classes.header__inner}>
             <div className={classes.header__industry}>
@@ -18,7 +17,6 @@ const Header = () => {
             </div>
           </div>
         </div>
-    </>
   )
 }
 

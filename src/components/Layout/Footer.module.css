@@ -1,3 +1,10 @@
 .footer {
-    border: 1px solid #000;
+    border: 1px dashed rgb(255, 0, 221);
+    display: flex;
+    flex-flow: row;
+    /* flex: 1; */
+    height: 20rem;
+    align-items: stretch;
+    
+padding: 10px;
 }
