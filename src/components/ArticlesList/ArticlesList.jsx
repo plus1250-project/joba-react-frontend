@@ -1,8 +1,35 @@
-import React from 'react'
+import React, {userState, userEffect, useEffect} from 'react'
+import axios from 'axios';
 
 import classes from './ArticlesList.module.css';
 
+
+
 const ArticlesList = () => {
+
+
+
+  // 첫번째 랜ㅓ링을 마친 후 실행
+  // useEffect(
+  //   () => {
+      
+  // );
+
+  // axios
+  const url = 'http://localhost:3000/article'
+  axios.post(url, 
+  {
+    industryName: 'IT'
+  },
+  {
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': "application/json"
+    }
+  }
+  ).then((response) => {console.log(response.data); })
+  .catch((response) => {console.log('Error!'+url)});
+
   return (
     <div className={classes.main__body__article__list}>
         ArticlesList
