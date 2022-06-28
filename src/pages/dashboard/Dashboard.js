@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+
 import { v4 as uuidv4 } from "uuid";
 import {
   Col,
@@ -47,7 +48,11 @@ const Dashboard = (props) => {
   const [firstTableCurrentPage, setFirstTableCurrentPage] = useState(0);
   const [secondTableCurrentPage, setSecondTableCurrentPage] = useState(0);
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
+
   const [articlesList, setArticlesList] = useState([]);
+
+
+
 
   const pageSize = 4;
   const firstTablePagesCount = Math.ceil(firstTable.length / pageSize);
@@ -107,6 +112,11 @@ const Dashboard = (props) => {
       setArticlesList(response.data);
     })
   }, []);
+
+
+
+
+
 
   const articles = [];
   for (const key in articlesList) {
@@ -197,7 +207,7 @@ const Dashboard = (props) => {
           {/* middle */}
           <Row className="mb-4">
             <Col>
-              <Row>
+              <Row xl={2}>
                 <Col xs={12} xl={8} className="pl-grid-col mt-4 mt-xl-0">
                   <Row>
                     <Col>
@@ -274,7 +284,7 @@ const Dashboard = (props) => {
                       <div className="headline-2">Tasks</div>
                     </div>
                     <div className={s.widgetContentBlock}>
-                      <TaskContainer tasks={tasks} articles={articles} toggleTask={toggleTask} />
+                      <TaskContainer moreData={useEffect} articles={articles} toggleTask={toggleTask} />
                     </div>
                   </Widget>
                 </Col>

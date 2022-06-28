@@ -1,11 +1,19 @@
 import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 import s from "./TaskContainer.module.scss";
 import cx from "classnames";
+
 
 const TaskContainer = (props) => {
 
   console.log(props.articles);
   return (
+    <InfiniteScroll
+      dataLength={props.articles.length}
+      next={props.moreData}
+      hasMore={true}
+    >
     <ul>
       {props.articles.map((article) => (
         <li
@@ -23,6 +31,7 @@ const TaskContainer = (props) => {
         </li>
       ))}
     </ul>
+    </InfiniteScroll>
   )
 }
 
