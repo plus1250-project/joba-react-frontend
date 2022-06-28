@@ -1,3 +1,6 @@
+import React, {useState} from 'react'
+import axios from 'axios'
+
 import ellieSmithImg from "../../assets/tables/ellieSmithImg.png";
 import floydMilesImg from "../../assets/tables/floydMilesImg.png";
 import rosaFloresImg from "../../assets/tables/rosaFloresImg.png";
@@ -10,6 +13,7 @@ import basketIcon from "../../assets/tables/basketIcon.svg";
 
 
 const mock = {
+  
   firstTable: [
     {
       id: "checkbox111",

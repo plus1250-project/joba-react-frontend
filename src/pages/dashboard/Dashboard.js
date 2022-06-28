@@ -1,120 +1,134 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import { v4 as uuidv4 } from "uuid";
 import {
   Col,
   Row,
   Progress,
-  Button,
+  Table,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  ButtonDropdown,
+  Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  UncontrolledDropdown
+  Label,
+  Badge,
 } from "reactstrap";
 import Widget from "../../components/Widget/Widget.js";
-import ApexActivityChart from "./components/ActivityChart.js";
 
-import meal1 from "../../assets/dashboard/meal-1.svg";
-import meal2 from "../../assets/dashboard/meal-2.svg";
-import meal3 from "../../assets/dashboard/meal-3.svg";
-import upgradeImage from "../../assets/dashboard/upgradeImage.svg";
+import ApexLineColumnChart from "../uielements/charts/components/ApexLineColumnChart";
+import TaskContainer from "../tables/components/TaskContainer/TaskContainer";
+import ArticlesList from "./components/ArticlesList.js";
+
 import heartRed from "../../assets/dashboard/heartRed.svg";
 import heartTeal from "../../assets/dashboard/heartTeal.svg";
 import heartViolet from "../../assets/dashboard/heartViolet.svg";
 import heartYellow from "../../assets/dashboard/heartYellow.svg";
-import gymIcon from "../../assets/dashboard/gymIcon.svg";
-import therapyIcon from "../../assets/dashboard/therapyIcon.svg";
-import user from "../../assets/user.svg";
-import statsPie from "../../assets/dashboard/statsPie.svg";
+import moreIcon from "../../assets/tables/moreIcon.svg";
+import cloudIcon from "../../assets/tables/cloudIcon.svg";
+import funnelIcon from "../../assets/tables/funnelIcon.svg";
+import optionsIcon from "../../assets/tables/optionsIcon.svg";
+import printerIcon from "../../assets/tables/printerIcon.svg";
+import searchIcon from "../../assets/tables/searchIcon.svg";
 
-import s from "./Dashboard.module.scss";
+import s from "../tables/Tables.module.scss"
+import mock from "../tables/mock.js"
 
-const Dashboard = () => {
-  const [checkboxes, setCheckboxes] = useState([true, false])
+const Dashboard = (props) => {
 
-  const toggleCheckbox = (id) => {
-    setCheckboxes(checkboxes => checkboxes
-      .map((checkbox, index) => index === id ? !checkbox : checkbox ))
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [firstTable] = useState(mock.firstTable);
+  const [secondTable] = useState(mock.secondTable);
+  const [transactions, setTransactions] = useState(mock.transactionsWidget);
+  const [tasks, setTasks] = useState(mock.tasksWidget);
+  const [firstTableCurrentPage, setFirstTableCurrentPage] = useState(0);
+  const [secondTableCurrentPage, setSecondTableCurrentPage] = useState(0);
+  const [tableDropdownOpen, setTableMenuOpen] = useState(false);
+  const [articlesList, setArticlesList] = useState([]);
+
+  const pageSize = 4;
+  const firstTablePagesCount = Math.ceil(firstTable.length / pageSize);
+  const secondTablePagesCount = Math.ceil(secondTable.length / pageSize);
+
+  const {
+    industryName = ""
+  } = props;
+
+
+  const setFirstTablePage = (e, index) => {
+    e.preventDefault();
+    setFirstTableCurrentPage(index);
   }
 
-  const meals = [meal1, meal2, meal3];
+  const setSecondTablePage = (e, index) => {
+    e.preventDefault();
+    setSecondTableCurrentPage(index);
+  }
 
+  const toggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  }
+
+  const toggleTask = (id) => {
+    setTasks(
+      tasks.map( task => {
+        if (task.id === id) {
+          task.completed = !task.completed;
+        }
+        return task;
+      })
+    )
+  }
+
+  const transactionMenuOpen = (id) => {
+    setTransactions(
+      transactions.map( transaction => {
+        if (transaction.id === id) {
+          transaction.dropdownOpen = !transaction.dropdownOpen;
+        }
+        return transaction;
+      })
+    )
+  }
+
+  const tableMenuOpen = () => {
+    setTableMenuOpen(!tableDropdownOpen);
+  }
+
+  const BASEURL = 'http://localhost:3000/';
+
+  useEffect(() => {
+    axios.get(BASEURL+"article")
+    .then(response => {
+      console.log(response.data);
+      setArticlesList(response.data);
+    })
+  }, []);
+
+  const articles = [];
+  for (const key in articlesList) {
+      // console.log('key'+ key.articleTitle);
+      articles.push({
+          id: key,
+          articleTitle: articlesList[key].articleTitle,
+          articleUrl: articlesList[key].articleUrl,
+          industryName: articlesList[key].industryName,
+          pubCompany: articlesList[key].pubCompany,
+          pubDate: articlesList[key].pubDate,
+      })
+  }
+
+ 
   return (
     <div>
+      <h3 className="mb-4">ssss{props.industryname}</h3>
       <Row>
-        <Col className="pr-grid-col" xs={12} lg={8}>
-          <Row className="gutter mb-4">
-            <Col className="mb-4 mb-md-0" xs={12} md={6}>
-              <Widget className="">
-                <div className="d-flex justify-content-between widget-p-md">
-                  <div className="headline-3 d-flex align-items-center">Your activity</div>
-                  <UncontrolledDropdown>
-                    <DropdownToggle caret>
-                      &nbsp; Weekly &nbsp;
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem>Daily</DropdownItem>
-                      <DropdownItem>Weekly</DropdownItem>
-                      <DropdownItem>Monthly</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </div>
-                <ApexActivityChart className="pb-4"/>
-              </Widget>
-            </Col>
-            <Col xs={12} md={6}>
-              <Widget className="widget-p-md">
-                <div className="d-flex justify-content-between">
-                  <div className="headline-3 d-flex align-items-center">Your meals</div>
-                  <UncontrolledDropdown>
-                    <DropdownToggle caret>
-                      &nbsp; Weekly &nbsp;
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem>Daily</DropdownItem>
-                      <DropdownItem>Weekly</DropdownItem>
-                      <DropdownItem>Monthly</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </div>
-                {meals.map((meal) =>
-                  <div key={uuidv4()} className={`mt-4 ${s.widgetBlock}`}>
-                    <div className={s.widgetBody}>
-                      <div className="d-flex">
-                        <img className="img-fluid mr-2" src={meal} alt="..." />
-                        <div className="d-flex flex-column">
-                          <p className="body-2">Salmon salad</p>
-                          <p className="body-3 muted">300 g</p>
-                        </div>
-                      </div>
-                      <div className="body-3 muted">
-                        175 cal
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Widget>
-            </Col>
-          </Row>
-          <Row className="gutter mb-4">
-            <Col xs={12}>
-              <Widget className="widget-p-none">
-                <div className="d-flex flex-wrap align-items-center justify-content-center">
-                  <div className="d-flex flex-column align-items-center col-12 col-xl-6 p-sm-4">
-                    <p className="headline-1">Upgrade your plan</p>
-                    <p className="body-3">So how did the classical Latin become so </p>
-                    <div className="d-flex justify-content-between my-4">
-                      <Button className="rounded-pill mr-3" color="primary">Go Premium</Button>
-                      <Button className="rounded-pill body-3" outline color="dark">Try for free</Button>
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-center col-12 col-xl-6">
-                    <img className="p-1 img-fluid" src={upgradeImage} alt="..." />
-                  </div>
-                </div>
-              </Widget>
-            </Col>
-          </Row>
-          <Row className="gutter">
+        <Col>
+          {/* main header */}
+          <Row className="mb-4">
             <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
               <Widget className="widget-p-sm">
                 <div className={s.smallWidget}>
@@ -180,117 +194,288 @@ const Dashboard = () => {
               </Widget>
             </Col>
           </Row>
-        </Col>
-        <Col className="mt-4 mt-lg-0 pl-grid-col" xs={12} lg={4}>
-          <Widget className="widget-p-lg">
-            <div className="d-flex">
-              <img className={s.image} src={user} alt="..." />
-              <div className={s.userInfo}>
-                <p className="headline-3">Christina Karey</p>
-                <p className="body-3 muted">Brasil</p>
-              </div>
-            </div>
-            <div className={s.userParams}>
-              <div className="d-flex flex-column">
-                <p className="headline-3">63 kg</p>
-                <p className="body-3 muted">Weight</p>
-              </div>
-              <div className="d-flex flex-column">
-                <p className="headline-3">175 sm</p>
-                <p className="body-3 muted">Height</p>
-              </div>
-              <div className="d-flex flex-column">
-                <p className="headline-3">28 y.</p>
-                <p className="body-3 muted">Age</p>
-              </div>
-            </div>
-            <div className={s.goals}>
-              <div className={s.goalsTitle}>
-                <p className="headline-3">Your Goals</p>
-                <UncontrolledDropdown>
-                  <DropdownToggle caret>
-                    &nbsp; Weekly &nbsp;
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem>Daily</DropdownItem>
-                    <DropdownItem>Weekly</DropdownItem>
-                    <DropdownItem>Monthly</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </div>
-              <div className="d-flex flex-column mt-3">
-                <div className={s.activity}>
-                  <p className="body-2">Sleep</p>
-                  <p className="body-2">92<span className="body-3 muted"> / 160</span></p>
-                </div>
-                <Progress color="secondary-red" className="progress-xs" value={60} />
-              </div>
-              <div className="d-flex flex-column mt-3">
-                <div className={s.activity}>
-                  <p className="body-2">Sport</p>
-                  <p className="body-2">40<span className="body-3 muted"> / 50</span></p>
-                </div>
-                <Progress color="secondary-yellow" className="progress-xs" value={80} />
-              </div>
-              <div className="d-flex flex-column mt-3">
-                <div className={s.activity}>
-                  <p className="body-2">Water</p>
-                  <p className="body-2">25<span className="body-3 muted"> / 40</span></p>
-                </div>
-                <Progress color="secondary-cyan" className="progress-xs" value={40} />
-              </div>
-            </div>
-            <p className="headline-3">Appointments</p>
-            <div className={`mt-3 ${s.widgetBlock}`}>
-              <div className={s.widgetBody}>
-                <div className="d-flex">
-                  <img className="img-fluid mr-2" src={gymIcon} alt="..." />
-                  <div className="d-flex flex-column">
-                    <p className="body-2">02.11 , 12:00 - 13:00</p>
-                    <p className="body-3 muted">Yoga, Airplace Gym</p>
+          {/* middle */}
+          <Row className="mb-4">
+            <Col>
+              <Row>
+                <Col xs={12} xl={8} className="pl-grid-col mt-4 mt-xl-0">
+                  <Row>
+                    <Col>
+                      <Widget>
+                        <div className={s.tableTitle}>
+                          <div className="headline-2">Recent transaction</div>
+                          <div>
+                            <ButtonDropdown
+                              isOpen={dropdownOpen}
+                              toggle={toggle}
+                              className=""
+                            >
+                              <DropdownToggle caret>
+                                &nbsp; Weekly &nbsp;
+                              </DropdownToggle>
+                              <DropdownMenu>
+                                <DropdownItem>Daily</DropdownItem>
+                                <DropdownItem>Weekly</DropdownItem>
+                                <DropdownItem>Monthly</DropdownItem>
+                              </DropdownMenu>
+                            </ButtonDropdown>
+                            {/*<img src="" alt="Filter option"/>*/}
+                          </div>
+                        </div>
+                        <div className={s.widgetContentBlock}>
+                          {transactions.map(item => (
+                            <div key={uuidv4()} className={s.content}>
+                              <div><img src={item.icon} alt="Item" /><span className="body-2 ml-3">{item.category}</span></div>
+                              <div className="body-3 muted d-none d-md-block">{item.date}</div>
+                              <div className="body-2">{item.price}</div>
+                              <div className="body-3 muted d-none d-lg-block">{item.description}</div>
+
+                              <Dropdown
+                                className="d-none d-sm-block"
+                                nav
+                                isOpen={item.dropdownOpen}
+                                toggle={() => transactionMenuOpen(item.id)}
+                              >
+                                <DropdownToggle nav>
+                                  <img className="d-none d-sm-block" src={moreIcon} alt="More ..."/>
+                                </DropdownToggle>
+                                <DropdownMenu >
+                                  <DropdownItem>
+                                    <div>Copy</div>
+                                  </DropdownItem>
+                                  <DropdownItem>
+                                    <div>Edit</div>
+                                  </DropdownItem>
+                                  <DropdownItem>
+                                    <div>Delete</div>
+                                  </DropdownItem>
+                                </DropdownMenu>
+                              </Dropdown>
+                            </div>
+                          ))}
+                        </div>
+                      </Widget>
+                    </Col>
+                  </Row>
+                  
+                  {/* line column mixed chart */}
+                  <Row>
+                    <Col className="pl-grid-col mt-4">
+                      <Widget className="widget-p-md">
+                        <div className="headline-2 mb-3">Line Column Mixed Chart</div>
+                        <ApexLineColumnChart/>
+                      </Widget>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col xs={12} xl={4} className="pl-grid-col mt-4 mt-xl-0">
+                  <Widget>
+                    <div className={s.tableTitle}>
+                      <div className="headline-2">Tasks</div>
+                    </div>
+                    <div className={s.widgetContentBlock}>
+                      <TaskContainer tasks={tasks} articles={articles} toggleTask={toggleTask} />
+                    </div>
+                  </Widget>
+                </Col>
+              </Row>  
+            </Col>
+          </Row> 
+          {/*  */}
+          <Row className="mb-4">
+            <Col>
+              <Widget>
+                <div className={s.tableTitle}>
+                  <div className="headline-2">States Colors</div>
+                  <div className="d-flex">
+                    <a href="/#"><img src={searchIcon} alt="Search"/></a>
+                    <a href="/#"><img className="d-none d-sm-block" src={cloudIcon} alt="Cloud" /></a>
+                    <a href="/#"><img src={printerIcon} alt="Printer" /></a>
+                    <a href="/#"><img className="d-none d-sm-block" src={optionsIcon} alt="Options" /></a>
+                    <a href="/#"><img src={funnelIcon} alt="Funnel" /></a>
                   </div>
                 </div>
-                <div className="checkbox checkbox-primary">
-                  <input
-                    id="checkbox0"
-                    type="checkbox"
-                    className="styled"
-                    checked={checkboxes[0]}
-                    onChange={() => toggleCheckbox(0)}
-                  />
-                  <label htmlFor="checkbox0" />
+                <div className="widget-table-overflow">
+                  <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
+                    <thead>
+                    <tr>
+                      <th className={s.checkboxCol}>
+                        <div className="checkbox checkbox-primary">
+                          <input
+                            className="styled"
+                            id="checkbox100"
+                            type="checkbox"
+                          />
+                          <label for="checkbox100"/>
+                        </div>
+                      </th>
+                      <th className="w-25">NAME</th>
+                      <th className="w-25">COMPANY</th>
+                      <th className="w-25">CITY</th>
+                      <th className="w-25">STATE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {firstTable
+                      .slice(
+                        firstTableCurrentPage * pageSize,
+                        (firstTableCurrentPage + 1) * pageSize
+                      )
+                      .map(item => (
+                        <tr key={uuidv4()}>
+                          <td>
+                            <div className="checkbox checkbox-primary">
+                              <input
+                                id={item.id}
+                                className="styled"
+                                type="checkbox"
+                              />
+                              <Label for={item.id} />
+                            </div>
+                          </td>
+                          <td className="d-flex align-items-center"><img className={s.image} src={item.img} alt="User"/><span className="ml-3">{item.name}</span></td>
+                          <td>{item.company}</td>
+                          <td>{item.city}</td>
+                          <td>{item.state}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                  <Pagination className="pagination-borderless" aria-label="Page navigation example">
+                    <PaginationItem disabled={firstTableCurrentPage <= 0}>
+                      <PaginationLink
+                        onClick={e => setFirstTablePage(e, firstTableCurrentPage - 1)}
+                        previous
+                        href="#top"
+                      />
+                    </PaginationItem>
+                    {[...Array(firstTablePagesCount)].map((page, i) =>
+                      <PaginationItem active={i === firstTableCurrentPage} key={i}>
+                        <PaginationLink onClick={e => setFirstTablePage(e, i)} href="#top">
+                          {i + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )}
+                    <PaginationItem disabled={firstTableCurrentPage >= firstTablePagesCount - 1}>
+                      <PaginationLink
+                        onClick={e => setFirstTablePage(e, firstTableCurrentPage + 1)}
+                        next
+                        href="#top"
+                      />
+                    </PaginationItem>
+                  </Pagination>
                 </div>
-              </div>
-            </div>
-            <div className={`mt-3 ${s.widgetBlock}`}>
-              <div className={s.widgetBody}>
-                <div className="d-flex">
-                  <img className="img-fluid mr-2" src={therapyIcon} alt="..." />
-                  <div className="d-flex flex-column">
-                    <p className="body-2">03.11 , 16:00 - 17:30</p>
-                    <p className="body-3 muted">Therapy</p>
-                  </div>
+              </Widget>
+            </Col>
+          </Row>
+          {/*  */}
+          <Row>
+            <Col>
+              <Widget>
+                <div className={s.tableTitle}>
+                  <div className="headline-2">Material UI table</div>
+                  <Dropdown
+                    className="d-none d-sm-block"
+                    nav
+                    isOpen={tableDropdownOpen}
+                    toggle={() => tableMenuOpen()}
+                  >
+                    <DropdownToggle nav>
+                      <img className="d-none d-sm-block" src={moreIcon} alt="More..."/>
+                    </DropdownToggle>
+                    <DropdownMenu >
+                      <DropdownItem>
+                        <div>Copy</div>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <div>Edit</div>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <div>Delete</div>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
                 </div>
-                <div className="checkbox checkbox-primary">
-                  <input
-                    id="checkbox1"
-                    type="checkbox"
-                    className="styled"
-                    checked={checkboxes[1]}
-                    onChange={() => toggleCheckbox(1)}
-                  />
-                  <label htmlFor="checkbox1" />
+                <div className="widget-table-overflow">
+                  <Table className="table-striped table-borderless table-hover" responsive>
+                    <thead>
+                    <tr>
+                      <th>
+                        <div className="checkbox checkbox-primary">
+                          <input
+                            id="checkbox200"
+                            className="styled"
+                            type="checkbox"
+                          />
+                          <label for="checkbox200"/>
+                        </div>
+                      </th>
+                      <th className={s.nameCol}>NAME</th>
+                      <th>EMAIL</th>
+                      <th>PRODUCT</th>
+                      <th>PRICE</th>
+                      <th>DATE</th>
+                      <th>CITY</th>
+                      <th>STATUS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {secondTable
+                      .slice(
+                        secondTableCurrentPage * pageSize,
+                        (secondTableCurrentPage + 1) * pageSize
+                      )
+                      .map(item => (
+                      <tr key={uuidv4()}>
+                        <td>
+                          <div className="checkbox checkbox-primary">
+                            <input
+                              id={item.id}
+                              className="styled"
+                              type="checkbox"
+                            />
+                            <label for={item.id} />
+                          </div>
+                        </td>
+                        <td>{item.name}</td>
+                        <td>{item.email}</td>
+                        <td>{item.product}</td>
+                        <td>{item.price}</td>
+                        <td>{item.date}</td>
+                        <td>{item.city}</td>
+                        <td><Badge color={item.color}>{item.status}</Badge></td>
+                      </tr>
+                    ))}
+                    </tbody>
+                  </Table>
+                  <Pagination className="pagination-with-border">
+                    <PaginationItem disabled={secondTableCurrentPage <= 0}>
+                      <PaginationLink
+                        onClick={e => setSecondTablePage(e, secondTableCurrentPage - 1)}
+                        previous
+                        href="#top"
+                      />
+                    </PaginationItem>
+                    {[...Array(secondTablePagesCount)].map((page, i) =>
+                      <PaginationItem active={i === secondTableCurrentPage} key={i}>
+                        <PaginationLink onClick={e => setSecondTablePage(e, i)} href="#top">
+                          {i + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )}
+                    <PaginationItem disabled={secondTableCurrentPage >= secondTablePagesCount - 1}>
+                      <PaginationLink
+                        onClick={e => setSecondTablePage(e, secondTableCurrentPage + 1)}
+                        next
+                        href="#top"
+                      />
+                    </PaginationItem>
+                  </Pagination>
                 </div>
-              </div>
-            </div>
-            <a className={`btn-secondary-red ${s.statsBtn}`} href="#top" role="button">
-              <img className={s.pieImg}  src={statsPie} alt="..." />
-              <div>
-                <p className="headline-2">STATISTIC</p>
-                <p className="body-3">Download your activity</p>
-              </div>
-            </a>
-          </Widget>
+              </Widget>
+            </Col>
+          </Row>
+
         </Col>
       </Row>
     </div>

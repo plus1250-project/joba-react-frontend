@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button} from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import s from "./Sidebar.module.scss";
+import l from "./LinksGroup/LinksGroup.module.scss"
 import LinksGroup from "./LinksGroup/LinksGroup.js";
 import { changeActiveSidebarItem } from "../../actions/navigation.js";
 import SofiaLogo from "../Icons/SofiaLogo.js";
 import cn from "classnames";
+
+import SidebarItem from './SidebarItem';
 
 const Sidebar = (props) => {
 
@@ -16,7 +20,15 @@ const Sidebar = (props) => {
     ...restProps
   } = props;
 
-  const [burgerSidebarOpen, setBurgerSidebarOpen] = useState(false)
+  const [burgerSidebarOpen, setBurgerSidebarOpen] = useState(false);
+  const [industryName, setIndustryName] = useState(false);
+  const [articlesList, setArticlesList] = useState([]);
+
+  const onIndustryNameHandler = (event) => {
+    setIndustryName(false)
+  }
+
+  
 
   useEffect(() => {
     if (props.sidebarOpened) {
@@ -32,7 +44,7 @@ const Sidebar = (props) => {
     <nav className={cn(s.root, {[s.sidebarOpen]: burgerSidebarOpen})} >
       <header className={s.logo}>
         <SofiaLogo/>
-        <span className={s.title}>SOFIA</span>
+        <span className={s.title}>JOBA Trend</span>
       </header>
       <ul className={s.nav}>
         <LinksGroup
@@ -45,58 +57,29 @@ const Sidebar = (props) => {
           index="dashboard"
           badge="9"
         />
-        <h5 className={s.navTitle}>TEMPLATE</h5>
+        <h5 className={s.navTitle}>산업군</h5>
+      
+        <Link to={{
+          pathname: "/templete",
+          state: {
+            industryName:"IT"
+          }
+        }}/>
+        {/* <SidebarItem name="IT" /> */}
+        <SidebarItem name="IT"/>
+        <SidebarItem name="교육업" />
+        <SidebarItem name="건설업" /> 
+
         <LinksGroup
           onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
           activeItem={props.activeItem}
-          header="Typography"
+          header="IT통신"
           isHeader
           iconName={<i className={'eva eva-text-outline'}/>}
           link="/template/typography"
-          index="typography"
-        />
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
-          activeItem={props.activeItem}
-          header="Tables"
-          isHeader
-          iconName={<i className={'eva eva-grid-outline'}/>}
-          link="/template/tables"
-          index="tables"
-        />
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
-          activeItem={props.activeItem}
-          header="Notifications"
-          isHeader
-          iconName={<i className={'eva eva-bell-outline'}/>}
-          link="/template/notifications"
-          index="notifications"
-        />
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
-          activeItem={props.activeItem}
-          header="UI Elements"
-          isHeader
-          iconName={<i className={'eva eva-cube-outline'}/>}
-          link="/template/uielements"
-          index="uielements"
-          childrenLinks={[
-            {
-              header: 'Charts', link: '/template/ui-elements/charts',
-            },
-            {
-              header: 'Icons', link: '/template/ui-elements/icons',
-            },
-            {
-              header: 'Google Maps', link: '/template/ui-elements/maps',
-            },
-          ]}
+          index="IT"
         />
       </ul>
-      <div className="bg-widget d-flex mt-auto ml-1">
-        <Button className="rounded-pill my-3 body-2 d-none d-md-block" type="submit" color="secondary-red">Unlock Full Version</Button>
-      </div>
     </nav>
   );
 }

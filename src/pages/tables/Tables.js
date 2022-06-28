@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   Col,
   Row,
+  Progress,
   Table,
   Pagination,
   PaginationItem,
@@ -18,6 +19,8 @@ import {
 import Widget from "../../components/Widget/Widget.js";
 import TaskContainer from "./components/TaskContainer/TaskContainer.js";
 
+import ApexLineColumnChart from "../uielements/charts/components/ApexLineColumnChart.js";
+
 // import BootstrapTable from "react-bootstrap-table-next";
 // import paginationFactory from 'react-bootstrap-table2-paginator';
 // import MUIDataTable from "mui-datatables";
@@ -28,6 +31,10 @@ import optionsIcon from "../../assets/tables/optionsIcon.svg";
 import printerIcon from "../../assets/tables/printerIcon.svg";
 import searchIcon from "../../assets/tables/searchIcon.svg";
 import moreIcon from "../../assets/tables/moreIcon.svg";
+import heartRed from "../../assets/dashboard/heartRed.svg"
+import heartTeal from "../../assets/dashboard/heartTeal.svg"
+import heartViolet from "../../assets/dashboard/heartViolet.svg";
+import heartYellow from "../../assets/dashboard/heartYellow.svg";
 
 import s from "./Tables.module.scss";
 import mock from "./mock.js";
@@ -91,6 +98,152 @@ const Tables = function () {
     <div>
       <Row>
         <Col>
+          {/* main header */}
+          <Row className="mb-4">
+            <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
+              <Widget className="widget-p-sm">
+                <div className={s.smallWidget}>
+                  <div className="d-flex mb-4">
+                    <img className="py-1 mr-2 img-fluid" src={heartRed} alt="..." />
+                    <div className="d-flex flex-column">
+                      <p className="headline-3">Text</p>
+                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
+                    </div>
+                  </div>
+                  <div>
+                    <Progress color="secondary-red" className={`progress-xs ${s.mutedPink}`} value="75" />
+                  </div>
+                </div>
+              </Widget>
+            </Col>
+            <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
+              <Widget className="widget-p-sm">
+                <div className={s.smallWidget}>
+                  <div className="d-flex mb-4">
+                    <img className="py-1 mr-2 img-fluid" src={heartYellow} alt="..." />
+                    <div className="d-flex flex-column">
+                      <p className="headline-3">Text</p>
+                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
+                    </div>
+                  </div>
+                  <div>
+                    <Progress color="secondary-yellow" className={`progress-xs ${s.mutedYellow}`} value="75" />
+                  </div>
+                </div>
+              </Widget>
+            </Col>
+            <Col xs={6} sm={6} xl={3}>
+              <Widget className="widget-p-sm">
+                <div className={s.smallWidget}>
+                  <div className="d-flex mb-4">
+                    <img className="py-1 mr-2 img-fluid" src={heartTeal} alt="..." />
+                    <div className="d-flex flex-column">
+                      <p className="headline-3">Text</p>
+                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
+                    </div>
+                  </div>
+                  <div>
+                    <Progress color="secondary-cyan" className={`progress-xs ${s.mutedTeal}`} value="75" />
+                  </div>
+                </div>
+              </Widget>
+            </Col>
+            <Col xs={6} sm={6} xl={3}>
+              <Widget className="widget-p-sm">
+                <div className={s.smallWidget}>
+                  <div className="d-flex mb-4">
+                    <img className="py-1 mr-2 img-fluid" src={heartViolet} alt="..." />
+                    <div className="d-flex flex-column">
+                      <p className="headline-3">Text</p>
+                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
+                    </div>
+                  </div>
+                  <div>
+                    <Progress color="violet" className={`progress-xs ${s.mutedViolet}`} value="75" />
+                  </div>
+                </div>
+              </Widget>
+            </Col>
+          </Row>
+          {/* middle */}
+          <Row className="mb-4">
+            <Col xs={12} xl={8} className="pr-grid-col">
+              <Widget>
+                <div className={s.tableTitle}>
+                  <div className="headline-2">Recent transaction</div>
+                  <div>
+                    <ButtonDropdown
+                      isOpen={dropdownOpen}
+                      toggle={toggle}
+                      className=""
+                    >
+                      <DropdownToggle caret>
+                        &nbsp; Weekly &nbsp;
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem>Daily</DropdownItem>
+                        <DropdownItem>Weekly</DropdownItem>
+                        <DropdownItem>Monthly</DropdownItem>
+                      </DropdownMenu>
+                    </ButtonDropdown>
+                    {/*<img src="" alt="Filter option"/>*/}
+                  </div>
+                </div>
+                <div className={s.widgetContentBlock}>
+                  {transactions.map(item => (
+                    <div key={uuidv4()} className={s.content}>
+                      <div><img src={item.icon} alt="Item" /><span className="body-2 ml-3">{item.category}</span></div>
+                      <div className="body-3 muted d-none d-md-block">{item.date}</div>
+                      <div className="body-2">{item.price}</div>
+                      <div className="body-3 muted d-none d-lg-block">{item.description}</div>
+
+                      <Dropdown
+                        className="d-none d-sm-block"
+                        nav
+                        isOpen={item.dropdownOpen}
+                        toggle={() => transactionMenuOpen(item.id)}
+                      >
+                        <DropdownToggle nav>
+                          <img className="d-none d-sm-block" src={moreIcon} alt="More ..."/>
+                        </DropdownToggle>
+                        <DropdownMenu >
+                          <DropdownItem>
+                            <div>Copy</div>
+                          </DropdownItem>
+                          <DropdownItem>
+                            <div>Edit</div>
+                          </DropdownItem>
+                          <DropdownItem>
+                            <div>Delete</div>
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+                  ))}
+                </div>
+              </Widget>
+            </Col>
+            <Col xs={12} xl={4} className="pl-grid-col mt-4 mt-xl-0">
+              <Widget>
+                <div className={s.tableTitle}>
+                  <div className="headline-2">Tasks</div>
+                </div>
+                <div className={s.widgetContentBlock}>
+                  <TaskContainer tasks={tasks} toggleTask={toggleTask} />
+                </div>
+              </Widget>
+            </Col>
+          </Row>
+          {/*  */}
+          <Row className="mb-4">
+            <Col>
+              <Widget className="widget-p-md">
+                <div className="headline-2 mb-3">Line Column Mixed Chart</div>
+                <ApexLineColumnChart/>
+              </Widget>
+            </Col>
+          </Row>
+          {/*  */}
           <Row className="mb-4">
             <Col>
               <Widget>
@@ -177,7 +330,8 @@ const Tables = function () {
               </Widget>
             </Col>
           </Row>
-          <Row className="mb-4">
+          {/*  */}
+          <Row>
             <Col>
               <Widget>
                 <div className={s.tableTitle}>
@@ -283,74 +437,7 @@ const Tables = function () {
               </Widget>
             </Col>
           </Row>
-          <Row>
-            <Col xs={12} xl={8} className="pr-grid-col">
-              <Widget>
-                <div className={s.tableTitle}>
-                  <div className="headline-2">Recent transaction</div>
-                  <div>
-                    <ButtonDropdown
-                      isOpen={dropdownOpen}
-                      toggle={toggle}
-                      className=""
-                    >
-                      <DropdownToggle caret>
-                        &nbsp; Weekly &nbsp;
-                      </DropdownToggle>
-                      <DropdownMenu>
-                        <DropdownItem>Daily</DropdownItem>
-                        <DropdownItem>Weekly</DropdownItem>
-                        <DropdownItem>Monthly</DropdownItem>
-                      </DropdownMenu>
-                    </ButtonDropdown>
-                    {/*<img src="" alt="Filter option"/>*/}
-                  </div>
-                </div>
-                <div className={s.widgetContentBlock}>
-                  {transactions.map(item => (
-                    <div key={uuidv4()} className={s.content}>
-                      <div><img src={item.icon} alt="Item" /><span className="body-2 ml-3">{item.category}</span></div>
-                      <div className="body-3 muted d-none d-md-block">{item.date}</div>
-                      <div className="body-2">{item.price}</div>
-                      <div className="body-3 muted d-none d-lg-block">{item.description}</div>
 
-                      <Dropdown
-                        className="d-none d-sm-block"
-                        nav
-                        isOpen={item.dropdownOpen}
-                        toggle={() => transactionMenuOpen(item.id)}
-                      >
-                        <DropdownToggle nav>
-                          <img className="d-none d-sm-block" src={moreIcon} alt="More ..."/>
-                        </DropdownToggle>
-                        <DropdownMenu >
-                          <DropdownItem>
-                            <div>Copy</div>
-                          </DropdownItem>
-                          <DropdownItem>
-                            <div>Edit</div>
-                          </DropdownItem>
-                          <DropdownItem>
-                            <div>Delete</div>
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </Dropdown>
-                    </div>
-                  ))}
-                </div>
-              </Widget>
-            </Col>
-            <Col xs={12} xl={4} className="pl-grid-col mt-4 mt-xl-0">
-              <Widget>
-                <div className={s.tableTitle}>
-                  <div className="headline-2">Tasks</div>
-                </div>
-                <div className={s.widgetContentBlock}>
-                  <TaskContainer tasks={tasks} toggleTask={toggleTask} />
-                </div>
-              </Widget>
-            </Col>
-          </Row>
         </Col>
       </Row>
     </div>

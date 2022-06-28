@@ -3,28 +3,23 @@ import s from "./TaskContainer.module.scss";
 import cx from "classnames";
 
 const TaskContainer = (props) => {
+
+  console.log(props.articles);
   return (
     <ul>
-      {props.tasks.map((task) => (
+      {props.articles.map((article) => (
         <li
-          className={cx(`${s.taskBlock}`, { [s.completed]: task.completed })}
-          key={task.id}
+          className={cx(`${s.taskBlock}`, { [s.completed]: false })}
+          key={article.id}
         >
           <div className={s.taskDescription}>
             <div
               className="checkbox checkbox-primary mr-1">
-              <input
-                onChange={() => props.toggleTask(task.id)}
-                checked={task.completed}
-                className="styled"
-                id={`checkbox${task.id}`}
-                type="checkbox"
-              />
-              <label className="form-check-label" htmlFor={`checkbox${task.id}`} />
+              {article.articleTitle}
             </div>
-            <div className="body-3">{task.description}</div>
+            <div className="body-3"></div>
           </div>
-          <div className={s.time}>{task.time}</div>
+          <div className={s.time}>{article.pubDate}</div>
         </li>
       ))}
     </ul>
