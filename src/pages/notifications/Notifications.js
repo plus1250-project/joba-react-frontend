@@ -25,8 +25,10 @@ const positions = [
 
 const notificationTypes = ["info", "success", "warning", "error"]
 
-const Notifications = function () {
+const Notifications = function (props) {
 
+  console.log(props.industryName);
+  
   const [notificationPosition, setNotificationPosition] = useState(2)
 
   function changeNotificationPosition(positionId) {
@@ -44,12 +46,13 @@ const Notifications = function () {
     position: positions[notificationPosition],
   };
 
-  return (
+  return ( 
     <div>
+      
       <Row className="gutter mb-4">
         <Col xs={12} lg={4}>
           <Widget className="widget-p-md">
-            <div className="headline-2">Layout Options</div>
+            <div className="headline-2">{props.industryName}</div>
             <div className={s.widgetText}>There are few position options available for notifications. You can click any of them to change notifications position:</div>
             <div className={s.layoutContainer}>
               <div className={s.layoutButtonsRow}>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+
 import { v4 as uuidv4 } from "uuid";
 import {
   Col,
@@ -37,6 +38,10 @@ import searchIcon from "../../assets/tables/searchIcon.svg";
 import s from "../tables/Tables.module.scss"
 import mock from "../tables/mock.js"
 
+import { useLocation } from "react-router-dom";
+import { changeDashboard } from "../../actions/navigation.js";
+import { PostAddSharp } from "@material-ui/icons";
+
 const Dashboard = (props) => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,17 +52,26 @@ const Dashboard = (props) => {
   const [firstTableCurrentPage, setFirstTableCurrentPage] = useState(0);
   const [secondTableCurrentPage, setSecondTableCurrentPage] = useState(0);
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
+
   const [articlesList, setArticlesList] = useState([]);
+  const [industryName, setIndustryName] = useState("");
+
+  // const mapStateToProps = (state) => ({
+  //   industryName: state.industryName,
+  // });
+
+
 
   const pageSize = 4;
   const firstTablePagesCount = Math.ceil(firstTable.length / pageSize);
   const secondTablePagesCount = Math.ceil(secondTable.length / pageSize);
 
-  const {
-    industryName = ""
-  } = props;
+  // const {
 
+  //   industryName = ""
+  // } = props;
 
+  
   const setFirstTablePage = (e, index) => {
     e.preventDefault();
     setFirstTableCurrentPage(index);
@@ -98,15 +112,28 @@ const Dashboard = (props) => {
     setTableMenuOpen(!tableDropdownOpen);
   }
 
+
+// let location = useLocation();
+// let industryName = location.state;
+
+
+
   const BASEURL = 'http://localhost:3000/';
 
   useEffect(() => {
-    axios.get(BASEURL+"article")
+    axios.get(BASEURL+"article", {
+      params: {industryName: props.industryName}})
     .then(response => {
       console.log(response.data);
       setArticlesList(response.data);
     })
-  }, []);
+  }, [props.industryName]);
+
+
+
+  console.log(props.industryName);
+  // console.log('dash', location.state);
+  
 
   const articles = [];
   for (const key in articlesList) {
@@ -124,7 +151,7 @@ const Dashboard = (props) => {
  
   return (
     <div>
-      <h3 className="mb-4">ssss{props.industryname}</h3>
+      
       <Row>
         <Col>
           {/* main header */}
@@ -197,7 +224,7 @@ const Dashboard = (props) => {
           {/* middle */}
           <Row className="mb-4">
             <Col>
-              <Row>
+              <Row xl={2}>
                 <Col xs={12} xl={8} className="pl-grid-col mt-4 mt-xl-0">
                   <Row>
                     <Col>
@@ -274,7 +301,7 @@ const Dashboard = (props) => {
                       <div className="headline-2">Tasks</div>
                     </div>
                     <div className={s.widgetContentBlock}>
-                      <TaskContainer tasks={tasks} articles={articles} toggleTask={toggleTask} />
+                      <TaskContainer moreData={useEffect} articles={articles} toggleTask={toggleTask} />
                     </div>
                   </Widget>
                 </Col>

@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { Link, NavLink, withRouter, useHistory } from "react-router-dom";
 
 
 import s from "./LinksGroup.module.scss";
+import { HistoryRounded } from "@material-ui/icons";
 
 
 const LinksGroup = (props) => {
 
+
+  console.log(props.onDashboardChange);
+  console.log(props.industryName);
+  console.log(props.link);
+  
   const {
     link = "",
     childrenLinks = null,
@@ -17,27 +23,36 @@ const LinksGroup = (props) => {
     deep = 0,
     activeItem = "",
     label = "",
-    exact = true
+    exact = true,
   } = props;
 
   const [headerLinkClicked, setHeaderLinkClicked] = useState(false);
 
+  const togglePanelCollapse = (link, e) => {
+    props.onActiveSidebarItemChange(link);
+    setHeaderLinkClicked(!headerLinkClicked );
+    e.preventDefault();
+  }
+
   const isOpen = props.activeItem && props.activeItem.includes(props.index) && headerLinkClicked;
 
-   console.log(props.target);
+
+
       return (
-        <li className={[s.headerLink, props.className].join(" ")}>
+        <li>
           <NavLink
             to={props.link}
             activeClassName={s.headerLinkActive}
+            onClick={(e) => {
+              if (props.link.includes('menu')) {
+                e.preventDefault();
+              }
+            }}
             exact={exact}
-            // target={props.target}
           >
-            {props.target}
-            {props.header}
+            {<i className="fa fa-circle text-primary mr-2"/>} {props.header}
           </NavLink>
         </li>
-        // <Layout industryName={props.header}/>
       );
     }
  
