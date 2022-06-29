@@ -24,7 +24,7 @@ import ArticlesList from "./components/ArticlesList.js";
 
 import heartTeal from "../../assets/dashboard/heartTeal.svg";
 import heartViolet from "../../assets/dashboard/heartViolet.svg";
-import heartYellow from "../../assets/dashboard/heartYellow.svg";
+
 import moreIcon from "../../assets/tables/moreIcon.svg";
 import cloudIcon from "../../assets/tables/cloudIcon.svg";
 import funnelIcon from "../../assets/tables/funnelIcon.svg";
@@ -35,10 +35,12 @@ import searchIcon from "../../assets/tables/searchIcon.svg";
 import s from "../tables/Tables.module.scss"
 import mock from "../tables/mock.js"
 
+
 import { useLocation } from "react-router-dom";
 import { changeDashboard } from "../../actions/navigation.js";
 import { PostAddSharp } from "@material-ui/icons";
 import KeywordBlock from "./components/KeywordBlock.js";
+import CorpIndustry from "./components/CorpIndustry.js";
 
 const Dashboard = (props) => {
 
@@ -79,6 +81,7 @@ const Dashboard = (props) => {
     )
   }
 
+
   const tableMenuOpen = () => {
     setTableMenuOpen(!tableDropdownOpen);
   }
@@ -95,21 +98,8 @@ const Dashboard = (props) => {
             <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
               <KeywordBlock industryName={props.industryName}/>
             </Col>
-            <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
-              <Widget className="widget-p-sm">
-                <div className={s.smallWidget}>
-                  <div className="d-flex mb-4">
-                    <img className="py-1 mr-2 img-fluid" src={heartYellow} alt="..." />
-                    <div className="d-flex flex-column">
-                      <p className="headline-3">Text</p>
-                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                    </div>
-                  </div>
-                  <div>
-                    <Progress color="secondary-yellow" className={`progress-xs ${s.mutedYellow}`} value="75" />
-                  </div>
-                </div>
-              </Widget>
+            <Col className="mb-4 mb-xl-0 cursor:pointer" xs={6} sm={6} xl={3} onClick={props.onOpen}>
+              <CorpIndustry  />
             </Col>
             <Col xs={6} sm={6} xl={3}>
               <Widget className="widget-p-sm">

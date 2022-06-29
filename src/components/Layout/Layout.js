@@ -1,5 +1,5 @@
 // -- React and related libs
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter, Redirect } from "react-router";
 
@@ -13,16 +13,29 @@ import Footer from "../Footer/Footer";
 import Breadcrumbs from "../Breadbrumbs/Breadcrumbs";
 import Dashboard from "../../pages/dashboard/Dashboard";
 import Notifications from "../../pages/notifications/Notifications"
-
+import CorpList from "../../pages/dashboard/components/CorpList";
 // -- Component Styles
 import s from "./Layout.module.scss";
 
 const Layout = (props) => {
 
+  // modal
+const [listIsShown, setListIsShown] = useState(false);
+
+const openListHandler = () => {
+  setListIsShown(true);
+}
+
+const closeListHandler = () => {
+  console.log('close');
+  setListIsShown(false);
+}
+
   console.log(props.dispatch);
 
   return (
     <div className={s.root}>
+      {listIsShown && <CorpList onClose={closeListHandler} />}
       <div className={s.wrap}>
         <Header />
         <Sidebar />
@@ -32,15 +45,15 @@ const Layout = (props) => {
           <Switch>
             {/* <Route path="/template" exact render={() => <Redirect to="template/dashboard"/>} /> */}
 
-            <Route path="/template/dashboard" exact component={Dashboard}/>
+            <Route path="/template/dashboard" exact component={Dashboard} onOpen={openListHandler}/>
             <Route 
               path="/template/dashboard/it" 
-              render={() => <Dashboard industryName="IT"/>}
+              render={() => <Dashboard industryName="IT" onOpen={openListHandler}/>}
         
             />
             <Route 
               path="/template/dashboard/economy"
-              render={() => <Dashboard industryName="경제" />}
+              render={() => <Dashboard industryName="경제" onOpen={openListHandler}/>}
               />
             <Route path="/template/notifications" exact component={Notifications} />
             <Route path='*' exact render={() => <Redirect to="/error" />} />
