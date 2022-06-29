@@ -3,11 +3,11 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button} from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import s from "./Sidebar.module.scss";
 import l from "./LinksGroup/LinksGroup.module.scss"
 import LinksGroup from "./LinksGroup/LinksGroup.js";
-import { changeActiveSidebarItem } from "../../actions/navigation.js";
+import { changeActiveSidebarItem, changeDashboard } from "../../actions/navigation.js";
 import SofiaLogo from "../Icons/SofiaLogo.js";
 import cn from "classnames";
 
@@ -15,20 +15,20 @@ import SidebarItem from './SidebarItem';
 
 const Sidebar = (props) => {
 
+  console.log(props.dispatch);
   const {
     activeItem = '',
     ...restProps
   } = props;
 
   const [burgerSidebarOpen, setBurgerSidebarOpen] = useState(false);
-  const [industryName, setIndustryName] = useState(false);
+  // const [industryName, setIndustryName] = useState(false);
   const [articlesList, setArticlesList] = useState([]);
 
-  const onIndustryNameHandler = (event) => {
-    setIndustryName(false)
-  }
+  // const onIndustryNameHandler = (event) => {
+  //   setIndustryName(false)
+  // }
 
-  
 
   useEffect(() => {
     if (props.sidebarOpened) {
@@ -59,25 +59,59 @@ const Sidebar = (props) => {
         />
         <h5 className={s.navTitle}>산업군</h5>
       
-        <Link to={{
-          pathname: "/templete",
+        {/* <Link to={{
+          pathname: "/templete/dashboard",
           state: {
             industryName:"IT"
           }
-        }}/>
+        }}/> */}
+
         {/* <SidebarItem name="IT" /> */}
-        <SidebarItem name="IT"/>
+        {/* <button onClick={() => {
+          props.dispatch(changeDashboard('IT'))
+        }}>IT</button>
         <SidebarItem name="교육업" />
-        <SidebarItem name="건설업" /> 
+        <SidebarItem name="건설업" />  */}
+
+        
 
         <LinksGroup
           onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
           activeItem={props.activeItem}
-          header="IT통신"
+          industryName="IT"
+          header="IT"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/it"
+          index="IT"
+        />
+        <LinksGroup
+          onDashboardChange={industryName => props.dispatch(changeDashboard(industryName))}
+          industryName="경제"
+          header="경제"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/economy"
+          index="경제"
+        />
+        <LinksGroup
+          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          activeItem={props.activeItem}
+          header="Typography"
           isHeader
           iconName={<i className={'eva eva-text-outline'}/>}
           link="/template/typography"
-          index="IT"
+          index="typography"
+        />
+        <LinksGroup
+          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+          activeItem={props.activeItem}
+          header="Notifications"
+          industryName="교육업"
+          isHeader
+          iconName={<i className={'eva eva-bell-outline'}/>}
+          link="/template/notifications"
+          index="notifications"
         />
       </ul>
     </nav>

@@ -23,6 +23,7 @@ import isAuthenticated from "./services/authService";
 
 // -- Component Styles
 import "./styles/app.scss";
+import { Dashboard } from "@material-ui/icons";
 
 const PrivateRoute = ({ dispatch, component, ...rest }) => {
   if (!isAuthenticated(JSON.parse(localStorage.getItem("authenticated")))) {

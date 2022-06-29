@@ -7,7 +7,7 @@ import cx from "classnames";
 
 const TaskContainer = (props) => {
 
-  console.log(props.articles);
+  console.log("A article :", props.articles);
   return (
     <InfiniteScroll
       dataLength={props.articles.length}
