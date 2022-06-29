@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
-
 import { v4 as uuidv4 } from "uuid";
 import {
   Col,
@@ -21,10 +19,9 @@ import {
 import Widget from "../../components/Widget/Widget.js";
 
 import ApexLineColumnChart from "../uielements/charts/components/ApexLineColumnChart";
-import TaskContainer from "../tables/components/TaskContainer/TaskContainer";
 import ArticlesList from "./components/ArticlesList.js";
 
-import heartRed from "../../assets/dashboard/heartRed.svg";
+
 import heartTeal from "../../assets/dashboard/heartTeal.svg";
 import heartViolet from "../../assets/dashboard/heartViolet.svg";
 import heartYellow from "../../assets/dashboard/heartYellow.svg";
@@ -41,6 +38,7 @@ import mock from "../tables/mock.js"
 import { useLocation } from "react-router-dom";
 import { changeDashboard } from "../../actions/navigation.js";
 import { PostAddSharp } from "@material-ui/icons";
+import KeywordBlock from "./components/KeywordBlock.js";
 
 const Dashboard = (props) => {
 
@@ -48,30 +46,14 @@ const Dashboard = (props) => {
   const [firstTable] = useState(mock.firstTable);
   const [secondTable] = useState(mock.secondTable);
   const [transactions, setTransactions] = useState(mock.transactionsWidget);
-  const [tasks, setTasks] = useState(mock.tasksWidget);
   const [firstTableCurrentPage, setFirstTableCurrentPage] = useState(0);
   const [secondTableCurrentPage, setSecondTableCurrentPage] = useState(0);
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
-
-  const [articlesList, setArticlesList] = useState([]);
-  const [industryName, setIndustryName] = useState("");
-
-  // const mapStateToProps = (state) => ({
-  //   industryName: state.industryName,
-  // });
-
-
 
   const pageSize = 4;
   const firstTablePagesCount = Math.ceil(firstTable.length / pageSize);
   const secondTablePagesCount = Math.ceil(secondTable.length / pageSize);
 
-  // const {
-
-  //   industryName = ""
-  // } = props;
-
-  
   const setFirstTablePage = (e, index) => {
     e.preventDefault();
     setFirstTableCurrentPage(index);
@@ -84,17 +66,6 @@ const Dashboard = (props) => {
 
   const toggle = () => {
     setDropdownOpen(!dropdownOpen);
-  }
-
-  const toggleTask = (id) => {
-    setTasks(
-      tasks.map( task => {
-        if (task.id === id) {
-          task.completed = !task.completed;
-        }
-        return task;
-      })
-    )
   }
 
   const transactionMenuOpen = (id) => {
@@ -112,43 +83,8 @@ const Dashboard = (props) => {
     setTableMenuOpen(!tableDropdownOpen);
   }
 
-
-// let location = useLocation();
-// let industryName = location.state;
-
-
-
-  const BASEURL = 'http://localhost:3000/';
-
-  useEffect(() => {
-    axios.get(BASEURL+"article", {
-      params: {industryName: props.industryName}})
-    .then(response => {
-      console.log(response.data);
-      setArticlesList(response.data);
-    })
-  }, [props.industryName]);
-
-
-
   console.log(props.industryName);
-  // console.log('dash', location.state);
-  
 
-  const articles = [];
-  for (const key in articlesList) {
-      // console.log('key'+ key.articleTitle);
-      articles.push({
-          id: key,
-          articleTitle: articlesList[key].articleTitle,
-          articleUrl: articlesList[key].articleUrl,
-          industryName: articlesList[key].industryName,
-          pubCompany: articlesList[key].pubCompany,
-          pubDate: articlesList[key].pubDate,
-      })
-  }
-
- 
   return (
     <div>
       
@@ -157,20 +93,7 @@ const Dashboard = (props) => {
           {/* main header */}
           <Row className="mb-4">
             <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
-              <Widget className="widget-p-sm">
-                <div className={s.smallWidget}>
-                  <div className="d-flex mb-4">
-                    <img className="py-1 mr-2 img-fluid" src={heartRed} alt="..." />
-                    <div className="d-flex flex-column">
-                      <p className="headline-3">Text</p>
-                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                    </div>
-                  </div>
-                  <div>
-                    <Progress color="secondary-red" className={`progress-xs ${s.mutedPink}`} value="75" />
-                  </div>
-                </div>
-              </Widget>
+              <KeywordBlock industryName={props.industryName}/>
             </Col>
             <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
               <Widget className="widget-p-sm">
@@ -296,14 +219,7 @@ const Dashboard = (props) => {
                   </Row>
                 </Col>
                 <Col xs={12} xl={4} className="pl-grid-col mt-4 mt-xl-0">
-                  <Widget>
-                    <div className={s.tableTitle}>
-                      <div className="headline-2">Tasks</div>
-                    </div>
-                    <div className={s.widgetContentBlock}>
-                      <TaskContainer moreData={useEffect} articles={articles} toggleTask={toggleTask} />
-                    </div>
-                  </Widget>
+                  <ArticlesList industryName={props.industryName}/>
                 </Col>
               </Row>  
             </Col>

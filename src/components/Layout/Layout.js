@@ -35,12 +35,12 @@ const Layout = (props) => {
             <Route path="/template/dashboard" exact component={Dashboard}/>
             <Route 
               path="/template/dashboard/it" 
-              render={() => <Dashboard industryName={"IT"}/>}
+              render={() => <Dashboard industryName="IT"/>}
         
             />
             <Route 
               path="/template/dashboard/economy"
-              render={() => <Dashboard industryName={"경제"} />}
+              render={() => <Dashboard industryName="경제" />}
               />
             <Route path="/template/notifications" exact component={Notifications} />
             <Route path='*' exact render={() => <Redirect to="/error" />} />
