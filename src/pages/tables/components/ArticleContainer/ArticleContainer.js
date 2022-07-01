@@ -1,11 +1,11 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import s from "./TaskContainer.module.scss";
+import s from "./ArticleContainer.module.scss";
 import cx from "classnames";
 
 
-const TaskContainer = (props) => {
+const ArticleContainer = (props) => {
 
   console.log("A article :", props.articles);
   return (
@@ -35,4 +35,4 @@ const TaskContainer = (props) => {
   )
 }
 
-export default TaskContainer;
+export default ArticleContainer;

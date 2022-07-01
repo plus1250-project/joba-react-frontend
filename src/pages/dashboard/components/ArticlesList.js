@@ -1,53 +1,50 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 import Widget from "../../../components/Widget/Widget.js";
 import s from "../../tables/Tables.module.scss"
-import mock from "../../tables/mock.js"
-import TaskContainer from "../../tables/components/TaskContainer/TaskContainer";
-
-
+import ArticleContainer from "../../tables/components/ArticleContainer/ArticleContainer";
 
 const ArticlesList = (props) => {
 
-    const [tasks, setTasks] = useState(mock.tasksWidget);
-    const [aList, setAList] = useState([]);
+    const [articlesList, setArticlesList] = useState([]);
+
+    const BASEURL = 'http://localhost:3000/';
 
     const articles = [];
-    for (const key in props.articlesList) {
-        // console.log('key'+ key.articleTitle);
+
+    // 뉴스기사 요청
+    useEffect(() => {
+      axios.get(BASEURL+"article", {
+        params: {industryName: props.industryName}})
+      .then(response => {
+        console.log(response.data);
+        setArticlesList(response.data);
+      })
+    }, [props.industryName]);
+
+    // 받아 온 뉴스 기사 정리
+    for (const key in articlesList) {
         articles.push({
             id: key,
-            articleTitle: props.articlesList[key].articleTitle,
-            articleUrl: props.articlesList[key].articleUrl,
-            industryName: props.articlesList[key].industryName,
-            pubCompany: props.articlesList[key].pubCompany,
-            pubDate: props.articlesList[key].pubDate,
+            articleTitle: articlesList[key].articleTitle,
+            articleUrl: articlesList[key].articleUrl,
+            industryName: articlesList[key].industryName,
+            pubCompany: articlesList[key].pubCompany,
+            pubDate: articlesList[key].pubDate,
         })
     }
-    setAList(articles);
-
-    const toggleTask = (id) => {
-        setTasks(
-          tasks.map( task => {
-            if (task.id === id) {
-              task.completed = !task.completed;
-            }
-            return task;
-          })
-        )
-      }
 
   return (
     
-                  <Widget>
-                    <div className={s.tableTitle}>
-                      <div className="headline-2">Tasks</div>
-                    </div>
-                    <div className={s.widgetContentBlock}>
-                      <TaskContainer tasks={tasks} articles={aList} toggleTask={toggleTask} />
-                    </div>
-                  </Widget>
+    <Widget>
+      <div className={s.tableTitle}>
+        <div className="headline-2">관련 기사</div>
+      </div>
+      <div className={s.widgetContentBlock}>
+        <ArticleContainer articles={articles} />
+      </div>
+    </Widget>
                
   )
 }

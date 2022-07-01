@@ -9,10 +9,8 @@ import { HistoryRounded } from "@material-ui/icons";
 
 const LinksGroup = (props) => {
 
-
-  console.log(props.onDashboardChange);
-  console.log(props.industryName);
-  console.log(props.link);
+  // console.log(props.industryName);
+  // console.log(props.link);
   
   const {
     link = "",
@@ -36,8 +34,6 @@ const LinksGroup = (props) => {
 
   const isOpen = props.activeItem && props.activeItem.includes(props.index) && headerLinkClicked;
 
-
-
       return (
         <li>
           <NavLink
@@ -56,8 +52,6 @@ const LinksGroup = (props) => {
       );
     }
  
-  
-
 LinksGroup.propTypes = {
   header: PropTypes.node.isRequired,
   link: PropTypes.string.isRequired,

@@ -8,7 +8,7 @@ import {
 const initialState = {
   sidebarOpened: false,
   activeItem: JSON.parse(localStorage.getItem('staticSidebar')) ? window.location.pathname : null,
-  industryName: "",
+  industryNameItem: "",
 };
 
 export default function runtime(state = initialState, action) {

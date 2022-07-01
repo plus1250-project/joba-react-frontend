@@ -12,6 +12,7 @@ import ErrorPage from "./pages/error/ErrorPage";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
+
 // -- Redux Actions
 import { logoutUser } from "./actions/auth";
 
@@ -36,9 +37,12 @@ const PrivateRoute = ({ dispatch, component, ...rest }) => {
   }
 };
 
+
+
 const App = (props) => {
   return (
     <div>
+      
       <ToastContainer/>
       <HashRouter>
         <Switch>
