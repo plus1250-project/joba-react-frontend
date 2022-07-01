@@ -87,14 +87,14 @@ export default function ApexLineColumnChart() {
   let today = new Date();
   let month = today.getMonth() + 1 // month
  
-  console.log("Chart month : ", month);
+  // console.log("Chart month : ", month);
   let labels = [(month-1) + '월' + month + '월'];
  
   chartSettings.labels = [(month-8), (month-7), (month-6), (month-5), (month-4), (month-3), (month-2), (month-1), month];
   
   let k = 0;
   for(let i in chartSettings.labels) {
-    console.log(chartSettings.labels[i]);
+    // console.log(chartSettings.labels[i]);
     k = 12;
 
     // 현재 월을 기준으로 뒤로
@@ -105,7 +105,7 @@ export default function ApexLineColumnChart() {
       chartSettings.labels[i] = k + chartSettings.labels[i];
     }
   }
-  console.log(chartSettings.labels);
+  // console.log(chartSettings.labels);
 
   return (
     <ApexCharts
