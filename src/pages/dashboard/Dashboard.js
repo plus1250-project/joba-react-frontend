@@ -20,6 +20,7 @@ import Widget from "../../components/Widget/Widget.js";
 
 import ApexLineColumnChart from "../uielements/charts/components/ApexLineColumnChart";
 import ArticlesList from "./components/ArticlesList.js";
+import TrendChart from "./components/TrendChart";
 
 
 import heartTeal from "../../assets/dashboard/heartTeal.svg";
@@ -208,10 +209,7 @@ const Dashboard = (props) => {
                   {/* line column mixed chart */}
                   <Row>
                     <Col className="pl-grid-col mt-4">
-                      <Widget className="widget-p-md">
-                        <div className="headline-2 mb-3">Line Column Mixed Chart</div>
-                        <ApexLineColumnChart/>
-                      </Widget>
+                      <TrendChart />
                     </Col>
                   </Row>
                 </Col>
