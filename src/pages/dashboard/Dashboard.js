@@ -37,6 +37,7 @@ import mock from "../tables/mock.js"
 
 
 import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { changeDashboard } from "../../actions/navigation.js";
 import { PostAddSharp } from "@material-ui/icons";
 import KeywordBlock from "./components/KeywordBlock.js";
@@ -86,7 +87,13 @@ const Dashboard = (props) => {
     setTableMenuOpen(!tableDropdownOpen);
   }
 
-  console.log(props.industryName);
+  // console.log(props.industryName);
+
+ const dispatch = useDispatch(changeDashboard(props.industryName));
+
+ const indus = useSelector((state) => state.CHANGE_DASHBOARD_TITLE)
+
+//  console.log(indus);
 
   return (
     <div>
@@ -99,7 +106,7 @@ const Dashboard = (props) => {
               <KeywordBlock industryName={props.industryName}/>
             </Col>
             <Col className="mb-4 mb-xl-0 cursor:pointer" xs={6} sm={6} xl={3} onClick={props.onOpen}>
-              <CorpIndustry  />
+              <CorpIndustry industryName={props.industryName}/>
             </Col>
             <Col xs={6} sm={6} xl={3}>
               <Widget className="widget-p-sm">

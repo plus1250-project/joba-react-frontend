@@ -21,6 +21,7 @@ const Layout = (props) => {
 
   // modal
 const [listIsShown, setListIsShown] = useState(false);
+const [industryName, setIndustryName] = useState("");
 
 const openListHandler = () => {
   setListIsShown(true);

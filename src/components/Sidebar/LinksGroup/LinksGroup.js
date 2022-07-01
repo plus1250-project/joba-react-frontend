@@ -9,8 +9,8 @@ import { HistoryRounded } from "@material-ui/icons";
 
 const LinksGroup = (props) => {
 
-  console.log(props.industryName);
-  console.log(props.link);
+  // console.log(props.industryName);
+  // console.log(props.link);
   
   const {
     link = "",

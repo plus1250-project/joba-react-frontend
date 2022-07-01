@@ -19,7 +19,7 @@ const portalElement = document.getElementById('modal-window');
 const Modal = (props) => {
     const [render, setRender] = useState(null);
     // if(!render) return null;
-    console.log('modal');
+    console.log('modal', props);
   return (
     <>
         {ReactDOM.createPortal(<Background onClose={props.onClose}/>, portalElement)}

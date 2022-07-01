@@ -20,6 +20,8 @@ const store = createStore(
   applyMiddleware(ReduxThunk)
 );
 
+console.log(store.getState());
+
 // -- Rendering Application
 render(
   <Provider store={store}>

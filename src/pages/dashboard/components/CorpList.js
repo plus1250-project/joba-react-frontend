@@ -40,24 +40,23 @@ const CORP = [
 const CorpList = (props) => {
 
     const [corpList, setCorpList] = useState([]);
-    console.log('corp');
+    console.log(props);
 
     const BASEURL = 'http://localhost:3000/';
 
     const corps = [];
 
-    //
-    // useEffect(() => {
-    //     axios.get(BASEURL+"indus_corp_list", {
-    //       params: {industryName: props.industryName}})
-    //     .then(response => {
-    //       console.log(response.data);
-    //       setCorpList(response.data);
-    //     })
-    //   }, [props.industryName]);
+    
+    useEffect(() => {
+        axios.get(BASEURL+"indus_corp_list", {
+          params: {industryName: props.industryName}})
+        .then(response => {
+          console.log(response.data);
+          setCorpList(response.data);
+        })
+      }, [props.industryName]);
 
       console.log(corpList);
-
 
     const listItems = (
         <Widget>
