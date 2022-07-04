@@ -38,6 +38,11 @@ const RankChangeList = () => {
     setTableMenuOpen(!tableDropdownOpen);
     }
 
+
+
+    // 전월 대비를 측정하려면?
+    // 지난달과 키워드가 달라졌다면
+
   return (
     <Widget className="border">
         <div className={s.tableTitle}>

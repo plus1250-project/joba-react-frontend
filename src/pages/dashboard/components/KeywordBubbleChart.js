@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import BubbleChart from '@weknow/react-bubble-chart-d3';
+
 import { v4 as uuidv4 } from "uuid";
 import {
   ButtonDropdown,
@@ -7,6 +9,8 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+
+
 
 import Widget from "../../../components/Widget/Widget.js";
 import mock from "../../tables/mock.js"
@@ -33,6 +37,10 @@ const KeywordBubbleChart = () => {
         )
       }
 
+
+      //
+      
+
   return (
     <Widget>
         <div className={s.tableTitle}>
@@ -56,6 +64,7 @@ const KeywordBubbleChart = () => {
             </div>
         </div>
         <div className={s.widgetContentBlock}>
+          
             {/* {transactions.map(item => (
             <div key={uuidv4()} className={s.content}>
                 <div><img src={item.icon} alt="Item" /><span className="body-2 ml-3">{item.category}</span></div>
