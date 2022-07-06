@@ -84,20 +84,20 @@ const MonthlyRankList = (props) => {
       <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
         <thead>
         <tr>
+        <th className="w-25">RANK</th>
           <th className="w-25"><span className="ml-3">KEYWORD</span></th>
           <th className="w-25">DATE</th>
           <th className="w-25">COUNT</th>
-          <th className="w-25">RANK</th>
         </tr>
         </thead>
         <tbody>
         {ranks
           .map(item => (
             <tr key={uuidv4()}>
+              <td>{item.monthRank}</td>
               <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
               <td>{item.regMonth}</td>
               <td>{item.keywordCnt}</td>
-              <td>{item.monthRank}</td>
             </tr>
           ))}
         </tbody>
