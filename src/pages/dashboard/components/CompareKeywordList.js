@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import { v4 as uuidv4 } from "uuid";
 import {
     Table,
@@ -19,13 +20,16 @@ import s from "../../tables/Tables.module.scss"
 
 import moreIcon from "../../../assets/tables/moreIcon.svg";
 
-const RankChangeList = () => {
+const CompareKeywordList = (props) => {
  
     const [secondTable] = useState(mock.secondTable);
     const [secondTableCurrentPage, setSecondTableCurrentPage] = useState(0);
     const [tableDropdownOpen, setTableMenuOpen] = useState(false);
+    const [cKeywordList, setCKeywordList] = useState([]);
 
     const pageSize = 4;
+
+    const cKeywords = [];
 
     const secondTablePagesCount = Math.ceil(secondTable.length / pageSize);
   
@@ -38,10 +42,38 @@ const RankChangeList = () => {
     setTableMenuOpen(!tableDropdownOpen);
     }
 
+    const BASEURL = 'http://localhost:3000/';
+
+    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
+    let date = new Date(); 
+    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
 
-    // 전월 대비를 측정하려면?
-    // 지난달과 키워드가 달라졌다면
+    // 월별 랭킹 키워드 요청
+    useEffect(() => {
+        axios.get(BASEURL+"compare-keyword/" + props.industryName + "/" + regMonth)
+        .then(response => {
+          console.log(response.data);
+          setCKeywordList(response.data);
+        })
+      }, [props.industryName]
+    );
+
+    // 받아 온 월별 키워드 정리
+    for (const key in cKeywordList) {
+        cKeywords.push({
+            id: key,
+            keyword: cKeywordList[key].keyword,
+            regMonth: cKeywordList[key].regMonth,
+            industryName: cKeywordList[key].industryName,
+            increment: cKeywordList[key].increment,
+            fluctRank: cKeywordList[key].fluctRank,
+        })
+    }
+
+
+
+    // 지금 랭킹도 들어 있었으면 좋겠다. monthly Rank 처럼
 
   return (
     <Widget className="border">
@@ -73,19 +105,20 @@ const RankChangeList = () => {
             <Table className="table-striped table-borderless table-hover" responsive>
                 <thead>
                 <tr>
-                    <th className="w-25">NAME</th>
-                    <th>PRODUCT</th>
-                    <th>CITY</th>
+                    <th>RANK</th>
+                    <th className="w-25">KEYWORD</th>
+                    <th>INCREMENT</th>
                     <th>STATUS</th>
                 </tr>
                 </thead>
                 <tbody>
-                {secondTable
+                {cKeywords
                     .map(item => (
                     <tr key={uuidv4()}>
-                    <td className="d-flex align-items-center"><span className="ml-3">{item.name}</span></td>
-                    <td>{item.product}</td>
-                    <td>{item.city}</td>
+                    <th>0</th>
+                    <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
+                    <td>{item.increment}</td>
+                    <td>{item.fluctRank}</td>
                     <td><Badge color={item.color}>{item.status}</Badge></td>
                     </tr>
                 ))}
@@ -119,4 +152,4 @@ const RankChangeList = () => {
   )
 }
 
-export default RankChangeList
+export default CompareKeywordList
