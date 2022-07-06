@@ -22,7 +22,7 @@ const CorpIndustry = (props) => {
 
   return (
     <Widget className="widget-p-sm"  >
-        <div className={`${s.smallWidget} ${s.pointer}` }>
+        <div className={`${s.smallWidget} ${s.pointer}`} onClick={props.onOpen}>
             <div className="d-flex mb-4">
             <img className="py-1 mr-2 img-fluid" src={heartYellow} alt="..." />
             <div className="d-flex flex-column">

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from "react-redux"
+
 import axios from 'axios';
 
 import Widget from '../../../components/Widget/Widget';
@@ -6,36 +8,6 @@ import Modal from '../../../components/Commons/Modal';
 import CorpContainer from '../../tables/components/CorpContainer/CorpContainer';
 
 import s from '../../tables/Tables.module.scss'
-
-// 기업 더미 데이터
-const CORP = [
-    {
-      id: "corp1",
-      name: "기업 A",
-      count: 100,
-    },
-    {
-      id: "corp2",
-      name: "기업 A",
-      count: 80,
-    },
-    {
-      id: "corp3",
-      name: "기업 A",
-      count: 50,
-    },
-    {
-      id: "corp4",
-      name: "기업 A",
-      count: 20,
-    },
-    {
-      id: "enter5",
-      name: "기업 A",
-      count: 10,
-    },
-  ];
-
 
 const CorpList = (props) => {
 
@@ -46,25 +18,46 @@ const CorpList = (props) => {
 
     const corps = [];
 
-    
+    const { industryName } = useSelector(state => state.industry);
+
+
+    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
+    let date = new Date(); 
+    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
+
+
+    // 산업군별 기업 리스트 요청
     useEffect(() => {
-        axios.get(BASEURL+"indus_corp_list", {
-          params: {industryName: props.industryName}})
+        axios.get(BASEURL+"indus-corp/" + industryName + "/" + regMonth)
         .then(response => {
           console.log(response.data);
           setCorpList(response.data);
         })
-      }, [props.industryName]);
+      }, [industryName]
+    );
 
-      console.log(corpList);
+    // 받아 온 월별 키워드 정리
+    for (const key in corpList) {
+      corps.push({
+            id: key,
+            corpName: corpList[key].corpName,
+            corpRank: corpList[key].corpRank,
+        })
+    }
+  
+
+      
+      // console.log(industryName);
+      // console.log(corpList);
 
     const listItems = (
         <Widget>
             <div className={s.tableTitle}>
             <div className="headline-2">기업 리스트</div>
+            <div>{industryName}</div>
             </div>
             <div className={s.widgetContentBlock}>
-                <CorpContainer corps={CORP}/>
+                <CorpContainer corps={corps}/>
             </div>
         </Widget>
     );
