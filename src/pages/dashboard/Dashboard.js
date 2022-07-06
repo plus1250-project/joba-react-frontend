@@ -11,7 +11,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { changeDashboard } from "../../actions/navigation.js";
+import { changeIndustryName } from "../../actions/industry.js";
 
 import KeywordBlock from "./components/KeywordBlock.js";
 import CorpIndustry from "./components/CorpIndustry.js";
@@ -35,9 +35,16 @@ import heartViolet from "../../assets/dashboard/heartViolet.svg";
 const Dashboard = (props) => {
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
 
-  const dispatch = useDispatch(changeDashboard(props.industryName));
-
-  const indus = useSelector((state) => state.CHANGE_DASHBOARD_TITLE)
+  // dispatch 를 통해 action 실행 (changeIndustryName(industryName))
+  const dispatch = useDispatch();
+  const changeIndus = (props) => {
+    dispatch(changeIndustryName(props))
+  }
+  
+  // selector 를 이용해 reducer에 컴바인된 industry 가져오기 (reducers/index.js)
+  const { industryName } = useSelector(state => state.industry);
+  
+  console.log(industryName);
 
   return (
     <div>
@@ -49,8 +56,8 @@ const Dashboard = (props) => {
             <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
               <KeywordBlock industryName={props.industryName}/>
             </Col>
-            <Col className="mb-4 mb-xl-0 cursor:pointer" xs={6} sm={6} xl={3} onClick={props.onOpen}>
-              <CorpIndustry industryName={props.industryName}/>
+            <Col className="mb-4 mb-xl-0 cursor:pointer" xs={6} sm={6} xl={3}  onClick={() => {changeIndus(props.industryName) }}>
+              <CorpIndustry onOpen={props.onOpen}/>
             </Col>
             <Col xs={6} sm={6} xl={3}>
               <Widget className="widget-p-sm">
