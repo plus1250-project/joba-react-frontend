@@ -19,7 +19,7 @@ import KeywordBubbleChart from "./components/KeywordBubbleChart.js";
 import TrendChart from "./components/TrendChart";
 import ArticlesList from "./components/ArticlesList.js";
 import MonthlyRankList from "./components/MonthlyRankList.js";
-import RankChangeList from "./components/RankChangeList.js";
+import CompareKeywordList from "./components/CompareKeywordList";
 
 import Widget from "../../components/Widget/Widget.js";
 import mock from "../tables/mock.js"
@@ -111,7 +111,7 @@ const Dashboard = (props) => {
               <MonthlyRankList industryName={props.industryName}/>
             </Col>
             <Col xs={12} xl={6}>
-              <RankChangeList industryName={props.industryName}/>
+              <CompareKeywordList industryName={props.industryName}/>
             </Col>
           </Row>
         </Col>
