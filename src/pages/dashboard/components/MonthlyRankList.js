@@ -32,15 +32,14 @@ const MonthlyRankList = (props) => {
 
     const ranks = [];
 
-    let today = new Date();
-    let month = today.getMonth() + 1
+    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
+    let date = new Date(); 
+    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
-    // 월별 키워드 요청
+
+    // 월별 랭킹 키워드 요청
     useEffect(() => {
-        axios.post(BASEURL+"keyword_month_list", {
-            industryName: props.industryName,
-            month: month - 1,
-        })
+        axios.get(BASEURL+"month-rank-keyword/" + props.industryName + "/" + regMonth)
         .then(response => {
           console.log(response.data);
           setRanksList(response.data);
@@ -53,13 +52,14 @@ const MonthlyRankList = (props) => {
         ranks.push({
             id: key,
             keyword: ranksList[key].keyword,
-            month: ranksList[key].month,
+            regMonth: ranksList[key].regMonth,
             industryName: ranksList[key].industryName,
-            keyCnt: ranksList[key].keyCnt,
+            keywordCnt: ranksList[key].keywordCnt,
+            monthRank: ranksList[key].monthRank,
         })
     }
 
-    ranks.sort((a, b) => b.keyCnt - a.keyCnt);
+    ranks.sort((a, b) => a.monthRank - b.monthRank);
     console.log(ranks); 
     
     const setFirstTablePage = (e, index) => {
@@ -85,8 +85,9 @@ const MonthlyRankList = (props) => {
         <thead>
         <tr>
           <th className="w-25"><span className="ml-3">KEYWORD</span></th>
-          <th className="w-25">INDUSTRY</th>
+          <th className="w-25">DATE</th>
           <th className="w-25">COUNT</th>
+          <th className="w-25">RANK</th>
         </tr>
         </thead>
         <tbody>
@@ -94,8 +95,9 @@ const MonthlyRankList = (props) => {
           .map(item => (
             <tr key={uuidv4()}>
               <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
-              <td>{item.industryName}</td>
-              <td>{item.keyCnt}</td>
+              <td>{item.regMonth}</td>
+              <td>{item.keywordCnt}</td>
+              <td>{item.monthRank}</td>
             </tr>
           ))}
         </tbody>
