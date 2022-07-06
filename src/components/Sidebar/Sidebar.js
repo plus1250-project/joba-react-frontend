@@ -78,21 +78,19 @@ const Sidebar = (props) => {
         <LinksGroup
           onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
           activeItem={props.activeItem}
-          industryName="IT"
-          header="IT"
+          header="IT정보통신업"
           isHeader
           iconName={<i className={'eva eva-text-outline'}/>}
           link="/template/dashboard/it"
-          index="IT"
+          index="IT정보통신업"
         />
         <LinksGroup
           onDashboardChange={industryName => props.dispatch(changeDashboard(industryName))}
-          industryName="경제"
-          header="경제"
+          header="금융업"
           isHeader
           iconName={<i className={'eva eva-text-outline'}/>}
           link="/template/dashboard/economy"
-          index="경제"
+          index="금융업"
         />
         <LinksGroup
           onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}

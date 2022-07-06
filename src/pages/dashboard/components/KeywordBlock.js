@@ -14,11 +14,12 @@ const KeywordBlock = (props) => {
     const [increaseKeyword, setIncreaseKeyword] = useState([]);
 
     const BASEURL = 'http://localhost:3000/';
+    let month = new Date().getMonth() + 1;
 
     // increase_keyword 요청
     useEffect(() => {
         axios.get(BASEURL+"increase_keyword", {
-        params: {industryName: props.industryName}})
+        params: {industryName: props.industryName, registerMonth: month}})
         .then(response => {
         console.log(response.data);
         setIncreaseKeyword(response.data);

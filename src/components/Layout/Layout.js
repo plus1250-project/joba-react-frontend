@@ -49,12 +49,12 @@ const closeListHandler = () => {
             <Route path="/template/dashboard" exact component={Dashboard} onOpen={openListHandler}/>
             <Route 
               path="/template/dashboard/it" 
-              render={() => <Dashboard industryName="IT" onOpen={openListHandler}/>}
+              render={() => <Dashboard industryName="IT정보통신업" onOpen={openListHandler}/>}
         
             />
             <Route 
               path="/template/dashboard/economy"
-              render={() => <Dashboard industryName="경제" onOpen={openListHandler}/>}
+              render={() => <Dashboard industryName="금융업" onOpen={openListHandler}/>}
               />
             <Route path="/template/notifications" exact component={Notifications} />
             <Route path='*' exact render={() => <Redirect to="/error" />} />
