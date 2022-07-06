@@ -91,7 +91,7 @@ const Dashboard = (props) => {
             <Col xs={12} xl={8} className="pl-grid-col mt-4 mt-xl-0">
               <Row className="pl-grid-row">
                 <Col>
-                  <KeywordBubbleChart />
+                  <KeywordBubbleChart industryName={props.industryName}/>
                 </Col>
               </Row>
               <Row className="pl-grid-row mt-4">
