@@ -14,12 +14,14 @@ const KeywordBlock = (props) => {
     const [increaseKeyword, setIncreaseKeyword] = useState([]);
 
     const BASEURL = 'http://localhost:3000/';
-    let month = new Date().getMonth() + 1;
+    
+    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
+    let date = new Date(); 
+    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
     // increase_keyword 요청
     useEffect(() => {
-        axios.get(BASEURL+"increase_keyword", {
-        params: {industryName: props.industryName, registerMonth: month}})
+        axios.get(BASEURL+"increase-keyword/" + props.industryName + "/" + regMonth)
         .then(response => {
         console.log(response.data);
         setIncreaseKeyword(response.data);
@@ -32,7 +34,7 @@ const KeywordBlock = (props) => {
             <div className="d-flex mb-4">
             <img className="py-1 mr-2 mt-4 img-fluid" src={heartRed} alt="..." />
             <div className="d-flex flex-column">
-                <p className="headline-3 ml-4">급상승 키워드</p>
+                <p className="headline-3 ml-4">최근 상승 키워드</p>
                 <p className="headline-1 ml-4 mt-2">{increaseKeyword}</p>
                 
             </div>
