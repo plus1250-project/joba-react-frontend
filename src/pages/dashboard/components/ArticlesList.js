@@ -27,11 +27,11 @@ const ArticlesList = (props) => {
     for (const key in articlesList) {
         articles.push({
             id: key,
-            articleTitle: articlesList[key].articleTitle,
-            articleUrl: articlesList[key].articleUrl,
             industryName: articlesList[key].industryName,
-            pubCompany: articlesList[key].pubCompany,
-            pubDate: articlesList[key].pubDate,
+            articleUrl: articlesList[key].articleUrl,
+            issueDate: articlesList[key].issueDate,
+            articleTitle: articlesList[key].articleTitle,
+            press: articlesList[key].press
         })
     }
 

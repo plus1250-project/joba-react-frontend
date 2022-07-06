@@ -27,7 +27,10 @@ const ArticleContainer = (props) => {
             </div>
             <div className="body-3"></div>
           </div>
-          <div className={s.time}>{article.pubDate}</div>
+          <div>
+            <div className={s.time}>{article.press}</div>
+            <div className={s.time}>{article.issueDate}</div>
+          </div>
         </li>
       ))}
     </ul>
