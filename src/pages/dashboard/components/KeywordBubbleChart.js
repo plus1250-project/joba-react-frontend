@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -16,6 +15,8 @@ import Widget from "../../../components/Widget/Widget.js";
 import mock from "../../tables/mock.js"
 
 import s from "../../tables/Tables.module.scss"
+
+import Statefulbubble from "./StatefullBubble";
 
 import moreIcon from "../../../assets/tables/moreIcon.svg";
 const KeywordBubbleChart = () => {
@@ -44,8 +45,8 @@ const KeywordBubbleChart = () => {
   return (
     <Widget>
         <div className={s.tableTitle}>
-            <div className="headline-2">Recent transaction</div>
-            <div>
+            <div className="headline-2">언급량 분석</div>
+            {/* <div>
             <ButtonDropdown
                 isOpen={dropdownOpen}
                 toggle={toggle}
@@ -60,11 +61,11 @@ const KeywordBubbleChart = () => {
                 <DropdownItem>Monthly</DropdownItem>
                 </DropdownMenu>
             </ButtonDropdown>
-            {/*<img src="" alt="Filter option"/>*/}
-            </div>
+            <img src="" alt="Filter option"/>
+            </div> */}
         </div>
         <div className={s.widgetContentBlock}>
-          
+          <Statefulbubble/>
             {/* {transactions.map(item => (
             <div key={uuidv4()} className={s.content}>
                 <div><img src={item.icon} alt="Item" /><span className="body-2 ml-3">{item.category}</span></div>
