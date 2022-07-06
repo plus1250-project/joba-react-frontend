@@ -19,7 +19,7 @@ import s from "../../tables/Tables.module.scss"
 import Statefulbubble from "./StatefullBubble";
 
 import moreIcon from "../../../assets/tables/moreIcon.svg";
-const KeywordBubbleChart = () => {
+const KeywordBubbleChart = (props) => {
     const [transactions, setTransactions] = useState(mock.transactionsWidget);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -65,7 +65,7 @@ const KeywordBubbleChart = () => {
             </div> */}
         </div>
         <div className={s.widgetContentBlock}>
-          <Statefulbubble/>
+          <Statefulbubble industryName={props.industryName}/>
             {/* {transactions.map(item => (
             <div key={uuidv4()} className={s.content}>
                 <div><img src={item.icon} alt="Item" /><span className="body-2 ml-3">{item.category}</span></div>
