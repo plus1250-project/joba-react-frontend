@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
@@ -37,13 +39,17 @@ export function logoutUser() {
   };
 }
 
+// 여기서 로그인 백엔드 요청 보내기
+// 더미로 확인하는 법....?
 export function loginUser(creds) {
   return (dispatch) => {
     dispatch(receiveLogin());
-    if (creds.email.length > 0 && creds.password.length > 0) {
+    // 여기에 요청 보내고 성공 실패 나누기 
+    if (creds.email.length > 0 && creds.password.length >= 4) {
       localStorage.setItem('authenticated', true)
     } else {
-      dispatch(loginError('Something was wrong. Try again'));
+      dispatch(loginError('비밀번호는 4자 이상입니다.'));
+      toast("비밀번호는 4자 이상입니다.");
     }
   }
 }
