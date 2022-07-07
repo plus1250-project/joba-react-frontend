@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, NavLink, withRouter, useHistory } from "react-router-dom";
+import { Collapse, Badge } from "reactstrap";
 
 
 import s from "./LinksGroup.module.scss";
@@ -33,7 +34,26 @@ const LinksGroup = (props) => {
   }
 
   const isOpen = props.activeItem && props.activeItem.includes(props.index) && headerLinkClicked;
-
+  if (!props.childrenLinks) {
+    if (props.isHeader) {
+      return (
+        <li className={[s.headerLink, props.className].join(" ")}>
+          <NavLink
+            to={props.link}
+            activeClassName={s.headerLinkActive}
+            exact={exact}
+            target={props.target}
+          >
+            {/* <span className={s.icon}>
+              {props.iconName}
+            </span> */}
+            {props.header}
+            {props.label && <sup className={`text-${props.labelColor || 'warning'}`}>{props.label}</sup> }
+            {/* {props.badge && <Badge className={s.badge} color="secondary-red" pill>{props.badge}</Badge>} */}
+          </NavLink>
+        </li>
+      );
+    }
       return (
         <li>
           <NavLink
@@ -51,6 +71,7 @@ const LinksGroup = (props) => {
         </li>
       );
     }
+  }
  
 LinksGroup.propTypes = {
   header: PropTypes.node.isRequired,

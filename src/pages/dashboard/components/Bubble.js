@@ -1,14 +1,27 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeBubble } from '../../../actions/bubble'
 import * as am5 from '@amcharts/amcharts5'
 import PropTypes from 'prop-types'
 import am5themesAnimated from '@amcharts/amcharts5/themes/Animated'
 import * as am5hierarchy from '@amcharts/amcharts5/hierarchy'
 
 const Bubble = ({ data }) => {
+  // const [ bubbleName, setBubbleName] = useState("");
   console.log(data)
   const axisDataItemRef = useRef(null)
 
+  //
+  const dispatch = useDispatch();
+  const changeNode = (props) => {
+    dispatch(changeBubble(props))
+  }
+
+  const { bubbleName } = useSelector(state => state.bubble);
+
+  // const { bubbleName } = useSelector(state => state.bubble);
   
+  // console.log("basic : " , bubbleName);
 
   useEffect(() => {
     const root = am5.Root.new('bubble')
@@ -67,12 +80,15 @@ const Bubble = ({ data }) => {
         if (e.target.dataItem == selectedDataItem) {
           selectedDataItem.get("outerCircle").setPrivate("visible", false);
           selectedDataItem = undefined;
+          // setBubbleName(e.target.dataItem.dataContext.name);
         }
         // 선택된 노드가 있고, 다른 것일 때 그 노드로 변경
         else {
           selectedDataItem.get("outerCircle").setPrivate("visible", false);
           selectedDataItem = e.target.dataItem;
-        selectedDataItem.get("outerCircle").setPrivate("visible", true)
+          selectedDataItem.get("outerCircle").setPrivate("visible", true);
+          console.log(e.target.dataItem.dataContext.name);
+          
           //이미 연결되어 있으면 연결 해제
         }
       }
@@ -80,17 +96,30 @@ const Bubble = ({ data }) => {
       else {
         selectedDataItem = e.target.dataItem;
         selectedDataItem.get("outerCircle").setPrivate("visible", true)
+        console.log(e.target.dataItem.dataContext.name);
+        // setBubbleName(e.target.dataItem.dataContext.name);
       }
+
+      if(selectedDataItem == undefined) {
+        changeNode("undefined")
+      } else {
+        changeNode(selectedDataItem.dataContext.name);
+      }
+      
     })
-
+    
+    
     return () => root.dispose()
-
-// Generate and set data
-// https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
-//     const maxLevels = 2
-//     const maxNodes = 5
-//     const maxValue = 100
+    
+    // Generate and set data
+    // https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
+    //     const maxLevels = 2
+    //     const maxNodes = 5
+    //     const maxValue = 100
+    
   }, [])
+  
+  console.log("Bubble selector", bubbleName);
 
   useEffect(() => {
     const series = axisDataItemRef.current

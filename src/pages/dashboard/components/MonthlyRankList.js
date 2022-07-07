@@ -83,9 +83,9 @@ const MonthlyRankList = (props) => {
     <div className="widget-table-overflow">
       <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
         <thead>
-        <tr>
-        <th className="w-25">RANK</th>
-          <th className="w-25"><span className="ml-3">KEYWORD</span></th>
+        <tr >
+          <th className="w-25"><span className="ml-4">RANK</span></th>
+          <th className="w-25"><span>KEYWORD</span></th>
           <th className="w-25">DATE</th>
           <th className="w-25">COUNT</th>
         </tr>
@@ -94,7 +94,7 @@ const MonthlyRankList = (props) => {
         {ranks
           .map(item => (
             <tr key={uuidv4()}>
-              <td>{item.monthRank}</td>
+              <td><span className="ml-5">{item.monthRank}</span></td>
               <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
               <td>{item.regMonth}</td>
               <td>{item.keywordCnt}</td>
