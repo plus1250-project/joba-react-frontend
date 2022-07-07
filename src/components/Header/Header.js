@@ -39,6 +39,7 @@ import userImg from "../../assets/user.svg";
 
 import s from "./Header.module.scss";
 import "animate.css";
+import { Height } from "@material-ui/icons";
 
 const Header = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -80,10 +81,10 @@ const Header = (props) => {
       <Form className="d-none d-sm-block" inline>
         <FormGroup>
           <InputGroup className='input-group-no-border'>
-            <Input id="search-input" placeholder="Search Dashboard" className='focus'/>
+            <Input id="search-input" placeholder="Search Dashboard" className='focus' />
             <InputGroupAddon addonType="prepend">
               <span>
-                <SearchBarIcon/>
+                <SearchBarIcon />
               </span>
             </InputGroupAddon>
           </InputGroup>
@@ -98,48 +99,47 @@ const Header = (props) => {
             <SearchIcon />
           </NavLink>
         </NavItem>
-        <Dropdown nav isOpen={menuOpen} toggle={() => toggleMenu()} className="tutorial-dropdown mr-2 mr-sm-3">
-          <DropdownToggle nav>
-            <div className={s.navbarBlock}>
-              <i className={'eva eva-bell-outline'}/>
-              <div className={s.count}></div>
-            </div>
-          </DropdownToggle>
-          <DropdownMenu right className="navbar-dropdown notifications-dropdown" style={{ width: "340px" }}>
-            <DropdownItem><img src={basketIcon} alt="Basket Icon"/><span>12 new orders have arrived today</span></DropdownItem>
-            <DropdownItem>
-              <div>
-                <div className="d-flex flex-row mb-1">
-                  <img src={mariaImage} alt="Maria" className={s.mariaImage} />
-                  <div className="d-flex flex-column">
-                    <p className="body-3">Maria</p>
-                    <p className="label muted">15 min ago</p>
-                  </div>
-                </div>
-                <img src={notificationImage} alt="Notification Icon" className={s.notificationImage}/>
-                <p className="body-2 muted">It is just a simple image that can define th..</p>
-              </div>
-            </DropdownItem>
-            <DropdownItem><img src={calendarIcon} alt="Calendar Icon"/><span>1 event has been canceled and ...</span></DropdownItem>
-            <DropdownItem><img src={envelopeIcon} alt="Envelope Icon"/><span>you have 2 new messages</span></DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
         <Dropdown isOpen={notificationsOpen} toggle={() => toggleNotifications()} nav id="basic-nav-dropdown" className="ml-3">
           <DropdownToggle nav caret className="navbar-dropdown-toggle">
-            <span className={`${s.avatar} rounded-circle float-left mr-2`}>
-              <img src={userImg} alt="User"/>
-            </span>
-            <span className="small d-none d-sm-block ml-1 mr-2 body-1">Christina Carey</span>
+            {/* <span className={`${s.avatar} rounded-circle float-left mr-2`}> */}
+            {/* <img src={userImg} alt="User"/> */}
+            {/* <ProfileIcon /> */}
+            {/* </span> */}
+
+            {/* 나중에 props로 이메일 받아오기 */}
+            <span className="small d-none d-sm-block ml-1 mr-2 body-1">plus1250@email.com</span>
           </DropdownToggle>
-          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "194px" }}>
-            <DropdownItem className={s.dropdownProfileItem}><ProfileIcon/><span>Profile</span></DropdownItem>
-            <DropdownItem className={s.dropdownProfileItem}><TasksIcon/><span>Tasks</span></DropdownItem>
-            <DropdownItem className={s.dropdownProfileItem}><MessagesIcon/><span>Messages</span></DropdownItem>
+          
+          {/* 마이페이지 (드롭다운) */}
+          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "200px", height: "345px" }}>
+            <div className={s.dropdownProfileItem}>
+              <h6>My page</h6></div>
+            <hr />
             <NavItem>
-              <NavLink onClick={() => doLogout()} href="#">
-                <button className="btn btn-primary rounded-pill mx-auto logout-btn" type="submit"><img src={logoutIcon} alt="Logout"/><span className="ml-1">Logout</span></button>
+              <span className={s.emailname} >email</span>
+            </NavItem>
+            <NavItem>
+              <span className={s.emailAccount}>plus1250@email.com</span>
+            </NavItem>
+            <hr />
+            <NavItem>
+              <span className={s.password} >password</span>
+            </NavItem>
+            {/* 비밀번호 변경 버튼 */}
+            <NavItem>
+              {/* <NavLink onClick={() => null} href="/resetpw"> */}
+              <NavLink href="#/resetpw">
+                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-1">비밀번호 변경</span></button>
               </NavLink>
             </NavItem>
+            <hr />
+            {/* 로그아웃 버튼 */}
+            <NavItem>
+              <NavLink onClick={() => doLogout()} href="#">
+                <button className="btn btn-primary mx-auto log-btn" type="submit" style={{}}><img src={logoutIcon} alt="Logout" /><span className="ml-1">로그아웃</span></button>
+              </NavLink>
+            </NavItem>
+
           </DropdownMenu>
         </Dropdown>
       </Nav>

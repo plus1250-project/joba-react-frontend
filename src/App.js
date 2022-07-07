@@ -11,6 +11,8 @@ import LayoutComponent from "./components/Layout/Layout";
 import ErrorPage from "./pages/error/ErrorPage";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import ResetPassword from "./pages/password/ResetPassword";
+import FindPassword from "./pages/password/FindPassword";
 
 
 // -- Redux Actions
@@ -32,7 +34,7 @@ const PrivateRoute = ({ dispatch, component, ...rest }) => {
     return (<Redirect to="/login" />)
   } else {
     return (
-      <Route { ...rest } render={props => (React.createElement(component, props))} />
+      <Route {...rest} render={props => (React.createElement(component, props))} />
     );
   }
 };
@@ -42,17 +44,19 @@ const PrivateRoute = ({ dispatch, component, ...rest }) => {
 const App = (props) => {
   return (
     <div>
-      
-      <ToastContainer/>
+
+      <ToastContainer />
       <HashRouter>
         <Switch>
           <Route path="/" exact render={() => <Redirect to="/template/dashboard" />} />
-          <Route path="/template" exact render={() => <Redirect to="/template/dashboard"/>}/>
+          <Route path="/template" exact render={() => <Redirect to="/template/dashboard" />} />
           <PrivateRoute path="/template" dispatch={props.dispatch} component={LayoutComponent} />
           <Route path="/login" exact component={Login} />
           <Route path="/error" exact component={ErrorPage} />
           <Route path="/register" exact component={Register} />
-          <Route component={ErrorPage}/>
+          <Route path="/findpw" exact component={FindPassword} />
+          <Route path="/resetpw" exact component={ResetPassword} />
+          <Route component={ErrorPage} />
           <Route path='*' exact={true} render={() => <Redirect to="/error" />} />
         </Switch>
       </HashRouter>
