@@ -1,36 +1,28 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { withRouter, Redirect, Link } from "react-router-dom";
+import { useState } from "react";
 import { connect } from "react-redux";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import {
-  Container,
-  Row,
-  Col,
-  Button,
-  FormGroup,
+  Button, Col, Container, FormGroup,
   FormText,
-  Input,
+  Input, Row
 } from "reactstrap";
-import Widget from "../../components/Widget/Widget.js";
 import Footer from "../../components/Footer/Footer.js";
+import Widget from "../../components/Widget/Widget.js";
 
+import { registerUser } from "../../actions/register.js";
 import loginImage from "../../assets/registerImage.svg";
 import SofiaLogo from "../../components/Icons/SofiaLogo.js";
-import GoogleIcon from "../../components/Icons/AuthIcons/GoogleIcon.js";
-import TwitterIcon from "../../components/Icons/AuthIcons/TwitterIcon.js";
-import FacebookIcon from "../../components/Icons/AuthIcons/FacebookIcon.js";
-import GithubIcon from "../../components/Icons/AuthIcons/GithubIcon.js";
-import LinkedinIcon from "../../components/Icons/AuthIcons/LinkedinIcon.js";
-import { registerUser } from "../../actions/register.js";
 import hasToken from "../../services/authService";
 
 const Register = (props) => {
-  const [state, setState] = useState({ email: '', password: '' })
+  // const [state, setState] = useState({ email: '', password: '' })
+  const [state, setState] = useState({ email: '', password: '', confirmPassword: '' })
 
   const changeCred = (event) => {
     setState({ ...state, [event.target.name]: event.target.value })
   }
-  // 비밀번호 확인 로직 집어넣기 ...
+
   const doRegister = (event) => {
     event.preventDefault();
     props.dispatch(registerUser({
@@ -65,6 +57,7 @@ const Register = (props) => {
               </div>
               <form onSubmit={(event => doRegister(event))}>
                 <FormGroup className="my-3">
+                  {/* 이메일 입력 */}
                   <FormText>Email</FormText>
                   <Input
                     id="email"
@@ -77,10 +70,10 @@ const Register = (props) => {
                     placeholder="이메일을 입력해주세요"
                   />
                 </FormGroup>
+                {/* 비밀번호 입력 */}
                 <FormGroup className="my-3">
                   <div className="d-flex justify-content-between">
                     <FormText>Password</FormText>
-                    {/* <Link to="/error">Forgot password?</Link> */}
                   </div>
                   <Input
                     id="password"
@@ -90,22 +83,22 @@ const Register = (props) => {
                     type="password"
                     required
                     name="password"
-                    placeholder="비밀번호를 입력해주세요"
+                    placeholder="비밀번호는 4자 이상이어야 합니다."
                   />
                 </FormGroup>
                 <FormGroup className="my-3">
                   <div className="d-flex justify-content-between">
-                    <FormText>Password check</FormText>
+                    <FormText>Confirm password</FormText>
                     {/* <Link to="/error">Forgot password?</Link> */}
                   </div>
                   <Input
-                    id="password"
+                    id="confirmPassword"
                     className="input-transparent pl-3"
-                    value={state.password}
+                    value={state.confirmPassword}
                     onChange={(event => changeCred(event))}
                     type="password"
                     required
-                    name="password"
+                    name="confirmPassword"
                     placeholder="비밀번호를 한번 더 입력해주세요"
                   />
                 </FormGroup>
@@ -113,8 +106,14 @@ const Register = (props) => {
                   <Button className="rounded-pill my-3" type="submit" color="secondary-red">회원가입</Button>
                 </div>
                 <p className="dividing-line my-3">&#8195;Or&#8195;</p>
-                <Link to="/login">계정이 있으신가요?</Link>
               </form>
+
+              <div className="bg-widget d-flex justify-content-center">
+                <Link  to="/login">
+                계정이 있으신가요?
+                </Link>
+
+                </div>
             </Widget>
           </Col>
           <Col xs={0} lg={6} className="right-column">

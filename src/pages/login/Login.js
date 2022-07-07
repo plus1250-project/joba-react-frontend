@@ -94,26 +94,11 @@ const Login = (props) => {
                 </div>
                 <p className="dividing-line my-3">&#8195;Or&#8195;</p>
                 <div className="bg-widget d-flex justify-content-center">
-                {/* <Link  to="/register">
-                  <Button className="rounded-pill my-3" type="button"
-                    color="secondary-red">회원가입</Button>
-                </Link> */}
                 <Link  to="/register">
                 계정이 없으신가요? 여기서 회원가입하세요.
                 </Link>
 
                 </div>
-
-                {/* <div className="d-flex align-items-center my-3">
-                  <p className="social-label mb-0">Login with</p>
-                  <div className="socials">
-                    <a href="https://flatlogic.com/"><GoogleIcon /></a>
-                    <a href="https://flatlogic.com/"><TwitterIcon /></a>
-                    <a href="https://flatlogic.com/"><FacebookIcon /></a>
-                    <a href="https://flatlogic.com/"><GithubIcon /></a>
-                    <a href="https://flatlogic.com/"><LinkedinIcon /></a>
-                  </div>
-                </div> */}
               </form>
             </Widget>
           </Col>

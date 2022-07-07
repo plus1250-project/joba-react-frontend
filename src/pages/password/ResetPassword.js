@@ -13,7 +13,8 @@ import {
 } from "reactstrap";
 import Widget from "../../components/Widget/Widget";
 import Footer from "../../components/Footer/Footer";
-import { loginUser } from "../../actions/auth";
+
+import { resetPasswordUser } from "../../actions/resetPassword.js";
 import hasToken from "../../services/authService";
 
 import loginImage from "../../assets/loginImage.svg";
@@ -22,6 +23,28 @@ import SofiaLogo from "../../components/Icons/SofiaLogo.js";
 
 const ResetPassword = (props) => {
 
+    const [state, setState] = useState({ password: '', confirmPassword: '' })
+
+    const changeCred = (event) => {
+        setState({ ...state, [event.target.name]: event.target.value })
+    }
+
+    const doResetPassword = (event) => {
+        event.preventDefault();
+        props.dispatch(resetPasswordUser({
+            creds: state,
+            history: props.history,
+        }))
+    }
+
+    const { from } = props.location.state || { from: { pathname: '/template' } }
+
+// 로그인 못하면 못들어옴
+    if (!hasToken(JSON.parse(localStorage.getItem('authenticated')))) {
+        return (
+            <Redirect to={from} />
+        );
+    }
 
 
     return (
@@ -41,47 +64,41 @@ const ResetPassword = (props) => {
                                 <p>비밀번호 변경을 위해 새로운 비밀번호를 입력해주세요. </p>
                             </div>
                             {/* <form onSubmit={(event) => doLogin(event)}> */}
-                            <form onSubmit={(event) => (event)}>
+                            <form onSubmit={(event) => doResetPassword(event)}>
                                 <FormGroup className="my-3">
                                     <FormText>password</FormText>
                                     <Input
                                         id="password"
                                         className="input-transparent pl-3"
-                                        // value={state.email}
-                                        // onChange={(event) => changeCreds(event)}
-                                        onChange={(event) => (event)}
+                                        value={state.password}
+                                        onChange={(event) => changeCred(event)}
                                         type="password"
                                         required
                                         name="password"
-                                        placeholder="new password"
+                                        placeholder="비밀번호는 4자 이상이어야 합니다."
                                     />
                                 </FormGroup>
                                 <FormGroup className="my-3">
                                     <FormText>confirm password</FormText>
                                     <Input
-                                        id="email"
+                                        id="confirmPassword"
                                         className="input-transparent pl-3"
-                                        // value={state.email}
-                                        // onChange={(event) => changeCreds(event)}
-                                        onChange={(event) => (event)}
+                                        value={state.confirmPassword}
+                                        onChange={(event) => changeCred(event)}
                                         type="password"
                                         required
-                                        name="email"
-                                        placeholder="new passsword"
+                                        name="confirmPassword"
+                                        placeholder="비밀번호를 한 번 더 입력해주세요."
                                     />
                                 </FormGroup>
                                 <div className="bg-widget d-flex justify-content-center">
                                     <Button className="rounded-pill my-3" type="submit" color="secondary-red">확인</Button>
                                 </div>
-                                {/* <p className="dividing-line my-3">&#8195;Or&#8195;</p> */}
+                                <p className="dividing-line my-3">&#8195;Or&#8195;</p>
                                 <div className="bg-widget d-flex justify-content-center">
-                                    {/* <Link  to="/register">
-                  <Button className="rounded-pill my-3" type="button"
-                    color="secondary-red">회원가입</Button>
-                </Link> */}
-                                    {/* <Link  to="/register">
-                계정이 없으신가요? 여기서 회원가입하세요.
-                </Link> */}
+                                    <Link to="/template">
+                                        이전 화면으로 돌아가기
+                                    </Link>
 
                                 </div>
                             </form>
@@ -100,9 +117,9 @@ const ResetPassword = (props) => {
 }
 
 
-// Login.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// }
+ResetPassword.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+}
 
 function mapStateToProps(state) {
     return {
