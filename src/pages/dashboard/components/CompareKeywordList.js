@@ -76,7 +76,7 @@ const CompareKeywordList = (props) => {
     // 지금 랭킹도 들어 있었으면 좋겠다. monthly Rank 처럼
 
   return (
-    <Widget className="border">
+    <Widget className="borderless">
         <div className={s.tableTitle}>
             <div className="headline-2">전월 대비 순위 변화</div>
             <Dropdown
@@ -105,20 +105,20 @@ const CompareKeywordList = (props) => {
             <Table className="table-striped table-borderless table-hover" responsive>
                 <thead>
                 <tr>
-                    <th>RANK</th>
+                    <th className="w-25"><span className="ml-4">RANK</span></th>
                     <th className="w-25">KEYWORD</th>
-                    <th>INCREMENT</th>
-                    <th>STATUS</th>
+                    <th className="w-25">INCREMENT</th>
+                    <th className="w-25">STATUS</th>
                 </tr>
                 </thead>
                 <tbody>
                 {cKeywords
                     .map(item => (
                     <tr key={uuidv4()}>
-                    <th>0</th>
+                    <th><span className="ml-5">-</span></th>
                     <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
                     <td>{item.increment}</td>
-                    <td>{item.fluctRank}</td>
+                    <td className="d-flex align-items-center">{item.fluctRank}</td>
                     <td><Badge color={item.color}>{item.status}</Badge></td>
                     </tr>
                 ))}

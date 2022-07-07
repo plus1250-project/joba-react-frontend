@@ -41,7 +41,7 @@ const Dashboard = (props) => {
     dispatch(changeIndustryName(props))
   }
   
-  // selector 를 이용해 reducer에 컴바인된 industry 가져오기 (reducers/index.js)
+  // selector 를 이용해 reducer에 컴바인된 industry 가져오기 (reducers/index.js) 함수 내의 변수과 동일해야 함 
   const { industryName } = useSelector(state => state.industry);
   
   console.log(industryName);
@@ -103,7 +103,7 @@ const Dashboard = (props) => {
               </Row>
               <Row className="pl-grid-row mt-4">
                 <Col>
-                  <TrendChart />
+                  <TrendChart industryName={props.industryName}/>
                 </Col>
               </Row>
             </Col>
