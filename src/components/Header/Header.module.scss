@@ -51,9 +51,11 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  height: 44px;
-  width: 44px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
+  border: 1px solid grey;
+  background-color: white;
 
   img {
     height: 100%
@@ -92,13 +94,37 @@
 
 .dropdownProfileItem {
   display: flex;
-  &:hover {
-    svg {
-      path {
-        fill: $default;
-        stroke: $default;
-      }
-    }
-  }
+  align-items: center;
+  justify-content: center;
+  
+  // text-align: center;
+  // &:hover {
+  //   svg {
+  //     path {
+  //       fill: $default;
+  //       stroke: $default;
+  //     }
+  //   }
+  // }
+}
+
+.emailname {
+  font-size: 15px;
+  font-weight: 200;
+  margin-bottom: 5px;
+}
+
+.password {
+  font-size: 15px;
+  font-weight: 200;
+  margin-bottom: 10px;
+}
+
+.emailAccount {
+  font-size: 18px;
+}
+
+.mypageLine {
+  margin-bottom:  0;
 }
 

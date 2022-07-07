@@ -25,12 +25,12 @@ import { registerUser } from "../../actions/register.js";
 import hasToken from "../../services/authService";
 
 const Register = (props) => {
-  const [state, setState] = useState({ email: '', password: ''} )
+  const [state, setState] = useState({ email: '', password: '' })
 
   const changeCred = (event) => {
     setState({ ...state, [event.target.name]: event.target.value })
   }
-
+  // 비밀번호 확인 로직 집어넣기 ...
   const doRegister = (event) => {
     event.preventDefault();
     props.dispatch(registerUser({
@@ -54,14 +54,14 @@ const Register = (props) => {
           <Col xs={12} lg={6} className="left-column">
             <Widget className="widget-auth widget-p-lg">
               <div className="d-flex align-items-center justify-content-between py-3">
-                <p className="auth-header mb-0">Sign Up</p>
+                <p className="auth-header mb-0">회원가입</p>
                 <div className="logo-block">
                   <SofiaLogo />
-                  <p className="mb-0">SOFIA</p>
+                  <p className="mb-0">JOBA</p>
                 </div>
               </div>
               <div className="auth-info my-2">
-                <p>This is a real app with Node.js backend - use <b>"admin@flatlogic.com / password"</b> to login!</p>
+                <p>서비스 이용을 위해 회원가입해주세요!</p>
               </div>
               <form onSubmit={(event => doRegister(event))}>
                 <FormGroup className="my-3">
@@ -74,13 +74,13 @@ const Register = (props) => {
                     type="email"
                     required
                     name="email"
-                    placeholder="Henry Monk"
+                    placeholder="이메일을 입력해주세요"
                   />
                 </FormGroup>
-                <FormGroup  className="my-3">
+                <FormGroup className="my-3">
                   <div className="d-flex justify-content-between">
                     <FormText>Password</FormText>
-                    <Link to="/error">Forgot password?</Link>
+                    {/* <Link to="/error">Forgot password?</Link> */}
                   </div>
                   <Input
                     id="password"
@@ -90,24 +90,30 @@ const Register = (props) => {
                     type="password"
                     required
                     name="password"
-                    placeholder="Place your password here"
+                    placeholder="비밀번호를 입력해주세요"
+                  />
+                </FormGroup>
+                <FormGroup className="my-3">
+                  <div className="d-flex justify-content-between">
+                    <FormText>Password check</FormText>
+                    {/* <Link to="/error">Forgot password?</Link> */}
+                  </div>
+                  <Input
+                    id="password"
+                    className="input-transparent pl-3"
+                    value={state.password}
+                    onChange={(event => changeCred(event))}
+                    type="password"
+                    required
+                    name="password"
+                    placeholder="비밀번호를 한번 더 입력해주세요"
                   />
                 </FormGroup>
                 <div className="bg-widget d-flex justify-content-center">
-                  <Button className="rounded-pill my-3" type="submit" color="secondary-red">Sign Up</Button>
+                  <Button className="rounded-pill my-3" type="submit" color="secondary-red">회원가입</Button>
                 </div>
                 <p className="dividing-line my-3">&#8195;Or&#8195;</p>
-                <div className="d-flex align-items-center my-3">
-                  <p className="social-label mb-0">Login with</p>
-                  <div className="socials">
-                    <a href="https://flatlogic.com/"><GoogleIcon /></a>
-                    <a href="https://flatlogic.com/"><TwitterIcon /></a>
-                    <a href="https://flatlogic.com/"><FacebookIcon /></a>
-                    <a href="https://flatlogic.com/"><GithubIcon /></a>
-                    <a href="https://flatlogic.com/"><LinkedinIcon /></a>
-                  </div>
-                </div>
-                <Link to="/login">Enter the account</Link>
+                <Link to="/login">계정이 있으신가요?</Link>
               </form>
             </Widget>
           </Col>
