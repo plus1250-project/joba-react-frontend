@@ -1,22 +1,12 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 import {
-  Navbar,
-  Nav,
-  NavItem,
-  NavLink,
-  InputGroupAddon,
-  InputGroup,
-  Input,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Form,
-  FormGroup,
+  Dropdown, DropdownMenu, DropdownToggle, Form,
+  FormGroup, Input, InputGroup, InputGroupAddon, Nav, Navbar, NavItem,
+  NavLink
 } from "reactstrap";
 
 import { logoutUser } from "../../actions/auth";
@@ -25,21 +15,11 @@ import MenuIcon from "../Icons/HeaderIcons/MenuIcon";
 import SearchBarIcon from "../Icons/HeaderIcons/SearchBarIcon";
 import SearchIcon from "../Icons/HeaderIcons/SearchIcon";
 
-import ProfileIcon from "../../assets/navbarMenus/pfofileIcons/ProfileIcon";
-import MessagesIcon from "../../assets/navbarMenus/pfofileIcons/MessagesIcon";
-import TasksIcon from "../../assets/navbarMenus/pfofileIcons/TasksIcon";
 
 import logoutIcon from "../../assets/navbarMenus/pfofileIcons/logoutOutlined.svg";
-import basketIcon from "../../assets/navbarMenus/basketIcon.svg";
-import calendarIcon from "../../assets/navbarMenus/calendarIcon.svg";
-import envelopeIcon from "../../assets/navbarMenus/envelopeIcon.svg";
-import mariaImage from "../../assets/navbarMenus/mariaImage.jpg";
-import notificationImage from "../../assets/navbarMenus/notificationImage.jpg";
-import userImg from "../../assets/user.svg";
 
-import s from "./Header.module.scss";
 import "animate.css";
-import { Height } from "@material-ui/icons";
+import s from "./Header.module.scss";
 
 const Header = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -99,19 +79,14 @@ const Header = (props) => {
             <SearchIcon />
           </NavLink>
         </NavItem>
-        <Dropdown isOpen={notificationsOpen} toggle={() => toggleNotifications()} nav id="basic-nav-dropdown" className="ml-3">
+        <Dropdown isOpen={notificationsOpen} toggle={() => toggleNotifications()} nav id="basic-nav-dropdown" className="ml-3 mr-3">
           <DropdownToggle nav caret className="navbar-dropdown-toggle">
-            {/* <span className={`${s.avatar} rounded-circle float-left mr-2`}> */}
-            {/* <img src={userImg} alt="User"/> */}
-            {/* <ProfileIcon /> */}
-            {/* </span> */}
-
-            {/* 나중에 props로 이메일 받아오기 */}
-            <span className="small d-none d-sm-block ml-1 mr-2 body-1">plus1250@email.com</span>
+            {/* 닉네임 받아오기 */}
+            <span className="small d-none d-sm-block ml-1 mr-2 body-1">nickname</span>
           </DropdownToggle>
           
           {/* 마이페이지 (드롭다운) */}
-          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "200px", height: "345px" }}>
+          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "345px", margin :"10px 100px 0  0"  }}>
             <div className={s.dropdownProfileItem}>
               <h6>My page</h6></div>
             <hr />
@@ -119,6 +94,7 @@ const Header = (props) => {
               <span className={s.emailname} >email</span>
             </NavItem>
             <NavItem>
+              {/* 이메일 받아오기 */}
               <span className={s.emailAccount}>plus1250@email.com</span>
             </NavItem>
             <hr />
@@ -127,7 +103,6 @@ const Header = (props) => {
             </NavItem>
             {/* 비밀번호 변경 버튼 */}
             <NavItem>
-              {/* <NavLink onClick={() => null} href="/resetpw"> */}
               <NavLink href="#/resetpw">
                 <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-1">비밀번호 변경</span></button>
               </NavLink>

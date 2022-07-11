@@ -39,14 +39,22 @@ export function logoutUser() {
   };
 }
 
+const pattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
+
 // 여기서 로그인 백엔드 요청 보내기
 // 더미로 확인하는 법....?
 export function loginUser(creds) {
   return (dispatch) => {
     dispatch(receiveLogin());
     // 여기에 요청 보내고 성공 실패 나누기 
-    if (creds.email.length > 0 && creds.password.length >= 4) {
+    if (creds.email.match(pattern)!=null && creds.password.length >= 4) {
+      
       localStorage.setItem('authenticated', true)
+
+
+    } else if (!(creds.email.match(pattern) != null) ) {
+      dispatch(loginError("이메일 형식이 올바르지 않습니다."));
+      toast("이메일 형식이 올바르지 않습니다.");
     } else {
       dispatch(loginError('비밀번호는 4자 이상입니다.'));
       toast("비밀번호는 4자 이상입니다.");

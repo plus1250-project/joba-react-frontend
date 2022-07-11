@@ -67,7 +67,7 @@ const Login = (props) => {
                     className="input-transparent pl-3"
                     value={state.email}
                     onChange={(event) => changeCreds(event)}
-                    type="email"
+                    // type="email"
                     required
                     name="email"
                     placeholder="Email"

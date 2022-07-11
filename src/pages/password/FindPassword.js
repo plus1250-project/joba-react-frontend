@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import Widget from "../../components/Widget/Widget";
 import Footer from "../../components/Footer/Footer";
-import { loginUser } from "../../actions/auth";
+import { findPasswordUser } from "../../actions/findPassword";
 import hasToken from "../../services/authService";
 
 import loginImage from "../../assets/loginImage.svg";
@@ -22,7 +22,29 @@ import SofiaLogo from "../../components/Icons/SofiaLogo.js";
 
 const FindPassword = (props) => {
 
-  
+  const [state, setState] = useState({ email: '' })
+
+  const changeCred = (event) => {
+    setState({ ...state, [event.target.name]: event.target.value })
+  }
+  const doFindPassword = (event) => {
+    event.preventDefault();
+    props.dispatch(findPasswordUser({
+      creds: state,
+      history: props.history,
+    }))
+  }
+  const { from } = props.location.state || { from: { pathname: '/template' } }
+
+
+  if (hasToken(JSON.parse(localStorage.getItem('authenticated')))) {
+    return (
+      <Redirect to={from} />
+    );
+  }
+
+
+
 
   return (
     <div className="auth-page">
@@ -41,35 +63,29 @@ const FindPassword = (props) => {
                 <p>비밀번호 변경을 위해 인증번호를 <b>가입하셨던 이메일</b>로 보내드립니다! </p>
                 <p>가입 시 입력했던 이메일을 입력해주세요.</p>
               </div>
-              {/* <form onSubmit={(event) => doLogin(event)}> */}
-              <form onSubmit={(event) => (event)}>
+              <form onSubmit={(event) => doFindPassword(event)}>
                 <FormGroup className="my-3">
                   <FormText>Email</FormText>
                   <Input
                     id="email"
                     className="input-transparent pl-3"
                     // value={state.email}
-                    // onChange={(event) => changeCreds(event)}
-                    onChange={(event) => (event)}
-                    type="email"
+                    onChange={(event) => changeCred(event)}
+                    // type="email"
                     required
                     name="email"
                     placeholder="Email"
                   />
                 </FormGroup>
-        
+
                 <div className="bg-widget d-flex justify-content-center">
                   <Button className="rounded-pill my-3" type="submit" color="secondary-red">전송</Button>
                 </div>
                 <p className="dividing-line my-3">&#8195;Or&#8195;</p>
                 <div className="bg-widget d-flex justify-content-center">
-                {/* <Link  to="/register">
-                  <Button className="rounded-pill my-3" type="button"
-                    color="secondary-red">회원가입</Button>
-                </Link> */}
-                <Link  to="/register">
-                계정이 없으신가요? 여기서 회원가입하세요.
-                </Link>
+                  <Link to="/register">
+                    계정이 없으신가요? 여기서 회원가입하세요.
+                  </Link>
                 </div>
               </form>
             </Widget>
@@ -87,9 +103,9 @@ const FindPassword = (props) => {
 }
 
 
-// Login.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// }
+FindPassword.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+}
 
 function mapStateToProps(state) {
   return {
