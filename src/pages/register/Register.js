@@ -16,12 +16,17 @@ import SofiaLogo from "../../components/Icons/SofiaLogo.js";
 import hasToken from "../../services/authService";
 
 const Register = (props) => {
-  // const [state, setState] = useState({ email: '', password: '' })
-  const [state, setState] = useState({ email: '', password: '', confirmPassword: '' })
+
+  const [state, setState] = useState({ email: '' , nickname:'', password: '', confirmPassword: '' })
 
   const changeCred = (event) => {
     setState({ ...state, [event.target.name]: event.target.value })
   }
+
+  const emailChangeCred = (event) => {
+    console.log(event.target.value);
+  }
+
 
   const doRegister = (event) => {
     event.preventDefault();
@@ -64,12 +69,26 @@ const Register = (props) => {
                     className="input-transparent pl-3"
                     value={state.email}
                     onChange={(event) => changeCred(event)}
-                    type="email"
+                    onFocusout = {(event)=>emailChangeCred(event) }
                     required
                     name="email"
                     placeholder="이메일을 입력해주세요"
                   />
                 </FormGroup>
+                <FormGroup className="my-3">
+                  {/* 닉네임 입력 */}
+                  <FormText>Nickname</FormText>
+                  <Input
+                    id="nickname"
+                    className="input-transparent pl-3"
+                    value={state.nickname}
+                    onChange={(event) => changeCred(event)}
+                    required
+                    name="nickname"
+                    placeholder="닉네임을 입력해주세요"
+                  />
+                </FormGroup>
+                
                 {/* 비밀번호 입력 */}
                 <FormGroup className="my-3">
                   <div className="d-flex justify-content-between">
