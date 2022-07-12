@@ -27,33 +27,35 @@ const Breadcrumbs = (props) => {
     const length = route.length
 
     return route.map((item, index) => {
-      let middlewareUrl = "/" + url.split("/").slice(1, index + 2).join("/");
+      // let middlewareUrl = "/" + url.split("/").slice(1, index + 2).join("/");
 
       return (
-        <BreadcrumbItem key={uuidv4()}>
-          {length === index + 1
-            ? item
-            : <Link to={middlewareUrl}>
-              {item}
-            </Link>
-          }
-        </BreadcrumbItem>
+        <div></div>
+        // <BreadcrumbItem key={uuidv4()}>
+        //   {length === index + 1
+        //     ? item
+        //     : <Link to={middlewareUrl}>
+        //       {item}
+        //     </Link>
+        //   }
+        // </BreadcrumbItem>
       )
     })
   }
 
-  let routeArr = props.url.split('/');
-  let title = routeArr[routeArr.length - 1];
-  let breadcrumbTitle = title[0].toUpperCase() + title.slice(1)
+  // let routeArr = props.url.split('/');
+  // let title = routeArr[routeArr.length - 1];
+  // let breadcrumbTitle = title[0].toUpperCase() + title.slice(1)
+  
 
   return (
     <div className={s.breadcrumbs}>
-      <div className="headline-2">{breadcrumbTitle}</div>
-      {breadcrumbTitle !== "Dashboard" &&
+      <div className="headline-2">{props.industryName}</div>
+      {/* {breadcrumbTitle !== "Dashboard" &&
       <Breadcrumb tag="nav" listTag="div">
         {renderBreadcrumbs()}
       </Breadcrumb>
-      }
+      } */}
     </div>
   )
 };

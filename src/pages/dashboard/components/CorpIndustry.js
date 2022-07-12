@@ -14,8 +14,8 @@ const CorpIndustry = (props) => {
 
   
 
-  const industryName = useSelector(state => state.industryName)
-  console.log(industryName);
+  // const industryName = useSelector(state => state.industry)
+  // console.log(industryName);
 
   
 

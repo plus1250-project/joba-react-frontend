@@ -47,7 +47,7 @@ const Sidebar = (props) => {
         <span className={s.title}>JOBA Trend</span>
       </header>
       <ul className={s.nav}>
-        <LinksGroup
+        {/* <LinksGroup
           onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
           activeItem={props.activeItem}
           header="Dashboard"
@@ -56,7 +56,8 @@ const Sidebar = (props) => {
           link="/template/dashboard"
           index="dashboard"
           badge="9"
-        />
+        /> */}
+        <div>DASHBOARD</div>
         <h5 className={s.navTitle}>산업군</h5>
       
         {/* <Link to={{
@@ -92,25 +93,7 @@ const Sidebar = (props) => {
           link="/template/dashboard/economy"
           index="금융업"
         />
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
-          activeItem={props.activeItem}
-          header="Typography"
-          isHeader
-          iconName={<i className={'eva eva-text-outline'}/>}
-          link="/template/typography"
-          index="typography"
-        />
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
-          activeItem={props.activeItem}
-          header="Notifications"
-          industryName="교육업"
-          isHeader
-          iconName={<i className={'eva eva-bell-outline'}/>}
-          link="/template/notifications"
-          index="notifications"
-        />
+        
       </ul>
     </nav>
   );
