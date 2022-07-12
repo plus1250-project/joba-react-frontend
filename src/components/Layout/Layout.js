@@ -1,6 +1,6 @@
 // -- React and related libs
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { Switch, Route, withRouter, Redirect } from "react-router";
 
 // -- Third Party Libs
@@ -21,7 +21,7 @@ const Layout = (props) => {
 
   // modal
 const [listIsShown, setListIsShown] = useState(false);
-const [industryName, setIndustryName] = useState("");
+// const [industryName, setIndustryName] = useState("");
 
 const openListHandler = () => {
   setListIsShown(true);
@@ -34,6 +34,9 @@ const closeListHandler = () => {
 
   console.log(props.dispatch);
 
+  const { industryName } = useSelector(state => state.industry)
+  console.log(industryName);
+
   return (
     <div className={s.root}>
       {listIsShown && <CorpList onClose={closeListHandler} />}
@@ -41,7 +44,7 @@ const closeListHandler = () => {
         <Header />
         <Sidebar />
         <main className={s.content}>
-          <Breadcrumbs url={props.location.pathname} />
+          <Breadcrumbs industryName={industryName} />
           {/* <Breadcrumbs url={props.industryName} />? */}
           <Switch>
             {/* <Route path="/template" exact render={() => <Redirect to="template/dashboard"/>} /> */}
