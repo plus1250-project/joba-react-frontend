@@ -10,6 +10,10 @@ import {
 import Footer from "../../components/Footer/Footer.js";
 import Widget from "../../components/Widget/Widget.js";
 
+
+import { confirmEmail } from "../../actions/register.js";
+import { checkNickname } from "../../actions/register.js";
+import { checkPassword } from "../../actions/register.js";
 import { registerUser } from "../../actions/register.js";
 import loginImage from "../../assets/registerImage.svg";
 import SofiaLogo from "../../components/Icons/SofiaLogo.js";
@@ -23,10 +27,6 @@ const Register = (props) => {
     setState({ ...state, [event.target.name]: event.target.value })
   }
 
-  const emailChangeCred = (event) => {
-    console.log(event.target.value);
-  }
-
 
   const doRegister = (event) => {
     event.preventDefault();
@@ -35,6 +35,12 @@ const Register = (props) => {
       history: props.history,
     }))
   }
+
+  // function confirmEmail(event) {
+  //   console.log('실행됨?');
+  //   return () => {
+  //   }
+  // }
 
   const { from } = props.location.state || { from: { pathname: '/template' } }
 
@@ -69,7 +75,7 @@ const Register = (props) => {
                     className="input-transparent pl-3"
                     value={state.email}
                     onChange={(event) => changeCred(event)}
-                    onFocusout = {(event)=>emailChangeCred(event) }
+                    onBlur={(event) => confirmEmail(event)}
                     required
                     name="email"
                     placeholder="이메일을 입력해주세요"
@@ -83,6 +89,7 @@ const Register = (props) => {
                     className="input-transparent pl-3"
                     value={state.nickname}
                     onChange={(event) => changeCred(event)}
+                    onBlur={(event) => checkNickname(event)}
                     required
                     name="nickname"
                     placeholder="닉네임을 입력해주세요"
@@ -99,6 +106,7 @@ const Register = (props) => {
                     className="input-transparent pl-3"
                     value={state.password}
                     onChange={(event => changeCred(event))}
+                    onBlur={(event) => checkPassword(event)}
                     type="password"
                     required
                     name="password"
@@ -108,13 +116,13 @@ const Register = (props) => {
                 <FormGroup className="my-3">
                   <div className="d-flex justify-content-between">
                     <FormText>Confirm password</FormText>
-                    {/* <Link to="/error">Forgot password?</Link> */}
                   </div>
                   <Input
                     id="confirmPassword"
                     className="input-transparent pl-3"
                     value={state.confirmPassword}
                     onChange={(event => changeCred(event))}
+                    // onBlur={(event) => checkConfirmPassword(event)}
                     type="password"
                     required
                     name="confirmPassword"
