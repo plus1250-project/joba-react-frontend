@@ -13,6 +13,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import ResetPassword from "./pages/password/ResetPassword";
 import FindPassword from "./pages/password/FindPassword";
+import resetNickname from "./pages/nickname/ResetNickname";
 
 
 // -- Redux Actions
@@ -57,6 +58,7 @@ const App = (props) => {
           <Route path="/findpw" exact component={FindPassword} />
           {/* privateroute */}
           <Route path="/resetpw" exact component={ResetPassword} />
+          <Route path="/resetnickname" exact component={resetNickname} />
           <Route component={ErrorPage} />
           <Route path='*' exact={true} render={() => <Redirect to="/error" />} />
         </Switch>
