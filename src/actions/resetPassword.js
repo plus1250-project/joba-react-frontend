@@ -26,7 +26,7 @@ export function resetPasswordUser(payload) {
         if (payload.creds.password.length >= 4 && payload.creds.password == payload.creds.confirmPassword) {
             axios({
                 method: "post",
-                url: BASEURL + "resetemail",
+                url: BASEURL + "resetpw",
                 data: {
                     // 토큰에서 저장된 이메일 불러와서 추가해야함 
                     email: null,  
