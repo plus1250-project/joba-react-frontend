@@ -49,14 +49,14 @@ export function confirmEmail(payload) {
             autoClose: 5000,
           });
           console.log("중복이메일");
-          confirmEmailBoolean = false
+          confirmEmailBoolean = true
         }
       })
       .catch((error) => {
         console.log(error);
         toast("이메일 중복 확인에 실패했습니다. 다시 시도해 주세요.");
         console.log("이메일 중복확인 axios 에러");
-        confirmEmailBoolean = false
+        confirmEmailBoolean = true
       })
   };
   return confirmEmailBoolean
@@ -112,11 +112,11 @@ export function registerUser(payload) {
 
           email: payload.creds.email,
           password: payload.creds.password,
-          nickname: payload.creds.nickname,
+          nickName: payload.creds.nickname,
         },
       })
         .then((res) => {
-          if (null) {
+          if (res.data === "signup") {
             window.alert(res.data.result);
           
             toast("가입이 정상적으로 완료되었습니다.");
