@@ -87,7 +87,7 @@ export default function ApexLineColumnChart(props) {
 
   // store 
   const { bubbleName } = useSelector(state => state.bubble);
-  const [ trendList, setTrendList ] = useState([]);
+  let [ trendList, setTrendList ] = useState([]);
   console.log("-------------Chart : ", bubbleName);
 
   const chartData = [];
@@ -134,12 +134,38 @@ export default function ApexLineColumnChart(props) {
 const num = [];
 console.log(trendList);
 
-// const onChange = () => {
-//   for(const i in trendList) {
-//     num[i] = trendList[i].keywordCnt;
-//   }
-//   series[0].data = num;
-// }
+const onChangeChart = (bubbleName) => {
+  series[0] = [{
+    name: 'Website Blog',
+    type: 'column',
+    data: [
+      trendList[0].keywordCnt,
+      trendList[1].keywordCnt,
+      trendList[2].keywordCnt,
+      trendList[3].keywordCnt,
+      trendList[4].keywordCnt,
+      trendList[5].keywordCnt,
+      trendList[6].keywordCnt,
+      trendList[7].keywordCnt,
+      trendList[8].keywordCnt,
+  ]}]
+  
+  series[1] = [{
+    name: 'Social Media',
+    type: 'line',
+    data: [
+      trendList[0].keywordCnt,
+      trendList[1].keywordCnt,
+      trendList[2].keywordCnt,
+      trendList[3].keywordCnt,
+      trendList[4].keywordCnt,
+      trendList[5].keywordCnt,
+      trendList[6].keywordCnt,
+      trendList[7].keywordCnt,
+      trendList[8].keywordCnt,
+  ]}]
+}
+
 // 받아 온 월별 키워드 정리
 // for (const key in trendList) {
 //   chartData.push({
@@ -166,6 +192,21 @@ console.log(series[0]);
 // series[0] = [{
 //   name: 'Website Blog',
 //   type: 'column',
+//   data: [
+//     chartData[0].keywordCnt,
+//     chartData[1].keywordCnt,
+//     chartData[2].keywordCnt,
+//     chartData[3].keywordCnt,
+//     chartData[4].keywordCnt,
+//     chartData[5].keywordCnt,
+//     chartData[6].keywordCnt,
+//     chartData[7].keywordCnt,
+//     chartData[8].keywordCnt,
+// ]}]
+
+// series[1] = [{
+//   name: 'Social Media',
+//   type: 'line',
 //   data: [
 //     chartData[0].keywordCnt,
 //     chartData[1].keywordCnt,
