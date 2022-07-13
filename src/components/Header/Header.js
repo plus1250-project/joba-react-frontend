@@ -86,7 +86,9 @@ const Header = (props) => {
           </DropdownToggle>
 
           {/* 마이페이지 (드롭다운) */}
-          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "345px", margin: "10px 100px 0  0" }}>
+
+          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "flex", margin :"10px 100px 0  0"  }}>
+
             <div className={s.dropdownProfileItem}>
               <h6>My page</h6></div>
             <hr />
@@ -98,16 +100,27 @@ const Header = (props) => {
               <span className={s.emailAccount}>plus1250@email.com</span>
             </NavItem>
             <hr />
+             {/* 닉네임 변경*/}
+             <NavItem>
+              <span className={s.password} >nickname</span>
+            </NavItem>
+             <NavItem>
+              <NavLink href="#/resetnickname">
+                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-1">닉네임 변경</span></button>
+              </NavLink>
+            </NavItem>
+            <hr />
+            {/* 비밀번호 변경  */}
             <NavItem>
               <span className={s.password} >password</span>
             </NavItem>
-            {/* 비밀번호 변경 버튼 */}
             <NavItem>
               <NavLink href="#/resetpw">
                 <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-1">비밀번호 변경</span></button>
               </NavLink>
             </NavItem>
             <hr />
+           
             {/* 로그아웃 버튼 */}
             <NavItem>
               <NavLink onClick={() => doLogout()} href="#">
