@@ -58,7 +58,7 @@ const Header = (props) => {
           <MenuIcon className={s.menuIcon} />
         </NavLink>
       </div>
-      <Form className="d-none d-sm-block" inline>
+      {/* <Form className="d-none d-sm-block" inline>
         <FormGroup>
           <InputGroup className='input-group-no-border'>
             <Input id="search-input" placeholder="Search Dashboard" className='focus' />
@@ -69,7 +69,7 @@ const Header = (props) => {
             </InputGroupAddon>
           </InputGroup>
         </FormGroup>
-      </Form>
+      </Form> */}
       <Nav className="ml-auto">
         <NavItem className="d-sm-none mr-4">
           <NavLink
@@ -84,9 +84,11 @@ const Header = (props) => {
             {/* 닉네임 받아오기 */}
             <span className="small d-none d-sm-block ml-1 mr-2 body-1">nickname</span>
           </DropdownToggle>
-          
+
           {/* 마이페이지 (드롭다운) */}
+
           <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "flex", margin :"10px 100px 0  0"  }}>
+
             <div className={s.dropdownProfileItem}>
               <h6>My page</h6></div>
             <hr />
