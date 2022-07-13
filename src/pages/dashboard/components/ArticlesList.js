@@ -85,17 +85,22 @@ const ArticlesList = (props) => {
     // }
 
   return (
+
+    //  아마도 한번에 볼 수 있는 기사 수를 늘리면 해결될 것 같음 
     
     <Widget>
       <div className={s.tableTitle}>
         <div className="headline-2">관련 기사</div>
       </div>
-      <div className={s.articleBlock}>
+      <div   className={s.articleBlock}>
         <InfiniteScroll
             dataLength={articlesList.length}
             next={() => {fetchData(setArticlesList, articlesList);}}
+            // 백엔드에서 몇개 할지 정하고 수정 
             hasMore={true}
+            height={700}
             loader={<h4>Loading...</h4>}
+            // scrollableTarget = "scrollableDiv"
             endMessage={
               <p style={{ textAlign: 'center' }}>
                 <b>Yay! You have seen it all</b>
@@ -112,6 +117,7 @@ const ArticlesList = (props) => {
               <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
             }
           >
+            {/* 기사 리스트 */}
           <ul>
             {articlesList.map((article) => (
               <li

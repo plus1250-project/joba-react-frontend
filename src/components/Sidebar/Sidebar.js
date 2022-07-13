@@ -57,8 +57,8 @@ const Sidebar = (props) => {
           index="dashboard"
           badge="9"
         /> */}
-        <div>DASHBOARD</div>
-        <h5 className={s.navTitle}>산업군</h5>
+        {/* <div>DASHBOARD</div> */}
+        <h3 className={s.navTitle}>산업군</h3>
       
         {/* <Link to={{
           pathname: "/templete/dashboard",
