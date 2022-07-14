@@ -7,15 +7,7 @@ import { useSelector } from "react-redux";
 import Widget from "../../../components/Widget/Widget";
 import ApexLineColumnChart from "../../uielements/charts/components/ApexLineColumnChart"
 
-// const series = [{
-//   name: 'Website Blog',
-//   type: 'column',
-//   data: [440, 505, 384, 671, 327, 413, 201, 352, 622]
-// }, {
-//   name: 'Social Media',
-//   type: 'line',
-//   data: [50, 42, 35, 27, 39, 22, 17, 31, 26]
-// }];
+
 
 const chartSettings = {
   colors: ["#F7F8FB", "#FF5668"],
@@ -94,7 +86,7 @@ const TrendChart = (props) => {
   // const trendList = props.trendList;
   // console.log("trednChart bubbleName: ", props.bubbleName);
 
-  // let [ trendList, setTrendList ] = useState([]);
+  let [ trendList, setTrendList ] = useState([]);
   // const { bubbleName } = useSelector(state => state.bubble);
   // console.log("-------------Chart : ", bubbleName);
 
@@ -111,28 +103,36 @@ const TrendChart = (props) => {
    // console.log("Chart month : ", month);
    let labels = [(month-1) + '월' + month + '월'];
 
+   const series = [{
+    name: 'Website Blog',
+    type: 'column',
+    data: [440, 505, 384, 671, 327, 413, 201, 352, 622]
+  }, {
+    name: 'Social Media',
+    type: 'line',
+    data: [50, 42, 35, 27, 39, 22, 17, 31, 26]
+  }];
 
-  // useEffect(() => {
-  //   axios
-  //   .get(BASEURL+"month-keyword/" + props.bubbleName + "/" + props.industryName + "/" + regMonth)
-  //   .then(response => {
-  //     console.log(response.data);
-  //     setTrendList(response.data);
-  //   })
-  // }, [props.bubbleName]);
+
+  useEffect(() => {
+    axios
+    .get(BASEURL+"month-keyword/" + props.bubbleName + "/" + props.industryName + "/" + regMonth)
+    .then(response => {
+      console.log(response.data);
+      setTrendList(response.data);
+    })
+  }, [props.bubbleName]);
 
   const keyCnt = [];
 
-//   for (const key in props.trendList) {
-//     ranks.push({
-//         id: key,
-//         keyword: ranksList[key].keyword,
-//         regMonth: ranksList[key].regMonth,
-//         industryName: ranksList[key].industryName,
-//         keywordCnt: ranksList[key].keywordCnt,
-//         monthRank: ranksList[key].monthRank,
-//     })
-// }
+  for (const key in props.trendList) {
+    keyCnt.push({
+        id: key,
+
+        keywordCnt: props.trendList[key].keywordCnt,
+  
+    })
+}
 // console.log(trendList[0].keywordCnt);
 
 // 
@@ -148,28 +148,28 @@ const TrendChart = (props) => {
   // }, [bName])
   
     
-  
+  let aa = []
   // console.log(series);
     
   // series[0].data = props.trendList.keywordCnt;
-  console.log(props.trendList);
+  console.log(keyCnt[0]);
 
+  for (let i in keyCnt) {
 
-
-    // series[1] = [{
+  keyCnt.map(item => {
+    aa[i] = item.keywordCnt;
+  })
+  }
+  console.log(aa);
+  console.log(series[1]);
+  
+  series.map(item => {
+    item.data = aa;
+  })
+    // series[0] = [{
     //   name: 'Social Media',
     //   type: 'line',
-    //   data: [
-    //     trendList[0].keywordCnt,
-    //     trendList[1].keywordCnt,
-    //     trendList[2].keywordCnt,
-    //     trendList[3].keywordCnt,
-    //     trendList[4].keywordCnt,
-    //     trendList[5].keywordCnt,
-    //     trendList[6].keywordCnt,
-    //     trendList[7].keywordCnt,
-    //     trendList[8].keywordCnt,
-    // ]}]
+    //   data: aa}]
   
 
   return (
@@ -179,7 +179,7 @@ const TrendChart = (props) => {
         <ApexLineColumnChart 
           industryName={props.industryName} 
           chartSettings={chartSettings} 
-          series={props.series}
+          series={series}
           trendList={props.trendList}
           // bName={bName}
           />

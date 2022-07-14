@@ -37,8 +37,10 @@ import FooterRankList from "./components/FooterRankList.js";
 
 let keywordCnt = []; 
 
+// const series = [];
 const Dashboard = (props) => {
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
+  let [ trendList, setTrendList ] = useState();
 
   // dispatch 를 통해 action 실행 (changeIndustryName(industryName))
   const dispatch = useDispatch();
@@ -51,7 +53,6 @@ const Dashboard = (props) => {
 
   console.log(industryName);
 
-  let [ trendList, setTrendList ] = useState([]);
   // const { bubbleName } = useSelector(state => state.bubble);
   // console.log("-------------Chart : ", bubbleName);
 
@@ -69,18 +70,32 @@ const Dashboard = (props) => {
    let labels = [(month-1) + '월' + month + '월'];
 
   let bubbleName = "global";
-  const series = [];
+  
+  let data = [];
 
   let onChangeChart = ((props) => {
     console.log("클릭 : ", props);
     bubbleName = props;
     
-    axios.get(BASEURL+"month-keyword/" + props + "/" + industryName + "/" + regMonth)
+    axios.get(BASEURL+"month-keyword/" + bubbleName + "/" + industryName + "/" + regMonth)
     .then(response => {
       console.log(response.data);
       setTrendList(response.data);
     })
+
     
+
+//   for (const key in trendList) {
+//     data.push({
+//         id: key,
+//         keyword: trendList[key].keyword,
+//         keywordCnt: trendList[key].keywordCnt,
+        
+//     })
+// }
+
+// console.log(series);
+  // console.log(trendList);
   });
 
 
@@ -141,7 +156,7 @@ const Dashboard = (props) => {
               </Row>
               <Row className="pl-grid-row mt-4">
                 <Col>
-                  <TrendChart industryName={props.industryName} trendList={trendList} series={series}/>
+                  <TrendChart industryName={props.industryName} trendList={trendList} bubbleName={bubbleName}/>
                 </Col>
               </Row>
             </Col>
