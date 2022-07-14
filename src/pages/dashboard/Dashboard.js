@@ -9,6 +9,9 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Button,
+  ButtonToggle,
+  ButtonToolbar,
 } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { changeIndustryName } from "../../actions/industry.js";
@@ -29,6 +32,7 @@ import s from "../tables/Tables.module.scss"
 
 import heartTeal from "../../assets/dashboard/heartTeal.svg";
 import heartViolet from "../../assets/dashboard/heartViolet.svg";
+import FooterRankList from "./components/FooterRankList.js";
 
 
 let keywordCnt = []; 
@@ -41,10 +45,10 @@ const Dashboard = (props) => {
   const changeIndus = (props) => {
     dispatch(changeIndustryName(props))
   }
-  
+
   // selector 를 이용해 reducer에 컴바인된 industry 가져오기 (reducers/index.js) 함수 내의 변수과 동일해야 함 
   const { industryName } = useSelector(state => state.industry);
-  
+
   console.log(industryName);
 
   let [ trendList, setTrendList ] = useState([]);
@@ -76,26 +80,22 @@ const Dashboard = (props) => {
       console.log(response.data);
       setTrendList(response.data);
     })
-
     
   });
 
 
-
-
-
   return (
     <div>
-      
+
       <Row>
         <Col>
           {/* main header */}
           <Row className="mb-4">
             <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
-              <KeywordBlock industryName={props.industryName}/>
+              <KeywordBlock industryName={props.industryName} />
             </Col>
-            <Col className="mb-4 mb-xl-0 cursor:pointer" xs={6} sm={6} xl={3}  onClick={() => {changeIndus(props.industryName) }}>
-              <CorpIndustry onOpen={props.onOpen}/>
+            <Col className="mb-4 mb-xl-0 cursor:pointer" xs={6} sm={6} xl={3} onClick={() => { changeIndus(props.industryName) }}>
+              <CorpIndustry onOpen={props.onOpen} />
             </Col>
             <Col xs={6} sm={6} xl={3}>
               <Widget className="widget-p-sm">
@@ -147,18 +147,10 @@ const Dashboard = (props) => {
             </Col>
             {/* Articles List */}
             <Col xs={12} xl={4} className="pl-grid-col mt-4 mt-xl-0">
-              <ArticlesList industryName={props.industryName}/>
-            </Col>
-          </Row> 
-          {/* footer */}
-          <Row className="mb-4">
-            <Col xs={12} xl={6}>
-              <MonthlyRankList industryName={props.industryName}/>
-            </Col>
-            <Col xs={12} xl={6}>
-              <CompareKeywordList industryName={props.industryName}/>
+              <ArticlesList industryName={props.industryName} />
             </Col>
           </Row>
+          <FooterRankList industryName={props.industryName}/>
         </Col>
       </Row>
     </div>

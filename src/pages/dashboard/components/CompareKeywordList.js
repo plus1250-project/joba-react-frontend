@@ -46,17 +46,17 @@ const CompareKeywordList = (props) => {
 
     // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
     let date = new Date(); 
-    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
+    // let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
 
     // 월별 랭킹 키워드 요청
     useEffect(() => {
-        axios.get(BASEURL+"compare-keyword/" + props.industryName + "/" + regMonth)
+        axios.get(BASEURL+"compare-keyword/" + props.industryName + "/" + props.regMonth)
         .then(response => {
           console.log(response.data);
           setCKeywordList(response.data);
         })
-      }, [props.industryName]
+      }, [props.industryName, props.regMonth]
     );
 
     // 받아 온 월별 키워드 정리
@@ -79,7 +79,7 @@ const CompareKeywordList = (props) => {
     <Widget className="borderless">
         <div className={s.tableTitle}>
             <div className="headline-2">전월 대비 순위 변화</div>
-            <Dropdown
+            {/* <Dropdown
             className="d-none d-sm-block"
             nav
             isOpen={tableDropdownOpen}
@@ -99,7 +99,7 @@ const CompareKeywordList = (props) => {
                     <div>Delete</div>
                     </DropdownItem>
                 </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
         </div>
         <div className="widget-table-overflow">
             <Table className="table-striped table-borderless table-hover" responsive>

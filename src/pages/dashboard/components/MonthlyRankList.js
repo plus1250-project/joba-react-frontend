@@ -32,19 +32,19 @@ const MonthlyRankList = (props) => {
 
     const ranks = [];
 
-    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
+    // 현재 월에서 -1 로 요청 ex. 7월 일 경우 6월 데이터 요청
     let date = new Date(); 
-    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
+    // let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
 
     // 월별 랭킹 키워드 요청
     useEffect(() => {
-        axios.get(BASEURL+"month-rank-keyword/" + props.industryName + "/" + regMonth)
+        axios.get(BASEURL+"month-rank-keyword/" + props.industryName + "/" + props.regMonth)
         .then(response => {
           console.log(response.data);
           setRanksList(response.data);
         })
-      }, [props.industryName]
+      }, [props.industryName, props.regMonth]
     );
 
     // 받아 온 월별 키워드 정리
@@ -72,13 +72,13 @@ const MonthlyRankList = (props) => {
     <Widget>
     <div className={s.tableTitle}>
       <div className="headline-2">월별 순위 리스트</div>
-      <div className="d-flex">
+      {/* <div className="d-flex">
         <a href="/#"><img src={searchIcon} alt="Search"/></a>
         <a href="/#"><img className="d-none d-sm-block" src={cloudIcon} alt="Cloud" /></a>
         <a href="/#"><img src={printerIcon} alt="Printer" /></a>
         <a href="/#"><img className="d-none d-sm-block" src={optionsIcon} alt="Options" /></a>
         <a href="/#"><img src={funnelIcon} alt="Funnel" /></a>
-      </div>
+      </div> */}
     </div>
     <div className="widget-table-overflow">
       <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>

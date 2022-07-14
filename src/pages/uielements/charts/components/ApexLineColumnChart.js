@@ -12,6 +12,7 @@ export default function ApexLineColumnChart(props) {
   //   console.log("됨??");
   // }, [props.bubbleName])
   console.log("trendList 2: ", props.trendList);
+
   const chartData = [];
  
   const chart = props.chartSettings;
@@ -44,9 +45,6 @@ export default function ApexLineColumnChart(props) {
     }
   }
   // console.log(chartSettings.labels);
-
-  
-
 
 
 // 받아 온 월별 키워드 정리
