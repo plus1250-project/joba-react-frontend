@@ -10,6 +10,16 @@
   }
 }
 
+.monthTitle {
+  display: flex;
+  justify-content: center;
+  padding: 24px 24px;
+
+  img {
+    margin-left: 16px;
+  }
+}
+
 .transactionTitleBlock {
   display: flex;
   align-items: center;
@@ -62,3 +72,6 @@
   overflow : auto;
 }
 
+.monthlyButton {
+  margin-left: 50px;
+}
