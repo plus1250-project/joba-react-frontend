@@ -3,7 +3,7 @@ import {
 } from "../actions/industry.js";
   
 export default function changeIndustryName(state = {
-industryName: "test",
+industryName: "IT정보통신업",
     }, action) {
     switch (action.type) {
         case INDUSTRY_NAME:

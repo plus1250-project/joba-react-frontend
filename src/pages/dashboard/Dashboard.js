@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { changeIndustryName } from "../../actions/industry.js";
+import axios from 'axios';
 
 import KeywordBlock from "./components/KeywordBlock.js";
 import CorpIndustry from "./components/CorpIndustry.js";
@@ -34,7 +35,7 @@ import heartViolet from "../../assets/dashboard/heartViolet.svg";
 import FooterRankList from "./components/FooterRankList.js";
 
 
-
+let keywordCnt = []; 
 
 const Dashboard = (props) => {
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
@@ -50,6 +51,37 @@ const Dashboard = (props) => {
 
   console.log(industryName);
 
+  let [ trendList, setTrendList ] = useState([]);
+  // const { bubbleName } = useSelector(state => state.bubble);
+  // console.log("-------------Chart : ", bubbleName);
+
+  // 월별 트렌드 차트 데이터 요청
+  const BASEURL = 'http://localhost:3000/';
+
+   // 오늘 날짜를 보고 달을 찾아서 변수를 저장해야한다.
+   let date = new Date();
+   let month = date.getMonth() // month 지난 달 부터
+ 
+   // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
+   let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
+  
+   // console.log("Chart month : ", month);
+   let labels = [(month-1) + '월' + month + '월'];
+
+  let bubbleName = "global";
+  const series = [];
+
+  let onChangeChart = ((props) => {
+    console.log("클릭 : ", props);
+    bubbleName = props;
+    
+    axios.get(BASEURL+"month-keyword/" + props + "/" + industryName + "/" + regMonth)
+    .then(response => {
+      console.log(response.data);
+      setTrendList(response.data);
+    })
+    
+  });
 
 
   return (
@@ -81,7 +113,7 @@ const Dashboard = (props) => {
                 </div>
               </Widget>
             </Col>
-            <Col xs={6} sm={6} xl={3}>
+            {/* <Col xs={6} sm={6} xl={3}>
               <Widget className="widget-p-sm">
                 <div className={s.smallWidget}>
                   <div className="d-flex mb-4">
@@ -96,7 +128,7 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               </Widget>
-            </Col>
+            </Col> */}
           </Row>
           {/* middle */}
           <Row className="mb-4">
@@ -104,12 +136,12 @@ const Dashboard = (props) => {
             <Col xs={12} xl={8} className="pl-grid-col mt-4 mt-xl-0">
               <Row className="pl-grid-row">
                 <Col>
-                  <KeywordBubbleChart industryName={props.industryName} />
+                  <KeywordBubbleChart industryName={props.industryName} onChangeChart={onChangeChart} bubbleName={bubbleName}/>
                 </Col>
               </Row>
               <Row className="pl-grid-row mt-4">
                 <Col>
-                  <TrendChart industryName={props.industryName} />
+                  <TrendChart industryName={props.industryName} trendList={trendList} series={series}/>
                 </Col>
               </Row>
             </Col>
