@@ -94,7 +94,7 @@ const Statefulbubble = (props) => {
     console.log(response.data);
     setTrendKeyword(response.data);
     })
-}, [props.industryName]);
+  }, [props.industryName]);
 
 // 받아 온 월별 키워드 정리
 for (const key in trendKeyword) {
@@ -123,7 +123,7 @@ console.log(data1);
     <>
       {/* eslint-disable-next-line react/button-has-type */}
       {/* <button onClick={addToArray}>Click</button> */}
-      <Bubble data={data1} />
+      <Bubble data={data1} onChangeChart={props.onChangeChart}/>
     </>
   )
 }

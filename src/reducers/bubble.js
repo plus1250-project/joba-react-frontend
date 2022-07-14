@@ -3,7 +3,7 @@ import {
 } from "../actions/bubble.js";
   
 export default function changeBubble(state = {
-bubbleName: "test",
+bubbleName: "global",
     }, action) {
     switch (action.type) {
         case BUBBLE_NAME:

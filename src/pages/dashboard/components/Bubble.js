@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import am5themesAnimated from '@amcharts/amcharts5/themes/Animated'
 import * as am5hierarchy from '@amcharts/amcharts5/hierarchy'
 
-const Bubble = ({ data }) => {
+const Bubble = ({ data, onChangeChart}) => {
   // const [ bubbleName, setBubbleName] = useState("");
   console.log(data)
   const axisDataItemRef = useRef(null)
@@ -88,7 +88,7 @@ const Bubble = ({ data }) => {
           selectedDataItem = e.target.dataItem;
           selectedDataItem.get("outerCircle").setPrivate("visible", true);
           console.log(e.target.dataItem.dataContext.name);
-          
+          onChangeChart(e.target.dataItem.dataContext.name);
           //이미 연결되어 있으면 연결 해제
         }
       }
@@ -97,6 +97,7 @@ const Bubble = ({ data }) => {
         selectedDataItem = e.target.dataItem;
         selectedDataItem.get("outerCircle").setPrivate("visible", true)
         console.log(e.target.dataItem.dataContext.name);
+        onChangeChart(e.target.dataItem.dataContext.name);
         // setBubbleName(e.target.dataItem.dataContext.name);
       }
 
