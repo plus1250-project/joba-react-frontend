@@ -127,7 +127,14 @@ const Header = (props) => {
                 <button className="btn btn-primary mx-auto log-btn" type="submit" style={{}}><img src={logoutIcon} alt="Logout" /><span className="ml-1">로그아웃</span></button>
               </NavLink>
             </NavItem>
-
+            {/* 회원탈퇴 버튼 */}
+            <hr/>
+            <NavItem>
+              {/* 링크 넣기 */}
+              <NavLink href="#/deleteaccount">
+                계정 삭제
+              </NavLink>
+            </NavItem>
           </DropdownMenu>
         </Dropdown>
       </Nav>

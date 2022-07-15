@@ -18,12 +18,14 @@ export function resetPasswordError(payload) {
         payload,
     };
 }
-
+const pwPattern1 = /[0-9]/;	
+const pwPattern2 = /[a-zA-Z]/;
+const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 const BASEURL = 'http://localhost:3000/';
 
 export function resetPasswordUser(payload) {
     return (dispatch) => {
-        if (payload.creds.password.length >= 4 && payload.creds.password == payload.creds.confirmPassword) {
+        if (payload.target.value.match(pwPattern1) || payload.target.value.match(pwPattern2)  ||payload.target.value.match(pwPattern3) && payload.creds.password.length >= 4 && payload.creds.password == payload.creds.confirmPassword) {
             axios({
                 method: "post",
                 url: BASEURL + "resetpw",
@@ -51,7 +53,7 @@ export function resetPasswordUser(payload) {
                     console.log("비밀번호 수정 axios 에러");
                 })
 
-        } else if (payload.creds.password.length < 4) {
+        } else if (!payload.target.value.match(pwPattern1) && !payload.target.value.match(pwPattern2)  && !payload.target.value.match(pwPattern3)  || payload.target.value.length < 4) {
             dispatch(resetPasswordError("비밀번호는 4자리 이상이어야 합니다."));
             toast("비밀번호는 4자리 이상이어야 합니다.");
         } else {

@@ -42,6 +42,10 @@ export function logoutUser() {
 }
 
 const pattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
+const pwPattern1 = /[0-9]/;	
+const pwPattern2 = /[a-zA-Z]/;
+const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
+
 const BASEURL = 'http://localhost:3000/';
 
 // 여기서 로그인 백엔드 요청 보내기
@@ -51,15 +55,7 @@ export function loginUser(creds) {
   return (dispatch) => {
     dispatch(receiveLogin());
     // 여기에 요청 보내고 성공 실패 나누기 
-    if (creds.email.match(pattern)!=null && creds.password.length >= 4) {
-      // axios({
-      //   method: "post",
-      //   url: BASEURL + "login",
-      //   data: {
-      //     username: creds.email,
-      //     password: creds.password,
-      //   },
-      // })
+    if (creds.email.match(pattern)!=null && creds.password.length >= 4 && creds.password.match(pwPattern1) || creds.password.match(pwPattern2) || creds.password.match(pwPattern3)) {
       axios.post(BASEURL+"login", null, {params :{
             username: creds.email,
             password: creds.password,
@@ -84,14 +80,16 @@ export function loginUser(creds) {
       })
       .catch((error) => {
         console.log(error);
+        // 나중에 지워야됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!임시
+        localStorage.setItem('authenticated', true)
       });
 
     } else if (!(creds.email.match(pattern) != null) ) {
       dispatch(loginError("이메일 형식이 올바르지 않습니다."));
       toast("이메일 형식이 올바르지 않습니다.");
     } else {
-      dispatch(loginError('비밀번호는 4자 이상입니다.'));
-      toast("비밀번호는 4자 이상입니다.");
+      dispatch(loginError('비밀번호는 문자, 숫자만 허용하여 4자 이상입니다.'));
+      toast('비밀번호는 문자, 숫자만 허용하여 4자 이상입니다.');
     }
   }
 }
