@@ -21,6 +21,10 @@ export function registerError(payload) {
 
 const pattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
 const nicknamePattern = RegExp("^[가-힣ㄱ-ㅎa-zA-Z0-9._-]{2,}\$")
+const pwPattern1 = /[0-9]/;	
+const pwPattern2 = /[a-zA-Z]/;
+const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
+
 
 let confirmEmailBoolean = false;
 
@@ -77,9 +81,9 @@ export function checkNickname(payload) {
 
 let checkPasswordBoolean = false;
 export function checkPassword(payload){
-  if (payload.target.value.length < 4) {
-    registerError("비밀번호는 4자리 이상이어야 합니다.");
-    toast("비밀번호는 4자리 이상이어야 합니다.");
+  if ( !payload.target.value.match(pwPattern1) && !payload.target.value.match(pwPattern2)  && !payload.target.value.match(pwPattern3)  || payload.target.value.length < 4) {
+    registerError("비밀번호는 문자, 숫자, 특수문자만 허용하며 4자리 이상이어야 합니다.");
+    toast("비밀번호는 문자, 숫자, 특수문자만 허용하며 4자리 이상이어야 합니다.");
     checkPasswordBoolean = false;
   } else {
     checkPasswordBoolean = true;
@@ -106,7 +110,6 @@ export function registerUser(payload) {
       // 여기다 요청 보내면 됨 
       axios({
         method: "post",
-        // url 뭐임 
         url: BASEURL+ "signup",
         data: {
 
