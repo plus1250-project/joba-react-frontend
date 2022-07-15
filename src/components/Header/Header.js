@@ -130,7 +130,6 @@ const Header = (props) => {
             {/* 회원탈퇴 버튼 */}
             <hr/>
             <NavItem>
-              {/* 링크 넣기 */}
               <NavLink href="#/deleteaccount">
                 계정 삭제
               </NavLink>

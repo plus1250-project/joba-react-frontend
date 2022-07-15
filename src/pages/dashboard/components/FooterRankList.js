@@ -13,7 +13,7 @@ let yearNumber = date.getFullYear();
 const FooterRankList = (props) => {
 
   const [regMonth, setRegMonth] = useState(yearNumber + "-" + ("00" + (monthNumber)).slice(-2))
-  
+
 
 
   const onPlusMonth = () => {
@@ -47,32 +47,36 @@ const FooterRankList = (props) => {
   return (
     // {/* footer */}
     //       {/*MontlyRank , CompareKeyword */}
-          <Row className="pl-grid-col mb-4 align-items-center">
-            <Col>
-              <Row>
-                <div className={s.monthTitle}>
-                  <button
-                    onClick={() => onMinusMonth()}>
-                    ◀
-                  </button>
-                  <div className="headline-2">{monthNumber}월</div>
-                  <button
-                    onClick={() => onPlusMonth()}>
-                    ▶
-                  </button>
-                </div>
-              </Row>
-              <Row>
-                <Col xs={12} xl={6}>
-                  <MonthlyRankList industryName={props.industryName} regMonth={regMonth} />
-                </Col>
-                <Col xs={12} xl={6}>
-                  <CompareKeywordList industryName={props.industryName} regMonth={regMonth} />
-                </Col>
+    <Row className="pl-grid-col mb-4 align-items-center">
+      <Col>
+        <Row className="align-items-center justify-content-center">
+          <div className={s.monthTitle}>
+            <button
+              className="btn btn-primary mr-4"
+              onClick={() => onMinusMonth()}>
+              ◀
+            </button>
+            <div 
+            className="headline-2"
+            >{monthNumber}월</div>
+            <button
+              className="btn btn-primary ml-4 "
+              onClick={() => onPlusMonth()}>
+              ▶
+            </button>
+          </div>
+        </Row>
+        <Row>
+          <Col xs={12} xl={6}>
+            <MonthlyRankList industryName={props.industryName} regMonth={regMonth} />
+          </Col>
+          <Col xs={12} xl={6}>
+            <CompareKeywordList industryName={props.industryName} regMonth={regMonth} />
+          </Col>
 
-              </Row>
-            </Col>
-          </Row>   
+        </Row>
+      </Col >
+    </Row >
   )
 }
 
