@@ -25,6 +25,7 @@ import ArticlesList from "./components/ArticlesList.js";
 import MonthlyRankList from "./components/MonthlyRankList.js";
 import CompareKeywordList from "./components/CompareKeywordList";
 
+
 import Widget from "../../components/Widget/Widget.js";
 import mock from "../tables/mock.js"
 
@@ -33,6 +34,7 @@ import s from "../tables/Tables.module.scss"
 import heartTeal from "../../assets/dashboard/heartTeal.svg";
 import heartViolet from "../../assets/dashboard/heartViolet.svg";
 import FooterRankList from "./components/FooterRankList.js";
+import CorpGrowthIndustry from "./components/CorpGrowthIndustry.js";
 
 
 let keywordCnt = []; 
@@ -106,44 +108,17 @@ const Dashboard = (props) => {
         <Col>
           {/* main header */}
           <Row className="mb-4">
-            <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
+            {/* <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={4}> */}
+            <Col className="mb-4 mb-xl-0" >
               <KeywordBlock industryName={props.industryName} />
             </Col>
-            <Col className="mb-4 mb-xl-0 cursor:pointer" xs={6} sm={6} xl={3} onClick={() => { changeIndus(props.industryName) }}>
-              <CorpIndustry onOpen={props.onOpen} />
+            <Col xs={6} sm={6} xl={4}>
+              <CorpGrowthIndustry/>
             </Col>
-            <Col xs={6} sm={6} xl={3}>
-              <Widget className="widget-p-sm">
-                <div className={s.smallWidget}>
-                  <div className="d-flex mb-4">
-                    <img className="py-1 mr-2 img-fluid" src={heartTeal} alt="..." />
-                    <div className="d-flex flex-column">
-                      <p className="headline-3">Text</p>
-                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                    </div>
-                  </div>
-                  <div>
-                    <Progress color="secondary-cyan" className={`progress-xs ${s.mutedTeal}`} value="75" />
-                  </div>
-                </div>
-              </Widget>
-            </Col>
-            {/* <Col xs={6} sm={6} xl={3}>
-              <Widget className="widget-p-sm">
-                <div className={s.smallWidget}>
-                  <div className="d-flex mb-4">
-                    <img className="py-1 mr-2 img-fluid" src={heartViolet} alt="..." />
-                    <div className="d-flex flex-column">
-                      <p className="headline-3">Text</p>
-                      <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                    </div>
-                  </div>
-                  <div>
-                    <Progress color="violet" className={`progress-xs ${s.mutedViolet}`} value="75" />
-                  </div>
-                </div>
-              </Widget>
-            </Col> */}
+              <Col className="mb-4 mb-xl-0 cursor:pointer" onClick={() => { changeIndus(props.industryName) }}>
+                <CorpIndustry onOpen={props.onOpen} />
+                </Col>
+
           </Row>
           {/* middle */}
           <Row className="mb-4">

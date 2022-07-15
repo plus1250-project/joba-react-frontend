@@ -13,11 +13,10 @@
 .monthTitle {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 24px 24px;
+  margin-bottom: 12px;
 
-  img {
-    margin-left: 16px;
-  }
 }
 
 .transactionTitleBlock {
