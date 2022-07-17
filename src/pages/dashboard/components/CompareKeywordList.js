@@ -91,10 +91,7 @@ const CompareKeywordList = (props) => {
                                     <th><span className="ml-5">-</span></th>
                                     <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
                                     <td>{item.increment}</td>
-                                    {/* <td className="d-flex align-items-center">{item.fluctRank}</td> */}
-                                    <div>{item.fluctRank < 0 ? <td className="d-flex align-items-center" style={{color:"red"}}>{item.fluctRank}▼</td> : <td className="d-flex align-items-center" style={{color:"blue"}}>{item.fluctRank}▲</td>}</div>
-                                    {/* <td><Badge style={{color:'{item.color}'}} >{item.status}</Badge></td> */}
-                                    {/* <td><Badge color='{item.color}' >{item.status}</Badge></td> */}
+                                    <div>{item.fluctRank < 0 ? <td className="d-flex align-items-center" style={{color:"blue"}}>{item.fluctRank}▼</td> : <td className="d-flex align-items-center" style={{color:"red"}}>{item.fluctRank}▲</td>}</div>
                                     
                                 </tr>
                             ))}

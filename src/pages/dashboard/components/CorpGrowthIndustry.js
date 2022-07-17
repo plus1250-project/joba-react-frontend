@@ -20,14 +20,14 @@ const CorpGrowthIndustry = () => {
     return () => clearTimeout(timeout);
   }, [varA]);
 
-  const timefunction = () => {
-    if (numberlist >= bigIndustList.length) {
-      numberlist = 0;
-    } else {
-      setBigIndust(bigIndustList[numberlist]);
-      numberlist += 1;
-    }
-  }
+  // const timefunction = () => {
+  //   if (numberlist >= bigIndustList.length) {
+  //     numberlist = 0;
+  //   } else {
+  //     setBigIndust(bigIndustList[numberlist]);
+  //     numberlist += 1;
+  //   }
+  // }
 
 
   useEffect(() => {

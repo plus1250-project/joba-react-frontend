@@ -59,6 +59,26 @@ const closeListHandler = () => {
               path="/template/dashboard/economy"
               render={() => <Dashboard industryName="금융업" onOpen={openListHandler}/>}
               />
+            <Route 
+              path="/template/dashboard/construct"
+              render={() => <Dashboard industryName="건설업" onOpen={openListHandler}/>}
+              />
+            <Route 
+              path="/template/dashboard/chemical"
+              render={() => <Dashboard industryName="화학제약" onOpen={openListHandler}/>}
+              />
+            <Route 
+              path="/template/dashboard/food"
+              render={() => <Dashboard industryName="음식료업" onOpen={openListHandler}/>}
+              />
+            <Route 
+              path="/template/dashboard/mechanic"
+              render={() => <Dashboard industryName="기계장비" onOpen={openListHandler}/>}
+              />                                          
+            <Route 
+              path="/template/dashboard/retail"
+              render={() => <Dashboard industryName="판매유통" onOpen={openListHandler}/>}
+              />                                          
             <Route path="/template/notifications" exact component={Notifications} />
             <Route path='*' exact render={() => <Redirect to="/error" />} />
           </Switch>
