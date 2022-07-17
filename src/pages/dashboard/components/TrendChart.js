@@ -174,8 +174,14 @@ const TrendChart = (props) => {
 
   return (
     <Widget className="widget-p-md">
-        <div className="headline-2 mb-3">월별 트렌드 차트{bName}</div>
-        <dev>{bName}</dev>
+      <div className="headline-2 mt-1 mb-1">
+        <div className=" mr-3" style={{float:"left"}}>월별 트렌드 차트</div>
+        <div style={{float:"left" ,color:"#FF5959"}}>#{bName}</div>
+      </div>
+        {/* 이부분 어떻게 늘림?????? */}
+        <br/>
+        <br/>
+        {/* <dev>{bName}</dev> */}
         <ApexLineColumnChart 
           industryName={props.industryName} 
           chartSettings={chartSettings} 
