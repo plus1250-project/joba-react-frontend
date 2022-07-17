@@ -58,7 +58,7 @@ const FooterRankList = (props) => {
             </button>
             <div 
             className="headline-2"
-            >{monthNumber}월</div>
+            >{yearNumber}년 {monthNumber}월</div>
             <button
               className="btn btn-primary ml-4 "
               onClick={() => onPlusMonth()}>
