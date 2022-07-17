@@ -17,6 +17,8 @@ const Bubble = ({ data, onChangeChart}) => {
     dispatch(changeBubble(props))
   }
 
+
+
   const { bubbleName } = useSelector(state => state.bubble);
 
   // const { bubbleName } = useSelector(state => state.bubble);
@@ -102,7 +104,7 @@ const Bubble = ({ data, onChangeChart}) => {
       }
 
       if(selectedDataItem == undefined) {
-        changeNode("undefined")
+        // changeNode("undefined")
       } else {
         changeNode(selectedDataItem.dataContext.name);
       }

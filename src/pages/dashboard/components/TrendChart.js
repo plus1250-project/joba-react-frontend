@@ -95,28 +95,33 @@ const TrendChart = (props) => {
 
    // 오늘 날짜를 보고 달을 찾아서 변수를 저장해야한다.
    let date = new Date();
-   let month = date.getMonth() // month 지난 달 부터
+   let month = date.getMonth() + 1 // month 지난 달 부터
+   let day = date.getDate();
  
    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
-   let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
+  //  let inputDate = date.getFullYear() + "-" + ("00" + (month)).slice(-2) + "-" + ("00" + (day)).slice(-2);
+  let dummyDate = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2) + "-" + "30";
   
+  //  console.log("inputDate : ", inputDate);
    // console.log("Chart month : ", month);
    let labels = [(month-1) + '월' + month + '월'];
 
    const series = [{
-    name: 'Website Blog',
+    name: 'Bar',
     type: 'column',
     data: [440, 505, 384, 671, 327, 413, 201, 352, 622]
   }, {
-    name: 'Social Media',
+    name: 'Line',
     type: 'line',
     data: [50, 42, 35, 27, 39, 22, 17, 31, 26]
   }];
 
+console.log(props.bubbleName);
+console.log(props.industryName);
 
   useEffect(() => {
     axios
-    .get(BASEURL+"month-keyword/" + props.bubbleName + "/" + props.industryName + "/" + regMonth)
+    .get(BASEURL+"month-keyword/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate)
     .then(response => {
       console.log(response.data);
       setTrendList(response.data);
@@ -128,18 +133,21 @@ const TrendChart = (props) => {
   for (const key in props.trendList) {
     keyCnt.push({
         id: key,
-
+        keyword: props.trendList[key].keyword,
         keywordCnt: props.trendList[key].keywordCnt,
   
     })
 }
+
 // console.log(trendList[0].keywordCnt);
 
 // 
 
   // let iName = props.industryName;
-
-  let bName = props.bubbleName;
+// let bName = "";
+//   useEffect(() => {
+//     bName = props.bubbleName;
+//   },[props.bubbleName])
   
   // props.onChangeTrendList(props.bubbleName)
   // useEffect(() => {
@@ -149,19 +157,36 @@ const TrendChart = (props) => {
   
     
   let aa = []
-  // console.log(series);
+  console.log(series);
     
   // series[0].data = props.trendList.keywordCnt;
-  console.log(keyCnt[0]);
+  console.log(keyCnt[0], keyCnt[1]);
+  console.log(keyCnt.length);
 
-  for (let i in keyCnt) {
 
-  keyCnt.map(item => {
-    aa[i] = item.keywordCnt;
-  })
+
+  let k = 0;
+  // for (let i in keyCnt) {
+
+  
+    
+  //   i.map(item => {
+  //     aa[k] = item.keywordCnt;
+  //   })
+  //   k += 1;
+  
+  // }
+
+  let bName = [];
+  for (let i = 0; i < keyCnt.length; i++) {
+    aa[i] = keyCnt[i].keywordCnt;
+    bName[i] = keyCnt[i].keyword;
   }
+
   console.log(aa);
+  
   console.log(series[1]);
+
   
   series.map(item => {
     item.data = aa;
@@ -176,7 +201,7 @@ const TrendChart = (props) => {
     <Widget className="widget-p-md">
       <div className="headline-2 mt-1 mb-1">
         <div className=" mr-3" style={{float:"left"}}>월별 트렌드 차트</div>
-        <div style={{float:"left" ,color:"#FF5959"}}>#{bName}</div>
+        <div style={{float:"left" ,color:"#FF5959"}}>#{bName[0]}</div>
       </div>
         {/* 이부분 어떻게 늘림?????? */}
         <br/>

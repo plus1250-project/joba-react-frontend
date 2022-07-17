@@ -96,12 +96,14 @@ const Statefulbubble = (props) => {
     })
   }, [props.industryName]);
 
+  console.log(trendKeyword);
+
 // 받아 온 월별 키워드 정리
 for (const key in trendKeyword) {
   data1.children.push({
       id: key,
       name: trendKeyword[key].keyword,
-      value: trendKeyword[key].trendRank,
+      value: trendKeyword[key].keywordCnt,
   })
 }
 

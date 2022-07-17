@@ -52,6 +52,7 @@ const Dashboard = (props) => {
 
   // selector 를 이용해 reducer에 컴바인된 industry 가져오기 (reducers/index.js) 함수 내의 변수과 동일해야 함 
   const { industryName } = useSelector(state => state.industry);
+  // const { bubbleName } = useSelector(state => state.bubble);
 
   console.log(industryName);
 
@@ -64,6 +65,7 @@ const Dashboard = (props) => {
    // 오늘 날짜를 보고 달을 찾아서 변수를 저장해야한다.
    let date = new Date();
    let month = date.getMonth() // month 지난 달 부터
+
  
    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
@@ -71,15 +73,20 @@ const Dashboard = (props) => {
    // console.log("Chart month : ", month);
    let labels = [(month-1) + '월' + month + '월'];
 
-  let bubbleName = "global";
+  let bubbleName = "";
   
   let data = [];
+  let dummyDate = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2) + "-" + "30";
+
 
   let onChangeChart = ((props) => {
     console.log("클릭 : ", props);
+    console.log("클릭>redux : ", bubbleName);
     bubbleName = props;
+    let url = BASEURL+"month-keyword/" + bubbleName + "/" + industryName + "/" + dummyDate;
+    console.log("onchangeChart url : ", url);
     
-    axios.get(BASEURL+"month-keyword/" + bubbleName + "/" + industryName + "/" + regMonth)
+    axios.get(url)
     .then(response => {
       console.log(response.data);
       setTrendList(response.data);
@@ -99,7 +106,7 @@ const Dashboard = (props) => {
 // console.log(series);
   // console.log(trendList);
   });
-
+console.log(trendList);
 
   return (
     <div>

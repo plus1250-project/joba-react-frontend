@@ -11,7 +11,8 @@ export default function ApexLineColumnChart(props) {
   // useEffect(() => {
   //   console.log("됨??");
   // }, [props.bubbleName])
-  console.log("trendList 2: ", props.trendList);
+  // console.log("trendList 2: ", props.trendList);
+  console.log("trendList 2 > chartSettings : ", props.chartSettings);
 
   const chartData = [];
  
@@ -27,7 +28,7 @@ export default function ApexLineColumnChart(props) {
   // console.log("Chart month : ", month);
   let labels = [(month-1) + '월' + month + '월'];
  
-  chart.labels = [(month-8), (month-7), (month-6), (month-5), (month-4), (month-3), (month-2), (month-1), month];
+  chart.labels = [(month-11),(month-10),(month-9),(month-8), (month-7), (month-6), (month-5), (month-4), (month-3), (month-2), (month-1), month];
   
 
 
@@ -44,7 +45,7 @@ export default function ApexLineColumnChart(props) {
       chart.labels[i] = k + chart.labels[i];
     }
   }
-  // console.log(chartSettings.labels);
+  console.log(chart.labels);
 
 
 // 받아 온 월별 키워드 정리
@@ -102,7 +103,7 @@ export default function ApexLineColumnChart(props) {
 
 
 
-console.log("ChartData : ", chartData);
+// console.log("ChartData : ", chartData);
 
   return (
     <ApexCharts
