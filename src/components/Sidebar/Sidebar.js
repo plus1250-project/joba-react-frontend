@@ -93,6 +93,46 @@ const Sidebar = (props) => {
           link="/template/dashboard/economy"
           index="금융업"
         />
+        <LinksGroup
+          onDashboardChange={industryName => props.dispatch(changeDashboard(industryName))}
+          header="건설업"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/construct"
+          index="건설업"
+        />
+        <LinksGroup
+          onDashboardChange={industryName => props.dispatch(changeDashboard(industryName))}
+          header="화학제약"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/chemical"
+          index="화학제약"
+        />
+        <LinksGroup
+          onDashboardChange={industryName => props.dispatch(changeDashboard(industryName))}
+          header="음식료업"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/food"
+          index="음식료업"
+        />
+        <LinksGroup
+          onDashboardChange={industryName => props.dispatch(changeDashboard(industryName))}
+          header="기계장비"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/mechanic"
+          index="기계장비"
+        />
+        <LinksGroup
+          onDashboardChange={industryName => props.dispatch(changeDashboard(industryName))}
+          header="판매유통"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/retail"
+          index="판매유통"
+        />
         
       </ul>
     </nav>

@@ -26,7 +26,8 @@ const CorpList = (props) => {
     let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
 
-    // 산업군별 기업 리스트 요청
+    // 산업군별 기업 리스트 요청 
+    //  산업군별 성장 기업 리스트로 바뀌어야 함 
     useEffect(() => {
         axios.get(BASEURL+"indus-corp/" + industryName + "/" + regMonth)
         .then(response => {
@@ -53,10 +54,11 @@ const CorpList = (props) => {
     const listItems = (
         <Widget>
             <div className={s.tableTitle}>
-            <div className="headline-2">기업 리스트</div>
+            <div className="headline-2">성장 기업 리스트</div>
             <div>{industryName}</div>
             </div>
             <div className={s.widgetContentBlock}>
+              {/* 시가총액 추가해야 함  */}
                 <CorpContainer corps={corps}/>
             </div>
         </Widget>

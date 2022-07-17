@@ -17,6 +17,7 @@
 .taskDescription {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: $font-size-sm;
   font-weight: $font-weight-normal;
 }
@@ -25,6 +26,8 @@
   font-size: $font-size-mini;
   font-weight: $font-weight-semi-bold;
   color: $base-middle-gray;
+  margin-right: 10px;
+  margin-left: 25px;
 }
 
 .completed {
