@@ -120,7 +120,7 @@ console.log(trendList);
               <KeywordBlock industryName={props.industryName} />
             </Col>
             <Col xs={6} sm={6} xl={4}>
-              <CorpGrowthIndustry/>
+              <CorpGrowthIndustry industryName={props.industryName}/>
             </Col>
               <Col className="mb-4 mb-xl-0 cursor:pointer" onClick={() => { changeIndus(props.industryName) }}>
                 <CorpIndustry onOpen={props.onOpen} />

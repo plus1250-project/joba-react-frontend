@@ -11,29 +11,29 @@ import axios from 'axios';
 const CorpGrowthIndustry = (props) => {
 
   const [corpList, setCorpList] = useState([]);
-  console.log(props);
+  // console.log(props);
 
   const corps = [];
 
   const BASEURL = 'http://localhost:3000/';
 
-  const { industryName } = useSelector(state => state.industry);
+  // const { industryName } = useSelector(state => state.industry);
 
   // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
   let date = new Date();
   let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
-  console.log(industryName);
-  console.log(regMonth);
+  // console.log(props.industryName);
+  // console.log(regMonth);
 
   //  산업군별 우량 기업 리스트 요청  
   useEffect(() => {
-    axios.get(BASEURL + "corp/indus-corp/" + industryName + "/" + regMonth)
+    axios.get(BASEURL + "corp/indus-corp/" + props.industryName + "/" + regMonth)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         setCorpList(response.data);
       })
-  }, [industryName]
+  }, [props.industryName]
   );
 
   // 받아 온 월별 키워드 정리
@@ -45,12 +45,12 @@ const CorpGrowthIndustry = (props) => {
     })
   }
 
-  console.log(corpList);
+  // console.log(corpList);
 
   corps.sort((a, b) => a.corpRank - b.corpRank)
 
 
-  console.log(corps);
+  // console.log(corps);
 
   // console.log(corps[0].corpName);
 
@@ -67,12 +67,14 @@ const CorpGrowthIndustry = (props) => {
 
   useEffect(() => {
 
-    if (numberlist >= bigIndustList.length)
+    if (numberlist >= aa.length)
       setNumberlist(0);
 
     const timeout = setTimeout(() => {
       setNumberlist(numberlist + 1)
     }, 2500);
+
+    return () => clearTimeout(timeout);
   }, [numberlist]);
 
 
