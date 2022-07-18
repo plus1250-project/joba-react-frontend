@@ -5,12 +5,11 @@ import cx from "classnames";
 const CorpContainer = (props) => {
   console.log(props.corps);
   return (
-      // 시가총액 추가해야 함
     <ul>
       {props.corps.map((corp) => (
         <li
-        className={cx(`${s.taskBlock}`, { [s.completed]: false })}
-        key={corp.id}
+          className={cx(`${s.taskBlock}`, { [s.completed]: false })}
+          key={corp.id}
         >
           <div className={s.taskDescription}>
             <div className={s.time}>{corp.corpRank}</div>
@@ -20,8 +19,15 @@ const CorpContainer = (props) => {
             </div>
             <div className="body-3"></div>
           </div>
-          <div className={s.time}>N% 성장</div>
-        
+          <div>
+            <div className={s.growthRate}>{corp.growthRate}%&nbsp;&nbsp;&nbsp;
+            <div className={s.growth}>성장</div>
+            </div>
+          </div>
+
+
+
+
         </li>
       ))}
     </ul>

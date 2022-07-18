@@ -25,11 +25,12 @@ const CorpList = (props) => {
     let date = new Date(); 
     let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
 
+    console.log(industryName);
+    console.log(regMonth);
 
-    // 산업군별 기업 리스트 요청 
-    //  산업군별 성장 기업 리스트로 바뀌어야 함 
+    //  산업군별 성장 기업 리스트 요청  
     useEffect(() => {
-        axios.get(BASEURL+"indus-corp/" + industryName + "/" + regMonth)
+        axios.get(BASEURL+"corp/growth-corp/" + industryName  + "/" + regMonth)
         .then(response => {
           console.log(response.data);
           setCorpList(response.data);
@@ -43,8 +44,13 @@ const CorpList = (props) => {
             id: key,
             corpName: corpList[key].corpName,
             corpRank: corpList[key].corpRank,
+            growthRate : corpList[key].growthRate,
         })
     }
+
+    corps.sort((a,b)=> a.corpRank - b.corpRank)
+
+    console.log(corps);
   
 
       

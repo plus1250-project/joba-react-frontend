@@ -20,6 +20,8 @@
   justify-content: space-between;
   font-size: $font-size-sm;
   font-weight: $font-weight-normal;
+  margin-left: 10px;
+  // flex-grow: 1;
 }
 
 .time {
@@ -27,7 +29,23 @@
   font-weight: $font-weight-semi-bold;
   color: $base-middle-gray;
   margin-right: 10px;
-  margin-left: 25px;
+  margin-left: 30px;
+  flex-grow: 1;
+}
+
+.growthRate {
+  display : flex;
+  align-items: center;
+  font-weight: $font-weight-semi-bold;
+  // justify-content: center;
+  color: #FF5959;
+  margin-right: 30px;
+  margin-left: 60px;
+}
+
+.growth {
+  font-weight: $font-weight-semi-bold;
+  color: black;
 }
 
 .completed {
