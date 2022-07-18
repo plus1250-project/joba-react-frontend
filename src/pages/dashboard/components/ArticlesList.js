@@ -41,9 +41,10 @@ const ArticlesList = (props) => {
     let date = new Date(); 
     let issueDate = date.getFullYear() + "-" + ("00" + (date.getMonth() + 1)).slice(-2)+ "-" + ("00" + date.getDate()).slice(-2) ;
     const dummyDate = '2022-06-30';
+    console.log("--------------------기사 : 산업군  --> ", props.industryName);
 
     let page = 1;
-    const fetchData = (setArticlesList, articles) => {
+    const fetchData = (setArticlesList) => {
       axios
       .get(BASEURL+"article", {
         params: {
@@ -51,24 +52,21 @@ const ArticlesList = (props) => {
           industryName: props.industryName,
           issueDate: dummyDate
         }, 
-          _page:{page},
-          _limit: 5
         })
       .then((res) => {
-        setArticlesList([...articlesList, ...res.data]);
-        page = page + 1;
+        setArticlesList(res.data);
       })
     }
 
     useEffect(() => {
-      fetchData(setArticlesList, articlesList)
+      fetchData(setArticlesList)
 
-    }, [])
+    }, [props.industryName])
     
 
     const refresh = (setArticlesList) => {};
 
-    articlesList.sort((a, b) => b.articleId - a.articleId);
+    // articlesList.sort((a, b) => b.articleId - a.articleId);
     console.log(articlesList);
 
 
@@ -125,10 +123,12 @@ const ArticlesList = (props) => {
                 key={article.id}
               >
                 <div className={ac.taskDescription}>
-                  <div
-                    className="checkbox checkbox-primary mr-1">
-                    {article.articleTitle}
-                  </div>
+                  <a href={article.articleUrl}>
+                    <div
+                      className="checkbox checkbox-primary mr-1">
+                      {article.articleTitle}
+                    </div>
+                  </a>
                   <div className="body-3"></div>
                 </div>
                 <div>
