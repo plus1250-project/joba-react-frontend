@@ -96,7 +96,7 @@ const ArticlesList = (props) => {
             next={() => {fetchData(setArticlesList, articlesList);}}
             // 백엔드에서 몇개 할지 정하고 수정 
             hasMore={true}
-            height={900}
+            height={800}
             loader={<h4>Loading...</h4>}
             // scrollableTarget = "scrollableDiv"
             endMessage={
