@@ -28,12 +28,12 @@ const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 // 비밀번호 확인 
 export function deleteAccountUser(payload) {
    
-    let email = jwt(localStorage.getItem('bearerToken')).sub
-    console.log(email);
     console.log(payload.creds.password);
-
-
+    
+    
     return (dispatch) => {
+        let email = jwt(localStorage.getItem('bearerToken')).sub
+        console.log(email);
         if (payload.creds.password.length>=4 && payload.creds.password.match(pwPattern1) || payload.creds.password.match(pwPattern2) || payload.creds.password.match(pwPattern3)) {
             axios.delete(BASEURL+'member',{
                 data: {
@@ -43,7 +43,7 @@ export function deleteAccountUser(payload) {
            
              })
         
-        
+    
             // axios({
             //     method: "delete",
             //     url: BASEURL + "member",
