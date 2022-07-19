@@ -110,7 +110,7 @@ export function registerUser(payload) {
       // 여기다 요청 보내면 됨 
       axios({
         method: "post",
-        url: BASEURL+ "signup",
+        url: BASEURL+ "member/signup",
         data: {
 
           email: payload.creds.email,
@@ -119,7 +119,7 @@ export function registerUser(payload) {
         },
       })
         .then((res) => {
-          if (res.data === "signup") {
+          if (res.data === "success") {
             window.alert(res.data.result);
           
             toast("가입이 정상적으로 완료되었습니다.");

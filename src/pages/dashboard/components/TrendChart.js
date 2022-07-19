@@ -121,7 +121,7 @@ console.log(props.industryName);
 
   useEffect(() => {
     axios
-    .get(BASEURL+"month-keyword/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate)
+    .get(BASEURL+"keyword/monthly/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate)
     .then(response => {
       console.log(response.data);
       setTrendList(response.data);

@@ -30,7 +30,7 @@ const CorpList = (props) => {
 
     //  산업군별 성장 기업 리스트 요청  
     useEffect(() => {
-        axios.get(BASEURL+"corp/growth-corp/" + industryName  + "/" + regMonth)
+        axios.get(BASEURL+"industry/corporation-growth/" + industryName  + "/" + regMonth)
         .then(response => {
           console.log(response.data);
           setCorpList(response.data);

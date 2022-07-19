@@ -39,7 +39,7 @@ const MonthlyRankList = (props) => {
 
     // 월별 랭킹 키워드 요청
     useEffect(() => {
-        axios.get(BASEURL+"month-rank-keyword/" + props.industryName + "/" + props.regMonth)
+        axios.get(BASEURL+"keyword/monthly-ranking/" + props.industryName + "/" + props.regMonth)
         .then(response => {
           console.log(response.data);
           setRanksList(response.data);

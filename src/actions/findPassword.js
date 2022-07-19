@@ -27,7 +27,7 @@ export function findPasswordUser(payload) {
         if (payload.creds.email.match(pattern) != null ) {
             axios({
                 method: "post",
-                url: BASEURL + "check/findpw/sendemail",
+                url: BASEURL + "member/find-password",
                 data: {
                   email: payload.creds.email,
                 },

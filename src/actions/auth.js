@@ -81,7 +81,7 @@ export function loginUser(creds) {
       .catch((error) => {
         console.log(error);
         // 나중에 지워야됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!임시
-        localStorage.setItem('authenticated', true)
+        // localStorage.setItem('authenticated', true)
       });
 
     } else if (!(creds.email.match(pattern) != null) ) {

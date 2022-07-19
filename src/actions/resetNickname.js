@@ -26,8 +26,8 @@ export function resetNicknameUser(payload) {
     return (dispatch) => {
         if (payload.creds.nickname.match(nicknamePattern)) {
             axios({
-                method: "post",
-                url: BASEURL + "resetnickname",
+                method: "patch",
+                url: BASEURL + "/member/nickname",
                 data: {
                     // 토큰에서 저장된 이메일 불러와서 추가해야함 
                     email: null,  

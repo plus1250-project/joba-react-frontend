@@ -21,7 +21,7 @@ const KeywordBlock = (props) => {
 
     // increase_keyword 요청
     useEffect(() => {
-        axios.get(BASEURL+"increase-keyword/" + props.industryName + "/" + regMonth)
+        axios.get(BASEURL+"keyword/increase/" + props.industryName + "/" + regMonth)
         .then(response => {
         console.log(response.data);
         setIncreaseKeyword(response.data);
