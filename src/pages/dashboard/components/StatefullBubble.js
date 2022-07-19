@@ -89,7 +89,7 @@ const Statefulbubble = (props) => {
 
   // trend_keyword 요청
   useEffect(() => {
-    axios.get(BASEURL+"trend-keyword/" + props.industryName + "/" + sampleDate)
+    axios.get(BASEURL+"keyword/trend/" + props.industryName + "/" + sampleDate)
     .then(response => {
     console.log(response.data);
     setTrendKeyword(response.data);

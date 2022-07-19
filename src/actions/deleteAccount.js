@@ -29,8 +29,8 @@ export function deleteAccountUser(payload) {
     return (dispatch) => {
         if (payload.creds.password.length>=4 && payload.creds.password.match(pwPattern1) || payload.creds.password.match(pwPattern2) || payload.creds.password.match(pwPattern3)) {
             axios({
-                method: "post",
-                url: BASEURL + "deleteaccount",
+                method: "delete",
+                url: BASEURL + "member",
                 data: {
                     // 토큰에서 저장된 이메일 불러와서 추가해야함 
                     email: null,  

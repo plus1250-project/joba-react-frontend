@@ -27,8 +27,8 @@ export function resetPasswordUser(payload) {
     return (dispatch) => {
         if (payload.target.value.match(pwPattern1) || payload.target.value.match(pwPattern2)  ||payload.target.value.match(pwPattern3) && payload.creds.password.length >= 4 && payload.creds.password == payload.creds.confirmPassword) {
             axios({
-                method: "post",
-                url: BASEURL + "resetpw",
+                method: "patch",
+                url: BASEURL + "/member/password",
                 data: {
                     // 토큰에서 저장된 이메일 불러와서 추가해야함 
                     email: null,  
