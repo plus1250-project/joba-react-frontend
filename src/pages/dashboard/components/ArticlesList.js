@@ -123,7 +123,10 @@ const ArticlesList = (props) => {
                 key={article.id}
               >
                 <div className={ac.taskDescription}>
-                  <a href={article.articleUrl}>
+                  <a 
+                  href={article.articleUrl}
+                  style={{textDecoration :"none" ,color : "black"}}
+                  >
                     <div
                       className="checkbox checkbox-primary mr-1">
                       {article.articleTitle}
