@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import "react-toastify/dist/ReactToastify.css";
+import jwt from 'jwt-decode';
 
 export const DELACC_REQUEST = 'DELACC_REQUEST';
 export const DELACC_SUCCESS = 'DELACC_SUCCESS';
@@ -26,21 +27,36 @@ const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 
 // 비밀번호 확인 
 export function deleteAccountUser(payload) {
+   
+    let email = jwt(localStorage.getItem('bearerToken')).sub
+    console.log(email);
+    console.log(payload.creds.password);
+
+
     return (dispatch) => {
         if (payload.creds.password.length>=4 && payload.creds.password.match(pwPattern1) || payload.creds.password.match(pwPattern2) || payload.creds.password.match(pwPattern3)) {
-            axios({
-                method: "delete",
-                url: BASEURL + "member",
+            axios.delete(BASEURL+'member',{
                 data: {
-                    // 토큰에서 저장된 이메일 불러와서 추가해야함 
-                    email: null,  
-                  password: payload.creds.password,
-                },
-            })
+                    email : email,
+                    password: payload.creds.password,   
+                }
+           
+             })
+        
+        
+            // axios({
+            //     method: "delete",
+            //     url: BASEURL + "member",
+            //     data: {
+            //         email: email,  
+            //       password: payload.creds.password,
+            //     },
+            // })
                 .then((res) => {
                     //조건 확인
-                    if (null) {
-                        window.alert(res.data.result);
+                    if (res.status === 200) {
+                        localStorage.removeItem('authenticated');
+                        localStorage.removeItem('bearerToken');
                         toast("계정이 성공적으로 삭제되었습니다.");
                         payload.history.push('/#');
                     } else {
