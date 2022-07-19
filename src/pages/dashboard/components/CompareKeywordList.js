@@ -48,22 +48,22 @@ const CompareKeywordList = (props) => {
     }, [props.industryName, props.regMonth]
     );
 
+
     // 받아 온 월별 키워드 정리
     for (const key in cKeywordList) {
         cKeywords.push({
             id: key,
+            monthRank: cKeywordList[key].monthRank,
             keyword: cKeywordList[key].keyword,
             regMonth: cKeywordList[key].regMonth,
             industryName: cKeywordList[key].industryName,
             increment: cKeywordList[key].increment,
             fluctRank: cKeywordList[key].fluctRank,
-            // color: 'red',
-            // status: 'abc',
-        
 
         })
     }
 
+    cKeywords.sort((a, b) => a.monthRank - b.monthRank);
 
 
 
@@ -78,22 +78,22 @@ const CompareKeywordList = (props) => {
                 <Table className="table-striped table-borderless table-hover" responsive>
                     <thead>
                         <tr>
-                            <th className="w-25"><span className="ml-4">RANK</span></th>
-                            <th className="w-25">KEYWORD</th>
-                            <th className="w-25">INCREMENT</th>
-                            <th className="w-25">STATUS</th>
+
+                            <th className="w-25"><span className='ml-4'>INDEX</span></th>
+                            
+                            <th className="w-25"><span>KEYWORD</span></th>
+                            <th className="w-25"><span>INCREMENT</span></th>
+                            <th className="w-25"><span>STATUS</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         {cKeywords
                             .map(item => (
                                 <tr key={uuidv4()}>
-                                    <th><span className="ml-5">-</span></th>
-                                    <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
-                                    <td>{item.increment}</td>
-                                    <div>{item.fluctRank === 0 ? <td className="d-flex align-items-center" style={{color:"blue"}}>-</td> : item.fluctRank > 10 ? <td className="d-flex align-items-center" style={{color:"red"}}>NEW</td> : item.fluctRank > 0 ? <td className="d-flex align-items-center" style={{color:"red"}}>{item.fluctRank}▲</td> : <td className="d-flex align-items-center" style={{color:"blue"}}>{item.fluctRank}▼</td>}</div>
-                                    {/* < 0 ? <td className="d-flex align-items-center" style={{color:"blue"}}>{item.fluctRank}▼</td> : <td className="d-flex align-items-center" style={{color:"red"}}>{item.fluctRank}▲</td>}</div> */}
-                                    
+                                    <th><span className="ml-5">{item.monthRank}</span></th>
+                                    <td className="ml-3 d-flex align-items-center"><span className='mr-2'>{item.keyword}</span></td>                                    
+                                        <td><span className='float-right' style={{margin:"0 80px 0 0"}}>{item.increment}</span></td>        
+                                    <div className='ml-4'>{item.fluctRank === 0 ? <td className="d-flex align-items-center ml-2" style={{ color: "blue" }}><span className='float-right' >-</span></td> : item.fluctRank > 10 ? <td className="d-flex align-items-center" style={{ color: "red" }}><span className='float-right' >NEW</span></td> : item.fluctRank > 0 ? <td className="d-flex align-items-center" style={{ color: "red" }}><span className='float-right' >▲{item.fluctRank}</span></td> : <td className="d-flex align-items-center" style={{ color: "blue" }}>▼{Math.abs(item.fluctRank)}</td>}</div>
                                 </tr>
                             ))}
                     </tbody>

@@ -72,21 +72,14 @@ const MonthlyRankList = (props) => {
     <Widget>
     <div className={s.tableTitle}>
       <div className="headline-2">월별 순위 리스트</div>
-      {/* <div className="d-flex">
-        <a href="/#"><img src={searchIcon} alt="Search"/></a>
-        <a href="/#"><img className="d-none d-sm-block" src={cloudIcon} alt="Cloud" /></a>
-        <a href="/#"><img src={printerIcon} alt="Printer" /></a>
-        <a href="/#"><img className="d-none d-sm-block" src={optionsIcon} alt="Options" /></a>
-        <a href="/#"><img src={funnelIcon} alt="Funnel" /></a>
-      </div> */}
     </div>
     <div className="widget-table-overflow">
       <Table className={`table-striped table-borderless table-hover ${s.statesTable}`} responsive>
         <thead>
         <tr >
-          <th className="w-25"><span className="ml-4">RANK</span></th>
+          <th className="w-25"><span className="ml-4" >RANK</span></th>
           <th className="w-25"><span>KEYWORD</span></th>
-          <th className="w-25">DATE</th>
+          <th className="w-25"><span className="ml-3">DATE</span></th>
           <th className="w-25">COUNT</th>
         </tr>
         </thead>
@@ -97,34 +90,11 @@ const MonthlyRankList = (props) => {
               <td><span className="ml-5">{item.monthRank}</span></td>
               <td className="d-flex align-items-center"><span className="ml-3">{item.keyword}</span></td>
               <td>{item.regMonth}</td>
-              <td>{item.keywordCnt}</td>
+              <td><span className="ml-3">{item.keywordCnt}</span></td>
             </tr>
           ))}
         </tbody>
       </Table>
-      {/* <Pagination className="pagination-borderless" aria-label="Page navigation example">
-        <PaginationItem disabled={firstTableCurrentPage <= 0}>
-          <PaginationLink
-            onClick={e => setFirstTablePage(e, firstTableCurrentPage - 1)}
-            previous
-            href="#top"
-          />
-        </PaginationItem>
-        {[...Array(firstTablePagesCount)].map((page, i) =>
-          <PaginationItem active={i === firstTableCurrentPage} key={i}>
-            <PaginationLink onClick={e => setFirstTablePage(e, i)} href="#top">
-              {i + 1}
-            </PaginationLink>
-          </PaginationItem>
-        )}
-        <PaginationItem disabled={firstTableCurrentPage >= firstTablePagesCount - 1}>
-          <PaginationLink
-            onClick={e => setFirstTablePage(e, firstTableCurrentPage + 1)}
-            next
-            href="#top"
-          />
-        </PaginationItem>
-      </Pagination> */}
     </div>
   </Widget>
   )
