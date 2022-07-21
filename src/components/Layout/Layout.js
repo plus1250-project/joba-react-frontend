@@ -11,7 +11,6 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import Dashboard from "../../pages/dashboard/Dashboard";
-import Notifications from "../../pages/notifications/Notifications"
 import CorpList from "../../pages/dashboard/components/CorpList";
 
 // -- Component Styles
@@ -68,7 +67,6 @@ const Layout = (props) => {
               path="/template/dashboard/retail"
               render={() => <Dashboard industryName="판매유통" onOpen={openListHandler}/>}
               />                                          
-            <Route path="/template/notifications" exact component={Notifications} />
             <Route path='*' exact render={() => <Redirect to="/error" />} />
           </Switch>
         </main>
