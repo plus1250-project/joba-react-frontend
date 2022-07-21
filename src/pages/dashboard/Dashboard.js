@@ -1,19 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState } from "react";
 import {
   Col,
   Row,
-  Progress,
-  ButtonDropdown,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-  ButtonToggle,
-  ButtonToolbar,
 } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeIndustryName } from "../../actions/industry.js";
 import axios from 'axios';
 
@@ -22,124 +12,53 @@ import CorpIndustry from "./components/CorpIndustry.js";
 import KeywordBubbleChart from "./components/KeywordBubbleChart.js";
 import TrendChart from "./components/TrendChart";
 import ArticlesList from "./components/ArticlesList.js";
-import MonthlyRankList from "./components/MonthlyRankList.js";
-import CompareKeywordList from "./components/CompareKeywordList";
-
-
-import Widget from "../../components/Widget/Widget.js";
-import mock from "../tables/mock.js"
-
-import s from "../tables/Tables.module.scss"
-
-import heartTeal from "../../assets/dashboard/heartTeal.svg";
-import heartViolet from "../../assets/dashboard/heartViolet.svg";
 import FooterRankList from "./components/FooterRankList.js";
 import CorpGrowthIndustry from "./components/CorpGrowthIndustry.js";
 
 
-let keywordCnt = []; 
-
-// const series = [];
 const Dashboard = (props) => {
-  const [tableDropdownOpen, setTableMenuOpen] = useState(false);
-  let [ trendList, setTrendList ] = useState();
-  // const [ bubbleName, setBubbleName ]= useState("");
 
-  // const [ iName, setIName ] = useState("");
-  // dispatch 를 통해 action 실행 (changeIndustryName(industryName))
+  let [ trendList, setTrendList ] = useState();
+  
   const dispatch = useDispatch();
   const changeIndus = (props) => {
     dispatch(changeIndustryName(props))
   }
-
-  // selector 를 이용해 reducer에 컴바인된 industry 가져오기 (reducers/index.js) 함수 내의 변수과 동일해야 함 
   
-  // redux 안변해서 안됐나...?
-  const { industryName } = useSelector(state => state.industry);
-  // const { bubbleName } = useSelector(state => state.bubble);
-  
-  console.log(props.industryName);
-  
-  // const { bubbleName } = useSelector(state => state.bubble);
-  // console.log("-------------Chart : ", bubbleName);
-  
-  // 월별 트렌드 차트 데이터 요청
+  // 등록 날짜 - 현재 월에서 -1 로 요청 ex. 7월 일 경우 6월 데이터 요청
+  let regMonth = new Date().getFullYear() + "-" + ("00" + (new Date().getMonth())).slice(-2);
+ 
+  // 등록 날짜 (자동화 전 더미 데이터)
+  let dummyDate = new Date().getFullYear() + "-" + ("00" + (new Date().getMonth())).slice(-2) + "-" + "30";
+ 
   const BASEURL = 'http://localhost:3000/';
+   
+  let onChangeChart = ((props) => {
   
-  // 오늘 날짜를 보고 달을 찾아서 변수를 저장해야한다.
-   let date = new Date();
-   let month = date.getMonth() // month 지난 달 부터
-   
-   
-   // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
-   let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
-   
-   // console.log("Chart month : ", month);
-   let labels = [(month-1) + '월' + month + '월'];
-   
-   let bubbleName = "";
-   let iName = props.industryName;
-   
-   let data = [];
-   let dummyDate = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2) + "-" + "30";
-   
-   console.log("redux indus : ", industryName);
-   
-   let onChangeChart = ((props) => {
-     // setIName(e);
-    
-      console.log("onChangeChart >props indus name : ", props.industryName);
-      console.log("onChangeChart >props bubble name : ", props.bubbleName);
-      
-      // console.log("클onChangeChart): ", i);
-      // console.log("클릭> 이전 redux : ", bubbleName);
-      // setBubbleName(props.i);
-      bubbleName = props.i
-      let url = BASEURL+"keyword/monthly/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate;
-      console.log("onchangeChart url : ", url);
+    axios.get(BASEURL+"keyword/monthly/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate)
+    .then(response => {
+      console.log(response.data);
+      setTrendList(response.data);
+    })
 
-
-      
-      axios.get(url)
-      .then(response => {
-        console.log(response.data);
-        setTrendList(response.data);
-      })
-
-    
-
-            //   for (const key in trendList) {
-            //     data.push({
-            //         id: key,
-            //         keyword: trendList[key].keyword,
-            //         keywordCnt: trendList[key].keywordCnt,
-                    
-            //     })
-            // }
-
-            // console.log(series);
-              // console.log(trendList);
   });
-console.log(trendList);
+
 
   return (
     <div>
-
       <Row>
         <Col>
           {/* main header */}
           <Row className="mb-4">
-            {/* <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={4}> */}
             <Col className="mb-4 mb-xl-0" >
               <KeywordBlock industryName={props.industryName} />
             </Col>
             <Col xs={6} sm={6} xl={4}>
               <CorpGrowthIndustry industryName={props.industryName}/>
             </Col>
-              <Col className="mb-4 mb-xl-0 cursor:pointer" onClick={() => { changeIndus(props.industryName) }}>
+            <Col className="mb-4 mb-xl-0 cursor:pointer" onClick={() => { changeIndus(props.industryName) }}>
                 <CorpIndustry onOpen={props.onOpen} />
-                </Col>
-
+            </Col>
           </Row>
           {/* middle */}
           <Row className="mb-4">
@@ -147,12 +66,12 @@ console.log(trendList);
             <Col xs={12} xl={8} className="pl-grid-col mt-4 mt-xl-0">
               <Row className="pl-grid-row">
                 <Col>
-                  <KeywordBubbleChart industryName={props.industryName} onChangeChart={onChangeChart} bubbleName={bubbleName} onChangeIndus={changeIndus}/>
+                  <KeywordBubbleChart industryName={props.industryName} onChangeChart={onChangeChart} />
                 </Col>
               </Row>
               <Row className="pl-grid-row mt-4">
                 <Col>
-                  <TrendChart industryName={props.industryName} trendList={trendList} bubbleName={bubbleName}/>
+                  <TrendChart industryName={props.industryName} trendList={trendList}/>
                 </Col>
               </Row>
             </Col>
@@ -161,6 +80,7 @@ console.log(trendList);
               <ArticlesList industryName={props.industryName} />
             </Col>
           </Row>
+          {/* footer */}
           <FooterRankList industryName={props.industryName}/>
         </Col>
       </Row>

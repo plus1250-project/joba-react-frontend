@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { Progress } from "reactstrap";
 
 import Widget from "../../../components/Widget/Widget.js";
 
@@ -9,7 +8,6 @@ import s from "../../tables/Tables.module.scss";
 import heartRed from "../../../assets/dashboard/heartRed.svg";
 
 const KeywordBlock = (props) => {
-
 
     const [increaseKeyword, setIncreaseKeyword] = useState([]);
 
@@ -32,15 +30,11 @@ const KeywordBlock = (props) => {
     <Widget className="widget-p-sm">
         <div className={s.smallWidget}>
             <div className="d-flex mb-3">
-            <img className="py-1 ml-2 mr-2 mt-4 img-fluid" src={heartRed} alt="..." style={{width :"15%"}} />
-            <div className="d-flex flex-column">
-                <p className="headline-2 mt-2 ml-4">최근 상승 키워드</p>
-                <p className="headline-1 ml-4 mt-2">{increaseKeyword}</p>
-                
-            </div>
-            </div>
-            <div>
-            {/* <Progress color="secondary-red" className={`progress-xs ${s.mutedPink}`} value="75" /> */}
+                <img className="py-1 ml-2 mr-2 mt-4 img-fluid" src={heartRed} alt="..." style={{width :"15%"}} />
+                <div className="d-flex flex-column">
+                    <p className="headline-2 mt-2 ml-4">최근 상승 키워드</p>
+                    <p className="headline-1 ml-4 mt-2">{increaseKeyword}</p>
+                </div>
             </div>
         </div>
     </Widget>
