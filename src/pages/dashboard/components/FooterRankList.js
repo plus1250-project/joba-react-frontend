@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Button, Col, Row } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import MonthlyRankList from './MonthlyRankList';
 
 import s from "../../tables/Tables.module.scss"
 import CompareKeywordList from './CompareKeywordList';
+
 // N월 만들기
 let date = new Date();
 let monthNumber = date.getMonth();
@@ -14,8 +15,6 @@ const FooterRankList = (props) => {
 
   const [regMonth, setRegMonth] = useState(yearNumber + "-" + ("00" + (monthNumber)).slice(-2))
 
-
-
   const onPlusMonth = () => {
     monthNumber += 1
     // 현재 월을 기준으로 뒤로
@@ -23,12 +22,8 @@ const FooterRankList = (props) => {
       monthNumber = 1;
       yearNumber += 1;
     }
-    // let regMonth = yearNumber + "-" + ("00" + (monthNumber)).slice(-2);
     setRegMonth((regMonth) => yearNumber + "-" + ("00" + (monthNumber)).slice(-2));
-    console.log(monthNumber);
-    console.log(regMonth);
   }
-
 
   const onMinusMonth = () => {
     monthNumber -= 1
@@ -37,16 +32,11 @@ const FooterRankList = (props) => {
       monthNumber = 12;
       yearNumber -= 1;
     }
-    // let regMonth = yearNumber + "-" + ("00" + (monthNumber)).slice(-2);
     setRegMonth((regMonth) => yearNumber + "-" + ("00" + (monthNumber)).slice(-2));
-    console.log(monthNumber);
-    console.log(regMonth);
   }
 
 
   return (
-    // {/* footer */}
-    //       {/*MontlyRank , CompareKeyword */}
     <Row className="pl-grid-col mb-4 align-items-center">
       <Col>
         <Row className="align-items-center justify-content-center">
@@ -73,7 +63,6 @@ const FooterRankList = (props) => {
           <Col xs={12} xl={6}>
             <CompareKeywordList industryName={props.industryName} regMonth={regMonth} />
           </Col>
-
         </Row>
       </Col >
     </Row >

@@ -21,33 +21,25 @@ import searchIcon from "../../../assets/tables/searchIcon.svg";
 
 const MonthlyRankList = (props) => {
 
-    const [firstTable] = useState(mock.firstTable);
-    const [firstTableCurrentPage, setFirstTableCurrentPage] = useState(0);
     const [ranksList, setRanksList] = useState([]);
-   
-    const pageSize = 4;
-    const firstTablePagesCount = Math.ceil(firstTable.length / pageSize);
-
-    const BASEURL = 'http://localhost:3000/';
-
-    const ranks = [];
-
+  
     // 현재 월에서 -1 로 요청 ex. 7월 일 경우 6월 데이터 요청
     let date = new Date(); 
     // let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
-
-
+    
     // 월별 랭킹 키워드 요청
+    const BASEURL = 'http://localhost:3000/';
     useEffect(() => {
-        axios.get(BASEURL+"keyword/monthly-ranking/" + props.industryName + "/" + props.regMonth)
-        .then(response => {
-          console.log(response.data);
-          setRanksList(response.data);
-        })
-      }, [props.industryName, props.regMonth]
+      axios.get(BASEURL+"keyword/monthly-ranking/" + props.industryName + "/" + props.regMonth)
+      .then(response => {
+        console.log(response.data);
+        setRanksList(response.data);
+      })
+    }, [props.industryName, props.regMonth]
     );
-
+    
     // 받아 온 월별 키워드 정리
+    const ranks = [];
     for (const key in ranksList) {
         ranks.push({
             id: key,
@@ -59,13 +51,8 @@ const MonthlyRankList = (props) => {
         })
     }
 
+    // 순위별 정렬
     ranks.sort((a, b) => a.monthRank - b.monthRank);
-    console.log(ranks); 
-    
-    const setFirstTablePage = (e, index) => {
-        e.preventDefault();
-        setFirstTableCurrentPage(index);
-    }
     
 
   return (

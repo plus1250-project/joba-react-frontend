@@ -8,6 +8,7 @@ import Modal from '../../../components/Commons/Modal';
 import CorpContainer from '../../tables/components/CorpContainer/CorpContainer';
 
 import s from '../../tables/Tables.module.scss'
+import classes from './CorpList.module.scss'
 
 const CorpList = (props) => {
 
@@ -59,11 +60,13 @@ const CorpList = (props) => {
 
     const listItems = (
         <Widget>
-            <div className={s.tableTitle}>
-            <div className="headline-2">성장 기업 리스트</div>
-            <div>{industryName}</div>
+            
+            <div className={classes.modalHeader}>
+              <div className="headline-2">성장 기업 리스트</div>
+              <div>{industryName}</div>
             </div>
-            <div className={s.widgetContentBlock}>
+            
+            <div className={classes.widgetContentBlock}>
               {/* 시가총액 추가해야 함  */}
                 <CorpContainer corps={corps}/>
             </div>

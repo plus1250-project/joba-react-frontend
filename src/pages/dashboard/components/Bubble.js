@@ -1,43 +1,22 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBubble } from '../../../actions/bubble'
 import * as am5 from '@amcharts/amcharts5'
 import PropTypes from 'prop-types'
 import am5themesAnimated from '@amcharts/amcharts5/themes/Animated'
 import * as am5hierarchy from '@amcharts/amcharts5/hierarchy'
-import { changeIndustryName } from '../../../actions/industry'
-
-const Bubble = ({ data, onChangeChart, industryName, onChangeIndus }) => {
-  // const [ bubbleName, setBubbleName] = useState("");
-  console.log(data)
-
-  console.log(industryName);
-  let iName = industryName;
-// const [iName, setIName] = useState("");
 
 
-
-
+const Bubble = ({ data, onChangeChart, industryName }) => {
+  
   const axisDataItemRef = useRef(null)
 
-  //
   const dispatch = useDispatch();
   const changeNode = (props) => {
     dispatch(changeBubble(props))
   }
   
-
-  const changeIndus = (props) => {
-    dispatch(changeIndustryName(props));
-  }
-
-
-
   const { bubbleName } = useSelector(state => state.bubble);
-
-  // const { bubbleName } = useSelector(state => state.bubble);
-  
-  // console.log("basic : " , bubbleName);
 
   useEffect(() => {
     const root = am5.Root.new('bubble')
@@ -77,75 +56,32 @@ const Bubble = ({ data, onChangeChart, industryName, onChangeIndus }) => {
       strokeWidth: 2
     });
  
-
-
     series.data.setAll([data])
     series.set('selectedDataItem', series.dataItems[0])
-    // series.labels.template.events.once('hit', ev => {
-    //   console.log('clicked on ', ev.target)
-    // }, this)s
 
     let selectedDataItem;
-let i;
 
 
       // 노드 클릭 시 이벤트 발생 
     series.nodes.template.events.on("click", function(e) {
-      // console.log('click : ', iName);
-      // // onChangeIndus(industryName);
-      // // 이미 선택된 노드가 있는지 확인
-      // if (selectedDataItem) {
-      //   let targetDataItem = e.target.dataItem;
-      //   // 선택된 노드가 있고, 동일한 것이면 선택 해제 
-      //   if (e.target.dataItem == selectedDataItem) {
-      //     selectedDataItem.get("outerCircle").setPrivate("visible", false);
-      //     selectedDataItem = undefined;
-      //     // setBubbleName(e.target.dataItem.dataContext.name);
-      //   }
-      //   // 선택된 노드가 있고, 다른 것일 때 그 노드로 변경
-      //   else {
-      //     selectedDataItem.get("outerCircle").setPrivate("visible", false);
-      //     selectedDataItem = e.target.dataItem;
-      //     selectedDataItem.get("outerCircle").setPrivate("visible", true);
-      //     console.log(e.target.dataItem.dataContext.name);
-      //     i = e.target.dataItem.dataContext.name;
-          
-      //     changeNode(i);
-      //     //이미 연결되어 있으면 연결 해제
-      //   }
-      // }
-      // 선택된 노드가 없으면 선택
-      // else {
 
-        selectedDataItem = e.target.dataItem;
-        selectedDataItem.get("outerCircle").setPrivate("visible", true)
-        console.log(e.target.dataItem.dataContext.name);
-        i = e.target.dataItem.dataContext.name;
-        changeNode(i);
-         
-        // setBubbleName(e.target.dataItem.dataContext.name);
-      // }
+      selectedDataItem = e.target.dataItem;
+      selectedDataItem.get("outerCircle").setPrivate("visible", true)
+      console.log(e.target.dataItem.dataContext.name);
+      
+      changeNode(e.target.dataItem.dataContext.name);    
 
       if(selectedDataItem == undefined) {
-        // changeNode("undefined")
+        changeNode("undefined")
       } else {
         changeNode(selectedDataItem.dataContext.name);
       }
       
     })
     
-    
     return () => root.dispose()
     
-    // Generate and set data
-    // https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
-    //     const maxLevels = 2
-    //     const maxNodes = 5
-    //     const maxValue = 100
-    
   }, [])
-  
-  console.log("Bubble selector", bubbleName);
 
   useEffect(() => {
     const series = axisDataItemRef.current
@@ -156,12 +92,7 @@ let i;
       fill: am5.color(0x550000),
       text: '{category}',
     })
-    
-    
   }, [data])
-  
-  
-  console.log(bubbleName);
 
 
   return (

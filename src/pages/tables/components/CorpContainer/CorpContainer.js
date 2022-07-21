@@ -24,10 +24,6 @@ const CorpContainer = (props) => {
             <div className={s.growth}>성장</div>
             </div>
           </div>
-
-
-
-
         </li>
       ))}
     </ul>
