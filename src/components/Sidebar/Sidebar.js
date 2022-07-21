@@ -97,14 +97,14 @@ const Sidebar = (props) => {
         {/* <Route path="/template/dashboard/economy" 
               render={() => <Dashboard industryName="금융업"/>}>ㅁㄴㅇㄹ </Route> */}
 
-        <Link to="/template/dashboard/economy">금융업</Link><br />
+        {/* <Link to="/template/dashboard/economy">금융업</Link><br />
         <Link to="/template/dashboard/construct">건설업</Link><br />
         <Link to="/template/dashboard/chemical">화학제약</Link><br />
         <Link to="/template/dashboard/food">음식료업</Link><br />
         <Link to="/template/dashboard/mechanic">기계장비</Link><br />
-        <Link to="/template/dashboard/retail">판매유통</Link>
+        <Link to="/template/dashboard/retail">판매유통</Link> */}
   
-        {/* <LinksGroup
+        <LinksGroup
           onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
           activeItem={props.activeItem}
           header="IT정보통신업"
@@ -160,7 +160,7 @@ const Sidebar = (props) => {
           iconName={<i className={'eva eva-text-outline'}/>}
           link="/template/dashboard/retail"
           index="판매유통"
-        /> */}
+        />
         
       </ul>
     </nav>
