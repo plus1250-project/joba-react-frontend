@@ -116,17 +116,27 @@ const TrendChart = (props) => {
     data: [50, 42, 35, 27, 39, 22, 17, 31, 26]
   }];
 
+  // 버블이름이 안 내려옴
 console.log(props.bubbleName);
 console.log(props.industryName);
+console.log("Trend Chart > props.trendList : ", props.trendList);
+
+
+
+let url = BASEURL+"keyword/monthly/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate;
+// console.log(url);
 
   useEffect(() => {
-    axios
-    .get(BASEURL+"keyword/monthly/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate)
-    .then(response => {
-      console.log(response.data);
-      setTrendList(response.data);
-    })
-  }, [props.bubbleName]);
+    // axios
+    // .get(url)
+    // .then(response => {
+    //   console.log(response.data);
+    //   setTrendList(response.data);
+    // })
+    aa = [];
+    console.log(props.industryName, aa);
+
+  }, [props.industryName]);
 
   const keyCnt = [];
 

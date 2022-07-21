@@ -12,8 +12,8 @@ export default function ApexLineColumnChart(props) {
   //   console.log("됨??");
   // }, [props.bubbleName])
   // console.log("trendList 2: ", props.trendList);
-  console.log("trendList 2 > chartSettings : ", props.chartSettings);
-
+  console.log("trendChart > chartSettings : ", props.chartSettings);
+console.log("trendChart > data : ", props.series);
   const chartData = [];
  
   const chart = props.chartSettings;
