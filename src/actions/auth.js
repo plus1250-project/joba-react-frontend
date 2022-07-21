@@ -65,13 +65,16 @@ export function loginUser(creds) {
           localStorage.setItem('bearerToken', res.data.accessToken)
           localStorage.setItem('authenticated', true)
           document.location.href = "/it";
-        }else{
+        }else if (res.status === 401){
+          console.log(res.data);
           dispatch(loginError("비밀번호가 다릅니다."));
           toast("회원정보가 일치하지 않습니다.");
         }
       })
       .catch((error) => {
         console.log(error);
+        dispatch(loginError("에러 발생 "));
+      toast("로그인에 실패하였습니다.");
       });
 
     } else if (!(creds.email.match(pattern) != null) ) {
