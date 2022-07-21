@@ -35,32 +35,23 @@ export function resetPasswordUser(payload) {
                 email : email,
                 password: payload.creds.password,
             })
-            // axios({
-            //     method: "patch",
-            //     url: BASEURL + "member/password",
-            //     data: {
-            //         // 토큰에서 저장된 이메일 불러와서 추가해야함 
-            //         email: email,
-            //         password: payload.creds.password,
-            //     },
-            // })
-                .then((res) => {
-                    //조건 확인
-                    console.log(res.data);
-                    if (res.status === 200) {
-                        toast("비밀번호 수정이 완료되었습니다.");
-                        payload.history.push('/#');
-                    } else {
-                        dispatch(resetPasswordError("비밀번호 수정 백앤드 실패값 반환"));
-                        toast("백엔드 실패값 반환 비밀번호 수정 요청이 실패하였습니다.  다시 시도해주세요.");
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    dispatch(resetPasswordError("비밀번호 수정 axios error catch"));
-                    toast("비밀번호 수정 요청이 실패하였습니다.  다시 시도해주세요.");
-                    console.log("비밀번호 수정 axios 에러");
-                })
+            .then((res) => {
+                //조건 확인
+                console.log(res.data);
+                if (res.status === 200) {
+                    toast("비밀번호 수정이 완료되었습니다.");
+                    payload.history.push('/#');
+                } else {
+                    dispatch(resetPasswordError("비밀번호 수정 백앤드 실패값 반환"));
+                    toast("백엔드 실패값 반환 비밀번호 수정 요청이 실패하였습니다.  다시 시도해주세요.");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(resetPasswordError("비밀번호 수정 axios error catch"));
+                toast("비밀번호 수정 요청이 실패하였습니다.  다시 시도해주세요.");
+                console.log("비밀번호 수정 axios 에러");
+            })
 
         } else if (!payload.target.value.match(pwPattern1) && !payload.target.value.match(pwPattern2) && !payload.target.value.match(pwPattern3) || payload.target.value.length < 4) {
             dispatch(resetPasswordError("비밀번호는 4자리 이상이어야 합니다."));

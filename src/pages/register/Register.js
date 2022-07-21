@@ -36,14 +36,9 @@ const Register = (props) => {
     }))
   }
 
-  // function confirmEmail(event) {
-  //   console.log('실행됨?');
-  //   return () => {
-  //   }
-  // }
-
   const { from } = props.location.state || { from: { pathname: '/template' } }
 
+// 비로그인 상태 확인
   if (hasToken(JSON.parse(localStorage.getItem('authenticated')))) {
     return (
       <Redirect to={from} />
@@ -122,7 +117,6 @@ const Register = (props) => {
                     className="input-transparent pl-3"
                     value={state.confirmPassword}
                     onChange={(event => changeCred(event))}
-                    // onBlur={(event) => checkConfirmPassword(event)}
                     type="password"
                     required
                     name="confirmPassword"
@@ -139,7 +133,6 @@ const Register = (props) => {
                 <Link  to="/login">
                 계정이 있으신가요?
                 </Link>
-
                 </div>
             </Widget>
           </Col>

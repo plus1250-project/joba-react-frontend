@@ -23,7 +23,7 @@ import SofiaLogo from "../../components/Icons/SofiaLogo.js";
 
 const ResetNickname = (props) => {
 
-    const [state, setState] = useState({ nickname :'' })
+    const [state, setState] = useState({ nickname: '' })
 
     const changeCred = (event) => {
         setState({ ...state, [event.target.name]: event.target.value })
@@ -39,14 +39,12 @@ const ResetNickname = (props) => {
 
     const { from } = props.location.state || { from: { pathname: '/template' } }
 
-// 로그인 못하면 못들어옴
+    // 비로그인 상태 확인
     if (!hasToken(JSON.parse(localStorage.getItem('authenticated')))) {
         return (
             <Redirect to={from} />
         );
     }
-
-
     return (
         <div className="auth-page">
             <Container className="col-12">
@@ -61,9 +59,8 @@ const ResetNickname = (props) => {
                                 </div>
                             </div>
                             <div className="auth-info my-2">
-                                <p>닉네임 변경을 위해 새로운 닉네임을 입력해주세요.<br/>닉네임은 공백, 특수문자 제외 2자 이상이어야 합니다.</p>
+                                <p>닉네임 변경을 위해 새로운 닉네임을 입력해주세요.<br />닉네임은 공백, 특수문자 제외 2자 이상이어야 합니다.</p>
                             </div>
-                            {/* <form onSubmit={(event) => doLogin(event)}> */}
                             <form onSubmit={(event) => doResetNickname(event)}>
                                 <FormGroup className="my-3">
                                     <FormText>nickname</FormText>
@@ -102,7 +99,6 @@ const ResetNickname = (props) => {
         </div>
     )
 }
-
 
 ResetNickname.propTypes = {
     dispatch: PropTypes.func.isRequired,
