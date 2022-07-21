@@ -1,6 +1,6 @@
 // -- React and related libs
 import React, { useState } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Switch, Route, withRouter, Redirect } from "react-router";
 
 // -- Third Party Libs
@@ -10,32 +10,26 @@ import PropTypes from "prop-types";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
-import Breadcrumbs from "../Breadbrumbs/Breadcrumbs";
 import Dashboard from "../../pages/dashboard/Dashboard";
 import Notifications from "../../pages/notifications/Notifications"
 import CorpList from "../../pages/dashboard/components/CorpList";
+
 // -- Component Styles
 import s from "./Layout.module.scss";
 
 const Layout = (props) => {
 
-  // modal
-const [listIsShown, setListIsShown] = useState(false);
-// const [industryName, setIndustryName] = useState("");
+    // modal
+  const [listIsShown, setListIsShown] = useState(false);
 
-const openListHandler = () => {
-  setListIsShown(true);
-}
+  const openListHandler = () => {
+    setListIsShown(true);
+  }
 
-const closeListHandler = () => {
-  console.log('close');
-  setListIsShown(false);
-}
-
-  console.log(props.dispatch);
-
-  const { industryName } = useSelector(state => state.industry)
-  console.log(industryName);
+  const closeListHandler = () => {
+    console.log('close');
+    setListIsShown(false);
+  }
 
   return (
     <div className={s.root}>
@@ -44,16 +38,11 @@ const closeListHandler = () => {
         <Header />
         <Sidebar />
         <main className={s.content}>
-          <Breadcrumbs industryName={industryName} />
-          {/* <Breadcrumbs url={props.industryName} />? */}
           <Switch>
-            {/* <Route path="/template" exact render={() => <Redirect to="template/dashboard"/>} /> */}
-
             <Route path="/template/dashboard" exact component={Dashboard} onOpen={openListHandler}/>
             <Route 
               path="/template/dashboard/it" 
-              render={() => <Dashboard industryName="IT정보통신업" onOpen={openListHandler}/>}
-        
+              render={() => <Dashboard industryName="IT정보통신업" onOpen={openListHandler}/>}        
             />
             <Route 
               path="/template/dashboard/economy"

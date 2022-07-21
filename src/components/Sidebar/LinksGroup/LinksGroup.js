@@ -1,50 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { Link, NavLink, withRouter, useHistory } from "react-router-dom";
-import { changeIndustryName } from "../../../actions/industry.js";
-import { Collapse, Badge } from "reactstrap";
-
+import { NavLink, withRouter } from "react-router-dom";
 
 import s from "./LinksGroup.module.scss";
-import { HistoryRounded } from "@material-ui/icons";
 
 
 const LinksGroup = (props) => {
 
-  console.log(props.industryName);
-  // console.log(props.link);
-  
   const {
     link = "",
-    childrenLinks = null,
     header = "",
-    classname = "",
     isHeader = false,
-    deep = 0,
-    activeItem = "",
-    label = "",
+    classname = "",
     exact = true,
   } = props;
 
-  const [headerLinkClicked, setHeaderLinkClicked] = useState(false);
-
-  const togglePanelCollapse = (link, e) => {
-    props.onActiveSidebarItemChange(link);
-    setHeaderLinkClicked(!headerLinkClicked );
-    e.preventDefault();
-  }
-
-  const dispatch = useDispatch();
-  const changeIndus = (props) => {
-    dispatch(changeIndustryName(props))
-  }
-
-
-  const isOpen = props.activeItem && props.activeItem.includes(props.index) && headerLinkClicked;
   if (!props.childrenLinks) {
     if (props.isHeader) {
-      // window.location.replace(props.link)
 
       return (
         <li className={[s.headerLink, props.className].join(" ")}>
@@ -54,12 +26,8 @@ const LinksGroup = (props) => {
             exact={exact}
             target={props.target}
           >
-            {/* <span className={s.icon}>
-              {props.iconName}
-            </span> */}
             {props.header}
-            {props.label && <sup className={`text-${props.labelColor || 'warning'}`}>{props.label}</sup> }
-            {/* {props.badge && <Badge className={s.badge} color="secondary-red" pill>{props.badge}</Badge>} */}
+            {props.label && <sup className={`text-${props.labelColor || 'warning'}`}>{props.label}</sup> }        
           </NavLink>
         </li>
       );
@@ -70,7 +38,6 @@ const LinksGroup = (props) => {
             to={props.link}
             activeClassName={s.headerLinkActive}
             onClick={(e) => {
-              // props.onDashboardChange(props.header);
               if (props.link.includes('menu')) {
                 e.preventDefault();
               }
