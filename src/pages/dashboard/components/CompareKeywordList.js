@@ -40,7 +40,7 @@ const CompareKeywordList = (props) => {
 
     // 월별 랭킹 키워드 요청
     useEffect(() => {
-        axios.get(BASEURL + "keyword/monthly-ranking/compare/" + props.industryName + "/" + props.regMonth)
+        axios.get(BASEURL + "keyword/compare/" + props.industryName + "/" + props.regMonth)
             .then(response => {
                 console.log(response.data);
                 setCKeywordList(response.data);
