@@ -28,6 +28,7 @@ const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 
 let confirmEmailBoolean = false;
 
+// 이메일 유효성 검사 
 export function confirmEmail(payload) {
 
   console.log(payload.target.value);
@@ -71,7 +72,7 @@ export function confirmEmail(payload) {
 
 let checkNicknameBoolean = false;
 
-
+// 닉네임 유효성 검사
 export function checkNickname(payload) {
   if (!payload.target.value.match(nicknamePattern)) {
     registerError("닉네임 형식이 올바르지 않습니다.");
@@ -81,7 +82,7 @@ export function checkNickname(payload) {
     checkNicknameBoolean = true;
   }
 }
-
+// 비밀번호 유효성 검사
 let checkPasswordBoolean = false;
 export function checkPassword(payload){
   if ( !payload.target.value.match(pwPattern1) && !payload.target.value.match(pwPattern2)  && !payload.target.value.match(pwPattern3)  || payload.target.value.length < 4) {
@@ -93,24 +94,12 @@ export function checkPassword(payload){
   }
 }
 
-// let checkConfirmPasswordBoolean = false;
-// export function checkConfirmPassword(payload){
-//   if (payload.creds.password == payload.creds.confirmPassword) {
-//     registerError("비밀번호가 일치하지 않습니다.");
-//     toast("비밀번호가 일치하지 않습니다.");
-//     checkConfirmPasswordBoolean = false;
-//   } else {
-//     checkConfirmPasswordBoolean = true;
-//   }
-// }
-
-
 const BASEURL = 'http://localhost:3000/';
 
 export function registerUser(payload) {
   return (dispatch) => {
     if (confirmEmailBoolean == true && checkNicknameBoolean == true && checkPasswordBoolean == true && payload.creds.password == payload.creds.confirmPassword) {
-      // 여기다 요청 보내면 됨 
+      // 회원가입 요청
       axios({
         method: "post",
         url: BASEURL+ "member/signup",
@@ -121,28 +110,26 @@ export function registerUser(payload) {
           nickName: payload.creds.nickname,
         },
       })
-        .then((res) => {
-          if (res.data === "success") {
-            window.alert(res.data.result);
-          
-            toast("가입이 정상적으로 완료되었습니다.");
-            payload.history.push('/login');
-          } else {
-            dispatch(registerError("가입 백앤드 실패값 반환"));
-            toast("가입이 실패했습니다. 다시 시도해 주세요.");
-            
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          dispatch(registerError("가입 axios 에러 catch"));
+      .then((res) => {
+        if (res.data === "success") {
+          window.alert(res.data.result);
+        
+          toast("가입이 정상적으로 완료되었습니다.");
+          payload.history.push('/login');
+        } else {
+          dispatch(registerError("가입 백앤드 실패값 반환"));
           toast("가입이 실패했습니다. 다시 시도해 주세요.");
-        });
-
-
-      } else if (confirmEmailBoolean == false) {
-        dispatch(registerError("이메일 형식이 올바르지 않거나 중복검사를 통과하지 못했습니다."));
-        toast("이메일 형식이 올바르지 않거나 중복검사를 통과하지 못했습니다.");
+          
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(registerError("가입 axios 에러 catch"));
+        toast("가입이 실패했습니다. 다시 시도해 주세요.");
+      });
+    } else if (confirmEmailBoolean == false) {
+      dispatch(registerError("이메일 형식이 올바르지 않거나 중복검사를 통과하지 못했습니다."));
+      toast("이메일 형식이 올바르지 않거나 중복검사를 통과하지 못했습니다.");
 
     } else if ( checkNicknameBoolean == false) {
       dispatch(registerError("닉네임 형식이 올바르지 않습니다."));

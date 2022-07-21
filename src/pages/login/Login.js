@@ -114,7 +114,6 @@ const Login = (props) => {
   )
 }
 
-
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }

@@ -30,31 +30,31 @@ export function resetNicknameUser(payload) {
 
     return (dispatch) => {
         if (payload.creds.nickname.match(nicknamePattern)) {
+            // 닉네임 변경 요청
             axios({
                 method: "patch",
                 url: BASEURL + "member/nickname",
-                data: {
-                    // 토큰에서 저장된 이메일 불러와서 추가해야함 
-                    email: email,  
-                  nickName: payload.creds.nickname,
+                data: { 
+                    email: email,
+                    nickName: payload.creds.nickname,
                 },
             })
-                .then((res) => {
-                    //조건 확인
-                    if (res.status === 200) {
-                        toast("닉네임 수정이 완료되었습니다.");
-                        payload.history.push('/#');
-                    } else {
-                        dispatch(resetNicknameError("닉네임 수정 백앤드 실패값 반환"));
-                        toast("닉네임 수정 요청이 실패하였습니다.  다시 시도해주세요.");
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    dispatch(resetNicknameError("닉네임 수정 axios error catch"));
+            .then((res) => {
+                //조건 확인
+                if (res.status === 200) {
+                    toast("닉네임 수정이 완료되었습니다.");
+                    payload.history.push('/#');
+                } else {
+                    dispatch(resetNicknameError("닉네임 수정 백앤드 실패값 반환"));
                     toast("닉네임 수정 요청이 실패하였습니다.  다시 시도해주세요.");
-                    console.log("닉네임 수정 axios 에러");
-                })
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(resetNicknameError("닉네임 수정 axios error catch"));
+                toast("닉네임 수정 요청이 실패하였습니다.  다시 시도해주세요.");
+                console.log("닉네임 수정 axios 에러");
+            })
         } else {
             dispatch(resetNicknameError("닉네임은 공백, 특수문자 제외 2자 이상이어야 합니다."));
             toast("닉네임은 공백, 특수문자 제외 2자 이상이어야 합니다.");
