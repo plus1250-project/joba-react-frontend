@@ -58,7 +58,7 @@ const CompareKeywordList = (props) => {
             regMonth: cKeywordList[key].regMonth,
             industryName: cKeywordList[key].industryName,
             increment: cKeywordList[key].increment,
-            fluctRank: cKeywordList[key].fluctRank,
+            changeRank: cKeywordList[key].changeRank,
 
         })
     }
@@ -93,7 +93,7 @@ const CompareKeywordList = (props) => {
                                     <th><span className="ml-5">{item.monthRank}</span></th>
                                     <td className="ml-3 d-flex align-items-center"><span className='mr-2'>{item.keyword}</span></td>                                    
                                         <td><span className='float-right' style={{margin:"0 80px 0 0"}}>{item.increment}</span></td>        
-                                    <div className='ml-4'>{item.fluctRank === 0 ? <td className="d-flex align-items-center ml-2" style={{ color: "blue" }}><span className='float-right' >-</span></td> : item.fluctRank > 10 ? <td className="d-flex align-items-center" style={{ color: "red" }}><span className='float-right' >NEW</span></td> : item.fluctRank > 0 ? <td className="d-flex align-items-center" style={{ color: "red" }}><span className='float-right' >▲{item.fluctRank}</span></td> : <td className="d-flex align-items-center" style={{ color: "blue" }}>▼{Math.abs(item.fluctRank)}</td>}</div>
+                                    <div className='ml-4'>{item.changeRank === 0 ? <td className="d-flex align-items-center ml-2" style={{ color: "blue" }}><span className='float-right' >-</span></td> : item.changeRank > 10 ? <td className="d-flex align-items-center" style={{ color: "red" }}><span className='float-right' >NEW</span></td> : item.changeRank > 0 ? <td className="d-flex align-items-center" style={{ color: "red" }}><span className='float-right' >▲{item.changeRank}</span></td> : <td className="d-flex align-items-center" style={{ color: "blue" }}>▼{Math.abs(item.changeRank)}</td>}</div>
                                 </tr>
                             ))}
                     </tbody>
