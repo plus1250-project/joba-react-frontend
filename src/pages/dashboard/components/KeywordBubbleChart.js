@@ -65,7 +65,11 @@ const KeywordBubbleChart = (props) => {
             </div> */}
         </div>
         <div className={s.widgetContentBlock}>
-          <Statefulbubble industryName={props.industryName} onChangeChart={props.onChangeChart}/>
+          <Statefulbubble 
+            industryName={props.industryName} 
+            onChangeChart={props.onChangeChart}
+            onChangeIndus={props.onChangeIndus}
+            />
             {/* {transactions.map(item => (
             <div key={uuidv4()} className={s.content}>
                 <div><img src={item.icon} alt="Item" /><span className="body-2 ml-3">{item.category}</span></div>

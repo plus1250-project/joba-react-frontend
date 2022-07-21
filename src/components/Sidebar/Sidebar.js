@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { changeIndustryName } from '../../actions/industry';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button} from 'reactstrap';
 import { Link, withRouter, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect } from "react-router";
 import s from "./Sidebar.module.scss";
 import l from "./LinksGroup/LinksGroup.module.scss"
 import LinksGroup from "./LinksGroup/LinksGroup.js";
@@ -11,6 +15,7 @@ import { changeActiveSidebarItem, changeDashboard } from "../../actions/navigati
 import SofiaLogo from "../Icons/SofiaLogo.js";
 import cn from "classnames";
 
+import Dashboard from '../../pages/dashboard/Dashboard';
 import SidebarItem from './SidebarItem';
 
 const Sidebar = (props) => {
@@ -28,6 +33,13 @@ const Sidebar = (props) => {
   // const onIndustryNameHandler = (event) => {
   //   setIndustryName(false)
   // }
+
+  const dispatch = useDispatch();
+  
+
+  const changeIndus = (props) => {
+    dispatch(changeIndustryName(props));
+  }
 
 
   useEffect(() => {
@@ -75,8 +87,24 @@ const Sidebar = (props) => {
         <SidebarItem name="건설업" />  */}
 
         
+        
+          {/* <Route path="/template/dashboard/it" 
+              render={() => <Dashboard industryName="IT정보통신업"/>}>ㅁㄴㅇㄹ </Route> */}
+              
+     
+        <Link to="/template/dashboard/it">IT정보통신업</Link><br />
 
-        <LinksGroup
+        {/* <Route path="/template/dashboard/economy" 
+              render={() => <Dashboard industryName="금융업"/>}>ㅁㄴㅇㄹ </Route> */}
+
+        <Link to="/template/dashboard/economy">금융업</Link><br />
+        <Link to="/template/dashboard/construct">건설업</Link><br />
+        <Link to="/template/dashboard/chemical">화학제약</Link><br />
+        <Link to="/template/dashboard/food">음식료업</Link><br />
+        <Link to="/template/dashboard/mechanic">기계장비</Link><br />
+        <Link to="/template/dashboard/retail">판매유통</Link>
+  
+        {/* <LinksGroup
           onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
           activeItem={props.activeItem}
           header="IT정보통신업"
@@ -132,7 +160,7 @@ const Sidebar = (props) => {
           iconName={<i className={'eva eva-text-outline'}/>}
           link="/template/dashboard/retail"
           index="판매유통"
-        />
+        /> */}
         
       </ul>
     </nav>

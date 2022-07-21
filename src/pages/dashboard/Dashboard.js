@@ -43,7 +43,9 @@ let keywordCnt = [];
 const Dashboard = (props) => {
   const [tableDropdownOpen, setTableMenuOpen] = useState(false);
   let [ trendList, setTrendList ] = useState();
+  // const [ bubbleName, setBubbleName ]= useState("");
 
+  // const [ iName, setIName ] = useState("");
   // dispatch 를 통해 action 실행 (changeIndustryName(industryName))
   const dispatch = useDispatch();
   const changeIndus = (props) => {
@@ -51,60 +53,72 @@ const Dashboard = (props) => {
   }
 
   // selector 를 이용해 reducer에 컴바인된 industry 가져오기 (reducers/index.js) 함수 내의 변수과 동일해야 함 
+  
+  // redux 안변해서 안됐나...?
   const { industryName } = useSelector(state => state.industry);
   // const { bubbleName } = useSelector(state => state.bubble);
-
-  console.log(industryName);
-
+  
+  console.log(props.industryName);
+  
   // const { bubbleName } = useSelector(state => state.bubble);
   // console.log("-------------Chart : ", bubbleName);
-
+  
   // 월별 트렌드 차트 데이터 요청
   const BASEURL = 'http://localhost:3000/';
-
-   // 오늘 날짜를 보고 달을 찾아서 변수를 저장해야한다.
+  
+  // 오늘 날짜를 보고 달을 찾아서 변수를 저장해야한다.
    let date = new Date();
    let month = date.getMonth() // month 지난 달 부터
-
- 
+   
+   
    // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
    let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
-  
+   
    // console.log("Chart month : ", month);
    let labels = [(month-1) + '월' + month + '월'];
-
-  let bubbleName = "";
-  
-  let data = [];
-  let dummyDate = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2) + "-" + "30";
-
-
-  let onChangeChart = ((props) => {
-    console.log("클릭 : ", props);
-    console.log("클릭>redux : ", bubbleName);
-    bubbleName = props;
-    let url = BASEURL+"month-keyword/" + bubbleName + "/" + industryName + "/" + dummyDate;
-    console.log("onchangeChart url : ", url);
+   
+   let bubbleName = "";
+   let iName = props.industryName;
+   
+   let data = [];
+   let dummyDate = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2) + "-" + "30";
+   
+   console.log("redux indus : ", industryName);
+   
+   let onChangeChart = ((props) => {
+     // setIName(e);
     
-    axios.get(url)
-    .then(response => {
-      console.log(response.data);
-      setTrendList(response.data);
-    })
+      console.log("onChangeChart >props indus name : ", props.industryName);
+      console.log("onChangeChart >props bubble name : ", props.bubbleName);
+      
+      // console.log("클onChangeChart): ", i);
+      // console.log("클릭> 이전 redux : ", bubbleName);
+      // setBubbleName(props.i);
+      bubbleName = props.i
+      let url = BASEURL+"keyword/monthly/" + props.bubbleName + "/" + props.industryName + "/" + dummyDate;
+      console.log("onchangeChart url : ", url);
+
+
+      
+      axios.get(url)
+      .then(response => {
+        console.log(response.data);
+        setTrendList(response.data);
+      })
 
     
 
-//   for (const key in trendList) {
-//     data.push({
-//         id: key,
-//         keyword: trendList[key].keyword,
-//         keywordCnt: trendList[key].keywordCnt,
-        
-//     })
-// }
+            //   for (const key in trendList) {
+            //     data.push({
+            //         id: key,
+            //         keyword: trendList[key].keyword,
+            //         keywordCnt: trendList[key].keywordCnt,
+                    
+            //     })
+            // }
 
-// console.log(series);
-  // console.log(trendList);
+            // console.log(series);
+              // console.log(trendList);
   });
 console.log(trendList);
 
@@ -133,7 +147,7 @@ console.log(trendList);
             <Col xs={12} xl={8} className="pl-grid-col mt-4 mt-xl-0">
               <Row className="pl-grid-row">
                 <Col>
-                  <KeywordBubbleChart industryName={props.industryName} onChangeChart={onChangeChart} bubbleName={bubbleName}/>
+                  <KeywordBubbleChart industryName={props.industryName} onChangeChart={onChangeChart} bubbleName={bubbleName} onChangeIndus={changeIndus}/>
                 </Col>
               </Row>
               <Row className="pl-grid-row mt-4">

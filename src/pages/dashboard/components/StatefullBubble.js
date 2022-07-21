@@ -107,6 +107,8 @@ for (const key in trendKeyword) {
   })
 }
 
+
+
 console.log(data1);
   // const [array, setArray] = useState(data)
   // const additionalData = {
@@ -125,7 +127,12 @@ console.log(data1);
     <>
       {/* eslint-disable-next-line react/button-has-type */}
       {/* <button onClick={addToArray}>Click</button> */}
-      <Bubble data={data1} onChangeChart={props.onChangeChart}/>
+      <Bubble 
+        data={data1} 
+        onChangeChart={props.onChangeChart}
+        industryName={props.industryName}
+        onChangeIndus={props.onChangeIndus}
+        />
     </>
   )
 }
