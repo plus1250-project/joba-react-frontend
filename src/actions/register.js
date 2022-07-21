@@ -29,20 +29,23 @@ const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 let confirmEmailBoolean = false;
 
 export function confirmEmail(payload) {
+
+  console.log(payload.target.value);
+
   if (!(payload.target.value.match(pattern) != null)) {
     registerError("이메일 형식이 올바르지 않습니다.");
     toast("이메일 형식이 올바르지 않습니다.");
   } else {
     axios({
       method: "post",
-      url: BASEURL + "confirmemail",
+      url: BASEURL + "member/validate",
       data: {
         email: payload.target.value,
       },
     })
       .then((res) => {
         //조건 확인
-        if (null) {
+        if (res.data === "false") {
           window.alert(res.data.result);
           toast("사용 가능한 이메일입니다.");
 
