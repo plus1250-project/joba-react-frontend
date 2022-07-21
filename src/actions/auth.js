@@ -48,7 +48,7 @@ const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 
 const BASEURL = 'http://localhost:3000/';
 
-// 여기서 로그인 요청 보내기
+// 여기서 로그인 백엔드 요청 보내기
 export function loginUser(creds) {
   console.log("이메일& 비밀번호 ", creds.email, " | ", creds.password);
   return (dispatch) => {
@@ -65,8 +65,10 @@ export function loginUser(creds) {
           localStorage.setItem('bearerToken', res.data.accessToken)
           localStorage.setItem('authenticated', true)
           document.location.href = "/it";
+        }else{
+          dispatch(loginError("비밀번호가 다릅니다."));
+          toast("회원정보가 일치하지 않습니다.");
         }
-        console.log(res.data.accessToken);
       })
       .catch((error) => {
         console.log(error);
