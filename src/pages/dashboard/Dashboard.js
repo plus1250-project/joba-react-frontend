@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  Col,
-  Row,
-} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { changeIndustryName } from "../../actions/industry.js";
 import axios from 'axios';

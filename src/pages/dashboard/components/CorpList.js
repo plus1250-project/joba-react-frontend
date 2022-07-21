@@ -13,33 +13,27 @@ import classes from './CorpList.module.scss'
 const CorpList = (props) => {
 
     const [corpList, setCorpList] = useState([]);
-    console.log(props);
-
-    const BASEURL = 'http://localhost:3000/';
-
-    const corps = [];
 
     const { industryName } = useSelector(state => state.industry);
-
-
+    
+    
     // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
     let date = new Date(); 
     let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
-
-    console.log(industryName);
-    console.log(regMonth);
-
+    
     //  산업군별 성장 기업 리스트 요청  
+    const BASEURL = 'http://localhost:3000/';
     useEffect(() => {
-        axios.get(BASEURL+"industry/corporation-growth/" + industryName  + "/" + regMonth)
-        .then(response => {
-          console.log(response.data);
-          setCorpList(response.data);
-        })
-      }, [industryName]
+      axios.get(BASEURL+"industry/corporation-growth/" + industryName  + "/" + regMonth)
+      .then(response => {
+        console.log(response.data);
+        setCorpList(response.data);
+      })
+    }, [industryName]
     );
-
+    
     // 받아 온 월별 키워드 정리
+    const corps = [];
     for (const key in corpList) {
       corps.push({
             id: key,
@@ -50,13 +44,6 @@ const CorpList = (props) => {
     }
 
     corps.sort((a,b)=> a.corpRank - b.corpRank)
-
-    console.log(corps);
-  
-
-      
-      // console.log(industryName);
-      // console.log(corpList);
 
     const listItems = (
         <Widget>

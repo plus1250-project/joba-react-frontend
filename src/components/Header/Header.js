@@ -3,17 +3,14 @@ import React, { useState , useEffect} from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import jwt from 'jwt-decode';
-
 import {
-  Dropdown, DropdownMenu, DropdownToggle, Form,
-  FormGroup, Input, InputGroup, InputGroupAddon, Nav, Navbar, NavItem,
+  Dropdown, DropdownMenu, DropdownToggle, Nav, Navbar, NavItem,
   NavLink
 } from "reactstrap";
 
 import { logoutUser } from "../../actions/auth";
 import { closeSidebar, openSidebar } from "../../actions/navigation";
 import MenuIcon from "../Icons/HeaderIcons/MenuIcon";
-import SearchBarIcon from "../Icons/HeaderIcons/SearchBarIcon";
 import SearchIcon from "../Icons/HeaderIcons/SearchIcon";
 
 
@@ -23,16 +20,14 @@ import "animate.css";
 import s from "./Header.module.scss";
 import axios from "axios";
 
+
 const Header = (props) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [memberInfo, setMemberInfo] = useState([]);
 
   const toggleNotifications = () => {
     setNotificationsOpen(!notificationsOpen);
-  }
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
   }
 
   const toggleSidebar = () => {
@@ -49,16 +44,9 @@ const Header = (props) => {
     props.dispatch(logoutUser());
   }
 
-  const BASEURL = 'http://localhost:3000/';
-
   let email = jwt(localStorage.getItem('bearerToken')).sub
-  console.log(email);
-
-  let nickname = "";
-
-  const [memberInfo, setMemberInfo] = useState([]);
-  // let memberInfo = null;
-
+  
+  const BASEURL = 'http://localhost:3000/';
   useEffect(() => {
     axios({
       method: "post",
@@ -68,7 +56,6 @@ const Header = (props) => {
       }
     })
       .then(response => {
-        console.log(response.data);
         setMemberInfo(response.data);
         // memberInfo = response.data;
       })
@@ -76,11 +63,6 @@ const Header = (props) => {
         console.log(error);
       })
   },[email])
-
-
-    console.log(memberInfo.nickName);
-
-
 
 
   return (
@@ -94,18 +76,6 @@ const Header = (props) => {
           <MenuIcon className={s.menuIcon} />
         </NavLink>
       </div>
-      {/* <Form className="d-none d-sm-block" inline>
-        <FormGroup>
-          <InputGroup className='input-group-no-border'>
-            <Input id="search-input" placeholder="Search Dashboard" className='focus' />
-            <InputGroupAddon addonType="prepend">
-              <span>
-                <SearchBarIcon />
-              </span>
-            </InputGroupAddon>
-          </InputGroup>
-        </FormGroup>
-      </Form> */}
       <Nav className="ml-auto">
         <NavItem className="d-sm-none mr-4">
           <NavLink
@@ -122,7 +92,6 @@ const Header = (props) => {
           </DropdownToggle>
 
           {/* 마이페이지 (드롭다운) */}
-
           <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "flex", margin :"10px 200px 0  0"  }}>
 
             <div className={s.dropdownProfileItem}>
@@ -190,4 +159,3 @@ function mapStateToProps(store) {
 }
 
 export default withRouter(connect(mapStateToProps)(Header));
-
