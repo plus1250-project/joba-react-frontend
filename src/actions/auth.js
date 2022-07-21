@@ -48,8 +48,7 @@ const pwPattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 
 const BASEURL = 'http://localhost:3000/';
 
-// 여기서 로그인 백엔드 요청 보내기
-// 더미로 확인하는 법....?
+// 여기서 로그인 요청 보내기
 export function loginUser(creds) {
   console.log("이메일& 비밀번호 ", creds.email, " | ", creds.password);
   return (dispatch) => {
@@ -68,20 +67,9 @@ export function loginUser(creds) {
           document.location.href = "/it";
         }
         console.log(res.data.accessToken);
-        // dispatch(
-        //   setUser({
-        //     email: res.data.email,
-        //     nickname: res.data.nickname,
-        //   })
-        // );
-        // const accessToken = res.data.token;
-        // //쿠키에 토큰 저장
-        // setCookie("is_login", `${accessToken}`);
       })
       .catch((error) => {
         console.log(error);
-        // 나중에 지워야됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!임시
-        // localStorage.setItem('authenticated', true)
       });
 
     } else if (!(creds.email.match(pattern) != null) ) {

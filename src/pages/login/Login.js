@@ -23,8 +23,8 @@ import SofiaLogo from "../../components/Icons/SofiaLogo.js";
 const Login = (props) => {
 
   const [state, setState] = useState({
-    email: 'admin@flatlogic.com',
-    password: 'password',
+    email: '',
+    password: '',
   })
 
   const doLogin = (e) => {
