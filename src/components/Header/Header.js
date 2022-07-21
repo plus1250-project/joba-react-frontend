@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import jwt from 'jwt-decode';
 
 import {
   Dropdown, DropdownMenu, DropdownToggle, Form,
@@ -20,6 +21,7 @@ import logoutIcon from "../../assets/navbarMenus/pfofileIcons/logoutOutlined.svg
 
 import "animate.css";
 import s from "./Header.module.scss";
+import axios from "axios";
 
 const Header = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,6 +48,40 @@ const Header = (props) => {
   const doLogout = () => {
     props.dispatch(logoutUser());
   }
+
+  const BASEURL = 'http://localhost:3000/';
+
+  let email = jwt(localStorage.getItem('bearerToken')).sub
+  console.log(email);
+
+  let nickname = "";
+
+  const [memberInfo, setMemberInfo] = useState([]);
+  // let memberInfo = null;
+
+  useEffect(() => {
+    axios({
+      method: "post",
+      url: BASEURL + "member/info",
+      data: {
+        email: email,
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        setMemberInfo(response.data);
+        // memberInfo = response.data;
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+  },[email])
+
+
+    console.log(memberInfo.nickName);
+
+
+
 
   return (
     <Navbar className={`${s.root} d-print-none`}>
@@ -82,12 +118,12 @@ const Header = (props) => {
         <Dropdown isOpen={notificationsOpen} toggle={() => toggleNotifications()} nav id="basic-nav-dropdown" className="ml-3 mr-3">
           <DropdownToggle nav caret className="navbar-dropdown-toggle">
             {/* 닉네임 받아오기 */}
-            <span className="small d-none d-sm-block ml-1 mr-2 body-1">nickname</span>
+            <span className="small d-none d-sm-block ml-1 mr-2 body-1">{memberInfo.nickName}</span>
           </DropdownToggle>
 
           {/* 마이페이지 (드롭다운) */}
 
-          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "flex", margin :"10px 100px 0  0"  }}>
+          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "flex", margin :"10px 200px 0  0"  }}>
 
             <div className={s.dropdownProfileItem}>
               <h6>My page</h6></div>
@@ -97,7 +133,7 @@ const Header = (props) => {
             </NavItem>
             <NavItem>
               {/* 이메일 받아오기 */}
-              <span className={s.emailAccount}>plus1250@email.com</span>
+              <span className={s.emailAccount}>{memberInfo.email}</span>
             </NavItem>
             <hr />
              {/* 닉네임 변경*/}
@@ -106,7 +142,7 @@ const Header = (props) => {
             </NavItem>
              <NavItem>
               <NavLink href="#/resetnickname">
-                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-1">닉네임 변경</span></button>
+                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-2 mr-2">닉네임 변경</span></button>
               </NavLink>
             </NavItem>
             <hr />
@@ -116,7 +152,7 @@ const Header = (props) => {
             </NavItem>
             <NavItem>
               <NavLink href="#/resetpw">
-                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-1">비밀번호 변경</span></button>
+                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="">비밀번호 변경</span></button>
               </NavLink>
             </NavItem>
             <hr />
@@ -124,7 +160,7 @@ const Header = (props) => {
             {/* 로그아웃 버튼 */}
             <NavItem>
               <NavLink onClick={() => doLogout()} href="#">
-                <button className="btn btn-primary mx-auto log-btn" type="submit" style={{}}><img src={logoutIcon} alt="Logout" /><span className="ml-1">로그아웃</span></button>
+                <button className="btn btn-primary mx-auto log-btn" type="submit" style={{}}><img src={logoutIcon} alt="Logout" /><span className="ml-3 mr-3">로그아웃</span></button>
               </NavLink>
             </NavItem>
             {/* 회원탈퇴 버튼 */}
