@@ -17,9 +17,9 @@ const Statefulbubble = (props) => {
   let issueDate = date.getFullYear() + "-" + ("00" + (date.getMonth() + 1)).slice(-2)+ "-" + ("00" + date.getDate()).slice(-2) ;
   
   // 더미 날짜
-  let sample = new Date('2022-06-30');
+  let sample = new Date('2022-07-17');
   let sampleDate = sample.getFullYear() + "-" + ("00" + (sample.getMonth() + 1)).slice(-2)+ "-" + ("00" + sample.getDate()).slice(-2) ;
-  
+  // console.log("sampleDate:" + sampleDate);
   // trend_keyword 요청
   const BASEURL = 'http://localhost:3000/';
 

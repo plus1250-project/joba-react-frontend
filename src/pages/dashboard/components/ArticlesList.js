@@ -79,10 +79,11 @@ const ArticlesList = (props) => {
                 <div className={ac.taskDescription}>
                   <a 
                   href={article.articleUrl}
-                  style={{textDecoration :"none" ,color : "black"}}
+                  style={{textDecoration :"none" ,color : "black" }}
                   >
                     <div
-                      className="checkbox checkbox-primary mr-1">
+                      className="checkbox checkbox-primary mr-1"
+                      >
                       {article.articleTitle}
                     </div>
                   </a>

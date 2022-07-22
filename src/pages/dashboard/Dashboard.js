@@ -26,8 +26,9 @@ const Dashboard = (props) => {
   let regMonth = new Date().getFullYear() + "-" + ("00" + (new Date().getMonth())).slice(-2);
  
   // 등록 날짜 (자동화 전 더미 데이터)
-  let dummyDate = new Date().getFullYear() + "-" + ("00" + (new Date().getMonth())).slice(-2) + "-" + "30";
- 
+  // let dummyDate = new Date().getFullYear() + "-" + ("00" + (new Date().getMonth())).slice(-2) + "-" + "30";
+  let dummyDate = '2022-07-17'
+
   const BASEURL = 'http://localhost:3000/';
    
   let onChangeChart = ((props) => {
