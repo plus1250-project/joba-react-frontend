@@ -19,7 +19,7 @@ const ArticlesList = (props) => {
   let issueDate = date.getFullYear() + "-" + ("00" + (date.getMonth() + 1)).slice(-2)+ "-" + ("00" + date.getDate()).slice(-2) ;
   
   // 자동화 전 더미 데이트
-  const dummyDate = '2022-06-30';
+  const dummyDate = '2022-07-17';
   
   const BASEURL = 'http://localhost:3000/';
 
