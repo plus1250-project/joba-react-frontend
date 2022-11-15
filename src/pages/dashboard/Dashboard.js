@@ -48,14 +48,26 @@ const Dashboard = (props) => {
         <Col>
           {/* main header */}
           <Row className="mb-4">
-            <Col className="mb-4 mb-xl-0" >
-              <KeywordBlock industryName={props.industryName} />
+            <Col xs={12} xl={4} sm={12} className="pl-grid-col mt-4 mt-xl-0" >
+              <Row className="pl-grid-row">
+                <Col>
+                  <KeywordBlock industryName={props.industryName} />
+                </Col>
+              </Row>
             </Col>
-            <Col xs={6} sm={6} xl={4}>
-              <CorpGrowthIndustry industryName={props.industryName}/>
+            <Col xs={12} xl={4} sm={12} className="pl-grid-col mt-4 mt-xl-0">
+              <Row className="pl-grid-row">
+                <Col>
+                  <CorpGrowthIndustry industryName={props.industryName}/>
+                </Col>
+              </Row>
             </Col>
-            <Col className="mb-4 mb-xl-0 cursor:pointer" onClick={() => { changeIndus(props.industryName) }}>
-                <CorpIndustry onOpen={props.onOpen} />
+            <Col xs={12} xl={4} sm={12} className="pl-grid-col mt-4 mt-xl-0 cursor:pointer" onClick={() => { changeIndus(props.industryName) }}>
+              <Row className="pl-grid-row">
+                <Col>
+                  <CorpIndustry industryName={props.industryName} onOpen={props.onOpen} />
+                </Col>
+              </Row>
             </Col>
           </Row>
           {/* middle */}

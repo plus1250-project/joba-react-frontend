@@ -65,7 +65,7 @@ const CorpGrowthIndustry = (props) => {
   return (
     <Widget className="widget-p-sm">
       <div className={s.smallWidget}>
-        <div className="d-flex mb-4">
+        <div className="d-flex mb-3">
           <img className="py-1 ml-2 mr-2 mt-4 img-fluid" src={heartTeal} alt="..." style={{ width: "15%" }} />
           <div className="d-flex flex-column">
             <p className="headline-2 mt-2 ml-4">우량 기업 리스트</p>
