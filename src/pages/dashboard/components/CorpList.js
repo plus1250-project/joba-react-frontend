@@ -20,11 +20,13 @@ const CorpList = (props) => {
     // 현재 월에서 -1 로 요청 ex. 7월 일 겨우 6월 데이터 요청
     let date = new Date(); 
     let regMonth = date.getFullYear() + "-" + ("00" + (date.getMonth())).slice(-2);
+
+    const dummyMonth = "2022-06";
     
     //  산업군별 성장 기업 리스트 요청  
     const BASEURL = 'http://localhost:3000/';
     useEffect(() => {
-      axios.get(BASEURL+"industry/corporation-growth/" + industryName  + "/" + regMonth)
+      axios.get(BASEURL+"industry/corporation-growth/" + industryName  + "/" + dummyMonth)
       .then(response => {
         console.log(response.data);
         setCorpList(response.data);

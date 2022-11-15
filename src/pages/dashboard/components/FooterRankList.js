@@ -6,10 +6,14 @@ import s from "../../tables/Tables.module.scss"
 import CompareKeywordList from './CompareKeywordList';
 
 // N월 만들기
-let date = new Date();
-let monthNumber = date.getMonth();
-let yearNumber = date.getFullYear();
+// let date = new Date();
+// let monthNumber = date.getMonth();
+// let yearNumber = date.getFullYear();
 // let regMonth = yearNumber + "-" + ("00" + (monthNumber)).slice(-2);
+
+// 더미 날짜 만들기 
+let monthNumber = '06';
+let yearNumber = '2022';
 
 const FooterRankList = (props) => {
 
