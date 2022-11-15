@@ -1,55 +1,33 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router";
+import React, { useState , useEffect} from "react";
 import { connect } from "react-redux";
-
+import { withRouter } from "react-router";
+import jwt from 'jwt-decode';
 import {
-  Navbar,
-  Nav,
-  NavItem,
-  NavLink,
-  InputGroupAddon,
-  InputGroup,
-  Input,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Form,
-  FormGroup,
+  Dropdown, DropdownMenu, DropdownToggle, Nav, Navbar, NavItem,
+  NavLink
 } from "reactstrap";
 
 import { logoutUser } from "../../actions/auth";
 import { closeSidebar, openSidebar } from "../../actions/navigation";
 import MenuIcon from "../Icons/HeaderIcons/MenuIcon";
-import SearchBarIcon from "../Icons/HeaderIcons/SearchBarIcon";
 import SearchIcon from "../Icons/HeaderIcons/SearchIcon";
 
-import ProfileIcon from "../../assets/navbarMenus/pfofileIcons/ProfileIcon";
-import MessagesIcon from "../../assets/navbarMenus/pfofileIcons/MessagesIcon";
-import TasksIcon from "../../assets/navbarMenus/pfofileIcons/TasksIcon";
 
 import logoutIcon from "../../assets/navbarMenus/pfofileIcons/logoutOutlined.svg";
-import basketIcon from "../../assets/navbarMenus/basketIcon.svg";
-import calendarIcon from "../../assets/navbarMenus/calendarIcon.svg";
-import envelopeIcon from "../../assets/navbarMenus/envelopeIcon.svg";
-import mariaImage from "../../assets/navbarMenus/mariaImage.jpg";
-import notificationImage from "../../assets/navbarMenus/notificationImage.jpg";
-import userImg from "../../assets/user.svg";
 
-import s from "./Header.module.scss";
 import "animate.css";
+import s from "./Header.module.scss";
+import axios from "axios";
+
 
 const Header = (props) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [memberInfo, setMemberInfo] = useState([]);
 
   const toggleNotifications = () => {
     setNotificationsOpen(!notificationsOpen);
-  }
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
   }
 
   const toggleSidebar = () => {
@@ -66,6 +44,27 @@ const Header = (props) => {
     props.dispatch(logoutUser());
   }
 
+  let email = jwt(localStorage.getItem('bearerToken')).sub
+  
+  const BASEURL = 'http://localhost:3000/';
+  useEffect(() => {
+    axios({
+      method: "post",
+      url: BASEURL + "member/info",
+      data: {
+        email: email,
+      }
+    })
+      .then(response => {
+        setMemberInfo(response.data);
+        // memberInfo = response.data;
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+  },[email])
+
+
   return (
     <Navbar className={`${s.root} d-print-none`}>
       <div>
@@ -77,18 +76,6 @@ const Header = (props) => {
           <MenuIcon className={s.menuIcon} />
         </NavLink>
       </div>
-      <Form className="d-none d-sm-block" inline>
-        <FormGroup>
-          <InputGroup className='input-group-no-border'>
-            <Input id="search-input" placeholder="Search Dashboard" className='focus'/>
-            <InputGroupAddon addonType="prepend">
-              <span>
-                <SearchBarIcon/>
-              </span>
-            </InputGroupAddon>
-          </InputGroup>
-        </FormGroup>
-      </Form>
       <Nav className="ml-auto">
         <NavItem className="d-sm-none mr-4">
           <NavLink
@@ -98,46 +85,58 @@ const Header = (props) => {
             <SearchIcon />
           </NavLink>
         </NavItem>
-        <Dropdown nav isOpen={menuOpen} toggle={() => toggleMenu()} className="tutorial-dropdown mr-2 mr-sm-3">
-          <DropdownToggle nav>
-            <div className={s.navbarBlock}>
-              <i className={'eva eva-bell-outline'}/>
-              <div className={s.count}></div>
-            </div>
-          </DropdownToggle>
-          <DropdownMenu right className="navbar-dropdown notifications-dropdown" style={{ width: "340px" }}>
-            <DropdownItem><img src={basketIcon} alt="Basket Icon"/><span>12 new orders have arrived today</span></DropdownItem>
-            <DropdownItem>
-              <div>
-                <div className="d-flex flex-row mb-1">
-                  <img src={mariaImage} alt="Maria" className={s.mariaImage} />
-                  <div className="d-flex flex-column">
-                    <p className="body-3">Maria</p>
-                    <p className="label muted">15 min ago</p>
-                  </div>
-                </div>
-                <img src={notificationImage} alt="Notification Icon" className={s.notificationImage}/>
-                <p className="body-2 muted">It is just a simple image that can define th..</p>
-              </div>
-            </DropdownItem>
-            <DropdownItem><img src={calendarIcon} alt="Calendar Icon"/><span>1 event has been canceled and ...</span></DropdownItem>
-            <DropdownItem><img src={envelopeIcon} alt="Envelope Icon"/><span>you have 2 new messages</span></DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-        <Dropdown isOpen={notificationsOpen} toggle={() => toggleNotifications()} nav id="basic-nav-dropdown" className="ml-3">
+        <Dropdown isOpen={notificationsOpen} toggle={() => toggleNotifications()} nav id="basic-nav-dropdown" className="ml-3 mr-3">
           <DropdownToggle nav caret className="navbar-dropdown-toggle">
-            <span className={`${s.avatar} rounded-circle float-left mr-2`}>
-              <img src={userImg} alt="User"/>
-            </span>
-            <span className="small d-none d-sm-block ml-1 mr-2 body-1">Christina Carey</span>
+            {/* 닉네임 받아오기 */}
+            <span className="small d-none d-sm-block ml-1 mr-2 body-1">{memberInfo.nickName}</span>
           </DropdownToggle>
-          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "194px" }}>
-            <DropdownItem className={s.dropdownProfileItem}><ProfileIcon/><span>Profile</span></DropdownItem>
-            <DropdownItem className={s.dropdownProfileItem}><TasksIcon/><span>Tasks</span></DropdownItem>
-            <DropdownItem className={s.dropdownProfileItem}><MessagesIcon/><span>Messages</span></DropdownItem>
+
+          {/* 마이페이지 (드롭다운) */}
+          <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "flex", height: "flex", margin :"10px 200px 0  0"  }}>
+
+            <div className={s.dropdownProfileItem}>
+              <h6>My page</h6></div>
+            <hr />
+            <NavItem>
+              <span className={s.emailname} >email</span>
+            </NavItem>
+            <NavItem>
+              {/* 이메일 받아오기 */}
+              <span className={s.emailAccount}>{memberInfo.email}</span>
+            </NavItem>
+            <hr />
+             {/* 닉네임 변경*/}
+             <NavItem>
+              <span className={s.password} >nickname</span>
+            </NavItem>
+             <NavItem>
+              <NavLink href="#/resetnickname">
+                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="ml-2 mr-2">닉네임 변경</span></button>
+              </NavLink>
+            </NavItem>
+            <hr />
+            {/* 비밀번호 변경  */}
+            <NavItem>
+              <span className={s.password} >password</span>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#/resetpw">
+                <button className="btn btn-primary mx-auto pwChange-btn" type="submit" ><img src={logoutIcon} alt="Logout" /><span className="">비밀번호 변경</span></button>
+              </NavLink>
+            </NavItem>
+            <hr />
+           
+            {/* 로그아웃 버튼 */}
             <NavItem>
               <NavLink onClick={() => doLogout()} href="#">
-                <button className="btn btn-primary rounded-pill mx-auto logout-btn" type="submit"><img src={logoutIcon} alt="Logout"/><span className="ml-1">Logout</span></button>
+                <button className="btn btn-primary mx-auto log-btn" type="submit" style={{}}><img src={logoutIcon} alt="Logout" /><span className="ml-3 mr-3">로그아웃</span></button>
+              </NavLink>
+            </NavItem>
+            {/* 회원탈퇴 버튼 */}
+            <hr/>
+            <NavItem>
+              <NavLink href="#/deleteaccount">
+                계정 삭제
               </NavLink>
             </NavItem>
           </DropdownMenu>
@@ -160,4 +159,3 @@ function mapStateToProps(store) {
 }
 
 export default withRouter(connect(mapStateToProps)(Header));
-

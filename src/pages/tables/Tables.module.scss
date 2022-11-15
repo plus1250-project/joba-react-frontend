@@ -10,6 +10,15 @@
   }
 }
 
+.monthTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 24px;
+  margin-bottom: 12px;
+
+}
+
 .transactionTitleBlock {
   display: flex;
   align-items: center;
@@ -19,6 +28,13 @@
 
 .widgetContentBlock {
   margin: 0 24px 24px;
+  height: 50vh;
+  // width: ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1%;
+  overflow: hidden;
 }
 
 .content {
@@ -32,8 +48,8 @@
 }
 
 .image {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .checkboxCol {
@@ -44,4 +60,36 @@
   width: 15%;
 }
 
+.pointer {
+  cursor: pointer
+}
+
+.articleBlock {
+  margin: 0 24px 24px;
+  // height: 50vh;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  // overflow: auto;
+}
+
+.monthlyButton {
+  margin-left: 50px;
+}
+
+// .bigIndust {
+//   animation: loadEffect1 0.5s ease-in-out ;
+// }
+
+// @keyframes loadEffect1 {
+//   from {
+//     opacity: 0;
+//     transform: translateY(20px);
+//   }
+
+//   to {
+//     opacity: 1;
+//     transform: none;
+//   }
+// }
 

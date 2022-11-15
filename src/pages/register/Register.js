@@ -1,35 +1,32 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { withRouter, Redirect, Link } from "react-router-dom";
+import { useState } from "react";
 import { connect } from "react-redux";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import {
-  Container,
-  Row,
-  Col,
-  Button,
-  FormGroup,
+  Button, Col, Container, FormGroup,
   FormText,
-  Input,
+  Input, Row
 } from "reactstrap";
-import Widget from "../../components/Widget/Widget.js";
 import Footer from "../../components/Footer/Footer.js";
+import Widget from "../../components/Widget/Widget.js";
 
+
+import { confirmEmail } from "../../actions/register.js";
+import { checkNickname } from "../../actions/register.js";
+import { checkPassword } from "../../actions/register.js";
+import { registerUser } from "../../actions/register.js";
 import loginImage from "../../assets/registerImage.svg";
 import SofiaLogo from "../../components/Icons/SofiaLogo.js";
-import GoogleIcon from "../../components/Icons/AuthIcons/GoogleIcon.js";
-import TwitterIcon from "../../components/Icons/AuthIcons/TwitterIcon.js";
-import FacebookIcon from "../../components/Icons/AuthIcons/FacebookIcon.js";
-import GithubIcon from "../../components/Icons/AuthIcons/GithubIcon.js";
-import LinkedinIcon from "../../components/Icons/AuthIcons/LinkedinIcon.js";
-import { registerUser } from "../../actions/register.js";
 import hasToken from "../../services/authService";
 
 const Register = (props) => {
-  const [state, setState] = useState({ email: '', password: ''} )
+
+  const [state, setState] = useState({ email: '' , nickname:'', password: '', confirmPassword: '' })
 
   const changeCred = (event) => {
     setState({ ...state, [event.target.name]: event.target.value })
   }
+
 
   const doRegister = (event) => {
     event.preventDefault();
@@ -41,6 +38,7 @@ const Register = (props) => {
 
   const { from } = props.location.state || { from: { pathname: '/template' } }
 
+// 비로그인 상태 확인
   if (hasToken(JSON.parse(localStorage.getItem('authenticated')))) {
     return (
       <Redirect to={from} />
@@ -54,61 +52,88 @@ const Register = (props) => {
           <Col xs={12} lg={6} className="left-column">
             <Widget className="widget-auth widget-p-lg">
               <div className="d-flex align-items-center justify-content-between py-3">
-                <p className="auth-header mb-0">Sign Up</p>
+                <p className="auth-header mb-0">회원가입</p>
                 <div className="logo-block">
                   <SofiaLogo />
-                  <p className="mb-0">SOFIA</p>
+                  <p className="mb-0">JOBA</p>
                 </div>
               </div>
               <div className="auth-info my-2">
-                <p>This is a real app with Node.js backend - use <b>"admin@flatlogic.com / password"</b> to login!</p>
+                <p>서비스 이용을 위해 회원가입해주세요!</p>
               </div>
               <form onSubmit={(event => doRegister(event))}>
                 <FormGroup className="my-3">
+                  {/* 이메일 입력 */}
                   <FormText>Email</FormText>
                   <Input
                     id="email"
                     className="input-transparent pl-3"
                     value={state.email}
                     onChange={(event) => changeCred(event)}
-                    type="email"
+                    onBlur={(event) => confirmEmail(event)}
                     required
                     name="email"
-                    placeholder="Henry Monk"
+                    placeholder="이메일을 입력해주세요"
                   />
                 </FormGroup>
-                <FormGroup  className="my-3">
+                <FormGroup className="my-3">
+                  {/* 닉네임 입력 */}
+                  <FormText>Nickname</FormText>
+                  <Input
+                    id="nickname"
+                    className="input-transparent pl-3"
+                    value={state.nickname}
+                    onChange={(event) => changeCred(event)}
+                    onBlur={(event) => checkNickname(event)}
+                    required
+                    name="nickname"
+                    placeholder="닉네임을 입력해주세요"
+                  />
+                </FormGroup>
+                
+                {/* 비밀번호 입력 */}
+                <FormGroup className="my-3">
                   <div className="d-flex justify-content-between">
                     <FormText>Password</FormText>
-                    <Link to="/error">Forgot password?</Link>
                   </div>
                   <Input
                     id="password"
                     className="input-transparent pl-3"
                     value={state.password}
                     onChange={(event => changeCred(event))}
+                    onBlur={(event) => checkPassword(event)}
                     type="password"
                     required
                     name="password"
-                    placeholder="Place your password here"
+                    placeholder="비밀번호는 4자 이상이어야 합니다."
+                  />
+                </FormGroup>
+                <FormGroup className="my-3">
+                  <div className="d-flex justify-content-between">
+                    <FormText>Confirm password</FormText>
+                  </div>
+                  <Input
+                    id="confirmPassword"
+                    className="input-transparent pl-3"
+                    value={state.confirmPassword}
+                    onChange={(event => changeCred(event))}
+                    type="password"
+                    required
+                    name="confirmPassword"
+                    placeholder="비밀번호를 한번 더 입력해주세요"
                   />
                 </FormGroup>
                 <div className="bg-widget d-flex justify-content-center">
-                  <Button className="rounded-pill my-3" type="submit" color="secondary-red">Sign Up</Button>
+                  <Button className="rounded-pill my-3" type="submit" color="secondary-red">회원가입</Button>
                 </div>
                 <p className="dividing-line my-3">&#8195;Or&#8195;</p>
-                <div className="d-flex align-items-center my-3">
-                  <p className="social-label mb-0">Login with</p>
-                  <div className="socials">
-                    <a href="https://flatlogic.com/"><GoogleIcon /></a>
-                    <a href="https://flatlogic.com/"><TwitterIcon /></a>
-                    <a href="https://flatlogic.com/"><FacebookIcon /></a>
-                    <a href="https://flatlogic.com/"><GithubIcon /></a>
-                    <a href="https://flatlogic.com/"><LinkedinIcon /></a>
-                  </div>
-                </div>
-                <Link to="/login">Enter the account</Link>
               </form>
+
+              <div className="bg-widget d-flex justify-content-center">
+                <Link  to="/login">
+                계정이 있으신가요?
+                </Link>
+                </div>
             </Widget>
           </Col>
           <Col xs={0} lg={6} className="right-column">

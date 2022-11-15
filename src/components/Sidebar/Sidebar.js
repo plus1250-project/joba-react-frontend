@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button} from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
-import s from "./Sidebar.module.scss";
-import l from "./LinksGroup/LinksGroup.module.scss"
+import { withRouter } from 'react-router-dom';
+
+import PropTypes from 'prop-types';
 import LinksGroup from "./LinksGroup/LinksGroup.js";
-import { changeActiveSidebarItem } from "../../actions/navigation.js";
 import SofiaLogo from "../Icons/SofiaLogo.js";
+
+import s from "./Sidebar.module.scss";
 import cn from "classnames";
 
-import SidebarItem from './SidebarItem';
 
 const Sidebar = (props) => {
 
@@ -21,14 +18,6 @@ const Sidebar = (props) => {
   } = props;
 
   const [burgerSidebarOpen, setBurgerSidebarOpen] = useState(false);
-  const [industryName, setIndustryName] = useState(false);
-  const [articlesList, setArticlesList] = useState([]);
-
-  const onIndustryNameHandler = (event) => {
-    setIndustryName(false)
-  }
-
-  
 
   useEffect(() => {
     if (props.sidebarOpened) {
@@ -47,38 +36,53 @@ const Sidebar = (props) => {
         <span className={s.title}>JOBA Trend</span>
       </header>
       <ul className={s.nav}>
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
-          activeItem={props.activeItem}
-          header="Dashboard"
-          isHeader
-          iconName={<i className={'eva eva-home-outline'}/>}
-          link="/template/dashboard"
-          index="dashboard"
-          badge="9"
-        />
-        <h5 className={s.navTitle}>산업군</h5>
-      
-        <Link to={{
-          pathname: "/templete",
-          state: {
-            industryName:"IT"
-          }
-        }}/>
-        {/* <SidebarItem name="IT" /> */}
-        <SidebarItem name="IT"/>
-        <SidebarItem name="교육업" />
-        <SidebarItem name="건설업" /> 
 
-        <LinksGroup
-          onActiveSidebarItemChange={activeItem => props.dispatch(changeActiveSidebarItem(activeItem))}
+        <h3 className={s.navTitle}>산업군</h3>
+  
+        <LinksGroup          
           activeItem={props.activeItem}
-          header="IT통신"
+          header="IT정보통신업"
           isHeader
           iconName={<i className={'eva eva-text-outline'}/>}
-          link="/template/typography"
-          index="IT"
+          link="/template/dashboard/it"          
         />
+        <LinksGroup      
+          header="금융업"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/economy"          
+        />
+        <LinksGroup
+          header="건설업"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/construct"          
+        />
+        <LinksGroup
+          header="화학제약"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/chemical"          
+        />
+        <LinksGroup
+          header="음식료업"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/food"          
+        />
+        <LinksGroup
+          header="기계장비"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/mechanic"          
+        />
+        <LinksGroup
+          header="판매유통"
+          isHeader
+          iconName={<i className={'eva eva-text-outline'}/>}
+          link="/template/dashboard/retail"
+        />
+        
       </ul>
     </nav>
   );

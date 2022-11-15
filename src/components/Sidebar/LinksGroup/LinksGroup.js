@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Link, NavLink, withRouter } from "react-router-dom";
-
+import { NavLink, withRouter } from "react-router-dom";
 
 import s from "./LinksGroup.module.scss";
 
@@ -10,39 +9,48 @@ const LinksGroup = (props) => {
 
   const {
     link = "",
-    childrenLinks = null,
     header = "",
-    classname = "",
     isHeader = false,
-    deep = 0,
-    activeItem = "",
-    label = "",
-    exact = true
+    classname = "",
+    exact = true,
   } = props;
 
-  const [headerLinkClicked, setHeaderLinkClicked] = useState(false);
+  if (!props.childrenLinks) {
+    if (props.isHeader) {
 
-  const isOpen = props.activeItem && props.activeItem.includes(props.index) && headerLinkClicked;
-
-   console.log(props.target);
       return (
         <li className={[s.headerLink, props.className].join(" ")}>
           <NavLink
             to={props.link}
             activeClassName={s.headerLinkActive}
             exact={exact}
-            // target={props.target}
+            target={props.target}
           >
-            {props.target}
             {props.header}
+            {props.label && <sup className={`text-${props.labelColor || 'warning'}`}>{props.label}</sup> }        
           </NavLink>
         </li>
-        // <Layout industryName={props.header}/>
       );
     }
+      return (
+        <li>
+          <NavLink
+            to={props.link}
+            activeClassName={s.headerLinkActive}
+            onClick={(e) => {
+              if (props.link.includes('menu')) {
+                e.preventDefault();
+              }
+            }}
+            exact={exact}
+          >
+            {<i className="fa fa-circle text-primary mr-2"/>} {props.header}
+          </NavLink>
+        </li>
+      );
+    }
+  }
  
-  
-
 LinksGroup.propTypes = {
   header: PropTypes.node.isRequired,
   link: PropTypes.string.isRequired,
