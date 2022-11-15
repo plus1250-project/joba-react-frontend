@@ -51,7 +51,7 @@ const ArticlesList = (props) => {
             dataLength={articlesList.length}
             next={() => {fetchData(setArticlesList, articlesList);}}
             hasMore={true}
-            height={870}
+            height={900}
             loader={<h4>Loading...</h4>}
      
             endMessage={
